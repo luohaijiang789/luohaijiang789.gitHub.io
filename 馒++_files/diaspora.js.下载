@@ -1,0 +1,1351 @@
+var Home = location.href,
+    Pages = 4,
+    xhr,
+    xhrUrl = '';
+
+var Diaspora = {
+    L: function (url, f, err) {
+        if (url == xhrUrl) {
+            return false;
+        }
+        xhrUrl = url;
+        if (xhr) {
+            xhr.abort();
+        }
+        xhr = $.ajax({
+            type: 'GET',
+            url: url,
+            timeout: 10000,
+            success: function (data) {
+                f(data);
+                xhrUrl = '';
+            },
+            error: function (a, b, c) {
+                if (b == 'abort') {
+                    err && err()
+                } else {
+                    window.location.href = url;
+                }
+                xhrUrl = '';
+            }
+        });
+    },
+    P: function () {
+        return !!('ontouchstart' in window);
+    },
+    PS: function () {
+        if (!(window.history && history.pushState)) {
+            return;
+        }
+        history.replaceState({
+            u: Home,
+            t: document.title
+        }, document.title, Home);
+        window.addEventListener('popstate', function (e) {
+            var state = e.state;
+            if (!state) return;
+            document.title = state.t;
+
+            if (state.u == Home) {
+                $('#preview').css('position', 'fixed');
+                setTimeout(function () {
+                    $('#preview').removeClass('show');
+                    $('#container').show();
+                    window.scrollTo(0, parseInt($('#container').data('scroll')));
+                    setTimeout(function () {
+                        $('#preview').html('');
+                        $(window).trigger('resize');
+                    }, 300);
+                }, 0);
+            } else {
+                Diaspora.loading();
+                Diaspora.L(state.u, function (data) {
+                    document.title = state.t;
+                    $('#preview').html($(data).filter('#single'));
+                    Diaspora.preview();
+                    setTimeout(function () {
+                        Diaspora.player();
+                    }, 0);
+                });
+            }
+        });
+    },
+    HS: function (tag, flag) {
+        var id = tag.data('id') || 0,
+            url = tag.attr('href'),
+            title = tag.attr('title') + " - " + $("#config-title").text();
+
+        if (!$('#preview').length || !(window.history && history.pushState)) location.href = url;
+        Diaspora.loading()
+        var state = {
+            d: id,
+            t: title,
+            u: url
+        };
+        Diaspora.L(url, function (data) {
+            if (!$(data).filter('#single').length) {
+                location.href = url;
+                return
+            }
+            switch (flag) {
+                case 'push':
+                    history.pushState(state, title, url)
+                    break;
+                case 'replace':
+                    history.replaceState(state, title, url)
+                    break;
+            }
+            document.title = title;
+            $('#preview').html($(data).filter('#single'))
+            switch (flag) {
+                case 'push':
+                    Diaspora.preview()
+                    break;
+                case 'replace':
+                    window.scrollTo(0, 0)
+                    Diaspora.loaded()
+                    break;
+            }
+            setTimeout(function () {
+                Diaspora.player();
+                $('#top').show();
+                comment = $("#gitalk-container");
+                if (comment.data('ae') == true) {
+                    comment.click();
+                }
+            }, 0)
+        })
+    },
+    preview: function () {
+        // preview toggle
+        $("#preview").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function () {
+            var previewVisible = $('#preview').hasClass('show');
+            if (!!previewVisible) {
+                $('#container').hide();
+            } else {
+                $('#container').show();
+            }
+            Diaspora.loaded();
+        });
+        setTimeout(function () {
+            $('#preview').addClass('show');
+            $('#container').data('scroll', window.scrollY);
+            setTimeout(function () {
+                $('#preview').css({
+                    'position': 'static',
+                    'overflow-y': 'auto'
+                });
+            }, 500);
+        }, 0);
+    },
+    player: function () {
+        var p = $('#audio');
+        if (!p.length) {
+            $('.icon-play').css({
+                'color': '#dedede',
+                'cursor': 'not-allowed'
+            })
+            return
+        }
+        var sourceSrc = $("#audio source").eq(0).attr('src')
+        if (sourceSrc == '' && p[0].src == '') {
+            audiolist = $('#audio-list li');
+            mp3 = audiolist.eq([Math.floor(Math.random() * audiolist.size())])
+            p[0].src = mp3.data('url')
+        }
+
+        if (p.eq(0).data("autoplay") == true) {
+            p[0].play();
+        }
+
+        p.on({
+            'timeupdate': function () {
+                var progress = p[0].currentTime / p[0].duration * 100;
+                $('.bar').css('width', progress + '%');
+                if (progress / 5 <= 1) {
+                    p[0].volume = progress / 5;
+                } else {
+                    p[0].volume = 1;
+                }
+            },
+            'ended': function () {
+                $('.icon-pause').removeClass('icon-pause').addClass('icon-play')
+            },
+            'playing': function () {
+                $('.icon-play').removeClass('icon-play').addClass('icon-pause')
+            }
+        })
+    },
+    loading: function () {
+        var w = window.innerWidth;
+        var css = '<style class="loaderstyle" id="loaderstyle' + w + '">' +
+            '@-moz-keyframes loader' + w + '{100%{background-position:' + w + 'px 0}}' +
+            '@-webkit-keyframes loader' + w + '{100%{background-position:' + w + 'px 0}}' +
+            '.loader' + w + '{-webkit-animation:loader' + w + ' 3s linear infinite;-moz-animation:loader' + w + ' 3s linear infinite;}' +
+            '</style>';
+        $('.loaderstyle').remove()
+        $('head').append(css)
+        $('#loader').removeClass().addClass('loader' + w).show()
+    },
+    loaded: function () {
+        $('#loader').removeClass().hide()
+    },
+    F: function (id, w, h) {
+        var _height = $(id).parent().height(),
+            _width = $(id).parent().width(),
+            ratio = h / w;
+        if (_height / _width > ratio) {
+            id.style.height = _height + 'px';
+            id.style.width = _height / ratio + 'px';
+        } else {
+            id.style.width = _width + 'px';
+            id.style.height = _width * ratio + 'px';
+        }
+        id.style.left = (_width - parseInt(id.style.width)) / 2 + 'px';
+        id.style.top = (_height - parseInt(id.style.height)) / 2 + 'px';
+    }
+};
+
+$(function () {
+    if (Diaspora.P()) {
+        $('body').addClass('touch')
+    }
+    if ($('#preview').length) {
+        var cover = {};
+        cover.t = $('#cover');
+        cover.w = cover.t.attr('width');
+        cover.h = cover.t.attr('height');;
+        (cover.o = function () {
+            $('#mark').height(window.innerHeight)
+        })();
+        if (cover.t.prop('complete')) {
+            // why setTimeout ?
+            setTimeout(function () {
+                cover.t.load()
+            }, 0)
+        }
+        cover.t.on('load', function () {
+            ;
+            (cover.f = function () {
+                var _w = $('#mark').width(),
+                    _h = $('#mark').height(),
+                    x, y, i, e;
+                e = (_w >= 1000 || _h >= 1000) ? 1000 : 500;
+                if (_w >= _h) {
+                    i = _w / e * 50;
+                    y = i;
+                    x = i * _w / _h;
+                } else {
+                    i = _h / e * 50;
+                    x = i;
+                    y = i * _h / _w;
+                }
+                $('.layer').css({
+                    'width': _w + x,
+                    'height': _h + y,
+                    'marginLeft': -0.5 * x,
+                    'marginTop': -0.5 * y
+                })
+                if (!cover.w) {
+                    cover.w = cover.t.width();
+                    cover.h = cover.t.height();
+                }
+                Diaspora.F($('#cover')[0], cover.w, cover.h)
+            })();
+            setTimeout(function () {
+                $('html, body').removeClass('loading')
+            }, 1000)
+            $('#mark').parallax()
+            var vibrant = new Vibrant(cover.t[0]);
+            var swatches = vibrant.swatches()
+            if (swatches['DarkVibrant']) {
+                $('#vibrant polygon').css('fill', swatches['DarkVibrant'].getHex())
+                $('#vibrant div').css('background-color', swatches['DarkVibrant'].getHex())
+            }
+            if (swatches['Vibrant']) {
+                $('.icon-menu').css('color', swatches['Vibrant'].getHex())
+            }
+        })
+        if (!cover.t.attr('src')) {
+            alert('Please set the post thumbnail')
+        }
+        $('#preview').css('min-height', window.innerHeight)
+        Diaspora.PS()
+        $('.pview a').addClass('pviewa')
+        var T;
+        $(window).on('resize', function () {
+            clearTimeout(T)
+            T = setTimeout(function () {
+                if (!Diaspora.P() && location.href == Home) {
+                    cover.o()
+                    cover.f()
+                }
+                if ($('#loader').attr('class')) {
+                    Diaspora.loading()
+                }
+            }, 500)
+        })
+    } else {
+        $('#single').css('min-height', window.innerHeight)
+        setTimeout(function () {
+            $('html, body').removeClass('loading')
+        }, 1000)
+        window.addEventListener('popstate', function (e) {
+            if (e.state) location.href = e.state.u;
+        })
+        Diaspora.player();
+        $('.icon-icon, .image-icon').attr('href', '/')
+        $('#top').show()
+    }
+    $(window).on('scroll', function () {
+        if ($('.scrollbar').length && !Diaspora.P() && !$('.icon-images').hasClass('active')) {
+            var wt = $(window).scrollTop(),
+                tw = $('#top').width(),
+                dh = document.body.scrollHeight,
+                wh = $(window).height();
+            var width = tw / (dh - wh) * wt;
+            $('.scrollbar').width(width)
+            if (wt > 80 && window.innerWidth > 800) {
+                $('.subtitle').fadeIn()
+            } else {
+                $('.subtitle').fadeOut()
+            }
+        }
+    })
+    $(window).on('touchmove', function (e) {
+        if ($('body').hasClass('mu')) {
+            e.preventDefault()
+        }
+    })
+    $('body').on('click', function (e) {
+        var tag = $(e.target).attr('class') || '',
+            rel = $(e.target).attr('rel') || '';
+        // .content > ... > img
+        if (e.target.nodeName == "IMG" && $(e.target).parents('div.content').length > 0) {
+            tag = 'pimg';
+        }
+        if (!tag && !rel) return;
+        switch (true) {
+            // nav menu
+            case (tag.indexOf('switchmenu') != -1):
+                window.scrollTo(0, 0)
+                $('html, body').toggleClass('mu');
+                return false;
+                break;
+                // next page
+            case (tag.indexOf('more') != -1):
+                tag = $('.more');
+                if (tag.data('status') == 'loading') {
+                    return false
+                }
+                var num = parseInt(tag.data('page')) || 1;
+                if (num == 1) {
+                    tag.data('page', 1)
+                }
+                if (num >= Pages) {
+                    return
+                }
+                tag.html('加载中...').data('status', 'loading')
+                Diaspora.loading()
+                Diaspora.L(tag.attr('href'), function (data) {
+                    var link = $(data).find('.more').attr('href');
+                    if (link != undefined) {
+                        tag.attr('href', link).html('加载更多').data('status', 'loaded')
+                        tag.data('page', parseInt(tag.data('page')) + 1)
+                    } else {
+                        $('#pager').remove()
+                    }
+                    var tempScrollTop = $(window).scrollTop();
+                    $('#primary').append($(data).find('.post'))
+                    $(window).scrollTop(tempScrollTop + 100);
+                    Diaspora.loaded()
+                    $('html,body').animate({
+                        scrollTop: tempScrollTop + 400
+                    }, 500);
+                }, function () {
+                    tag.html('加载更多').data('status', 'loaded')
+                })
+                return false;
+                break;
+                // home
+            case (tag.indexOf('icon-home') != -1):
+                $('.toc').fadeOut(100);
+                if ($('#preview').hasClass('show')) {
+                    history.back();
+                } else {
+                    location.href = $('.icon-home').data('url')
+                }
+                return false;
+                break;
+                // qrcode
+            case (tag.indexOf('icon-scan') != -1):
+                if ($('.icon-scan').hasClass('tg')) {
+                    $('#qr').toggle()
+                } else {
+                    $('.icon-scan').addClass('tg')
+                    $('#qr').qrcode({
+                        width: 128,
+                        height: 128,
+                        text: location.href
+                    }).toggle()
+                }
+                return false;
+                break;
+                // audio play
+            case (tag.indexOf('icon-play') != -1):
+                $('#audio')[0].play()
+                $('.icon-play').removeClass('icon-play').addClass('icon-pause')
+                return false;
+                break;
+                // audio pause
+            case (tag.indexOf('icon-pause') != -1):
+                $('#audio')[0].pause()
+                $('.icon-pause').removeClass('icon-pause').addClass('icon-play')
+                return false;
+                break;
+                // history state
+            case (tag.indexOf('cover') != -1):
+                Diaspora.HS($(e.target).parent(), 'push')
+                return false;
+                break;
+                // history state
+            case (tag.indexOf('posttitle') != -1):
+                Diaspora.HS($(e.target), 'push')
+                return false;
+                break;
+                // prev, next post
+            case (rel == 'prev' || rel == 'next'):
+                if (rel == 'prev') {
+                    var t = $('#prev_next a')[0].text
+                } else {
+                    var t = $('#prev_next a')[1].text
+                }
+                $(e.target).attr('title', t)
+                Diaspora.HS($(e.target), 'replace')
+                return false;
+                break;
+                // toc
+            case (tag.indexOf('toc-text') != -1 || tag.indexOf('toc-link') != -1 ||
+                tag.indexOf('toc-number') != -1):
+                hash = '';
+                if (e.target.nodeName == 'SPAN') {
+                    hash = $(e.target).parent().attr('href')
+                } else {
+                    hash = $(e.target).attr('href')
+                }
+                to = $("a.headerlink[href='" + hash + "']")
+                $("html,body").animate({
+                    scrollTop: to.offset().top - 50
+                }, 300);
+                return false;
+                break;
+                // quick view
+            case (tag.indexOf('pviewa') != -1):
+                $('body').removeClass('mu')
+                setTimeout(function () {
+                    Diaspora.HS($(e.target), 'push')
+                    $('.toc').fadeIn(1000);
+                }, 300)
+                return false;
+                break;
+                // photoswipe
+            case (tag.indexOf('pimg') != -1):
+                var pswpElement = $('.pswp').get(0);
+                if (pswpElement) {
+                    var items = [];
+                    var index = 0;
+                    var imgs = [];
+                    $('.content img').each(function (i, v) {
+                        // get index
+                        if (e.target.src == v.src) {
+                            index = i;
+                        }
+                        var item = {
+                            src: v.src,
+                            w: v.naturalWidth,
+                            h: v.naturalHeight
+                        };
+                        imgs.push(v);
+                        items.push(item);
+                    });
+                    var options = {
+                        index: index,
+                        shareEl: false,
+                        zoomEl: false,
+                        allowRotationOnUserZoom: true,
+                        history: false,
+                        getThumbBoundsFn: function (index) {
+                            // See Options -> getThumbBoundsFn section of documentation for more info
+                            var thumbnail = imgs[index],
+                                pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                                rect = thumbnail.getBoundingClientRect();
+
+                            return {
+                                x: rect.left,
+                                y: rect.top + pageYScroll,
+                                w: rect.width
+                            };
+                        }
+                    };
+                    var lightBox = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                    lightBox.init();
+                }
+                return false;
+                break;
+                // comment
+            case -1 != tag.indexOf("comment"):
+                Diaspora.loading(),
+                    comment = $('#gitalk-container');
+                gitalk = new Gitalk({
+                    clientID: comment.data('ci'),
+                    clientSecret: comment.data('cs'),
+                    repo: comment.data('r'),
+                    owner: comment.data('o'),
+                    admin: comment.data('a'),
+                    id: decodeURI(window.location.pathname),
+                    distractionFreeMode: comment.data('d')
+                })
+                $(".comment").removeClass("link")
+                gitalk.render('gitalk-container')
+                Diaspora.loaded();
+                return false;
+                break;
+            default:
+                return true;
+                break;
+        }
+    })
+    // 是否自动展开评论
+    comment = $("#gitalk-container");
+    if (comment.data('ae') == true) {
+        comment.click();
+    }
+    // console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/Fechin/hexo-theme-diaspora")
+    console.log("qq: 527014401\nemail：hotococoa@qq.com")
+})
+
+
+// 上面原作者  下面我添加的
+
+function get_posts(text) {
+    var posts = document.getElementsByClassName('timeline-item');
+    // console.log(posts.length);
+    if (text == "") {
+        all_none(posts);
+        return;
+    }
+    var count = 0;
+    for (var i = 0; i < posts.length; ++i) {
+        var temp = posts[i].id.toLowerCase();
+        if (temp.search(text) != -1) {
+            posts[i].style = "display: block";
+            count += 1;
+            // console.log(posts[i].id);
+        } else {
+            posts[i].style = "display: none";
+        }
+    }
+    if (count > 0) {
+        var search_count = document.getElementById('search_count');
+        search_count.style = "display: block";
+        search_count.innerHTML = "为你献上" + count + "篇"
+    } else {
+        document.getElementById('search_count').style = "display: none";
+    }
+}
+
+function all_none(posts) {
+    for (let i = 0; i < posts.length; ++i) {
+        document.getElementById('search_count').style = "display: none";
+        posts[i].style = "display: none";
+    }
+}
+
+function button_search_onkeypress() {
+    var text = document.getElementById("search").value.toLowerCase();
+    // console.log("读取到的文本:"+ text );
+    get_posts(text);
+}
+
+function text_button_search_onkeypress() {
+    var text = document.getElementById("search").value.toLowerCase();
+    var p = document.getElementById("search_test");
+    p.innerHTML = text;
+}
+
+
+// 滑动事件  
+$(window).scroll(function () {
+    //如果窗口划过的距离等于  页面高度减窗口高度   就说明已经到底部了 
+    // $(window).scrollTop() == $(document).height() - $(window).height() 
+    // QQ浏览器会算小数点 划过距离不等于页面高度减窗口高度 到底了无效 比喻 99.6666 != 200 - 100 
+    // console.log( $(window).scrollTop() , $(document).height() ,  $(window).height()) 
+
+    // 背单词页面 加载更多 
+    if (document.URL.replace(window.location.host, '').replace("http://", '').replace("https://", '') == '/english/') {
+        if ($(window).scrollTop() > $(document).height() - $(window).height() - 300) {
+            if ($("#move_en") && $("#move_en")[0].text == "加载更多") {
+                $("#move_en")[0].onclick()
+            }
+        }
+    }
+
+    // 文章页面 评论模块 valine 
+    if (document.getElementById("vcomments")) {
+        if (document.getElementById("vcomments").className == "cnull") {
+            $.getScript('/js/valine.js', function () {});
+            document.getElementById("vcomments").className = "cshow"
+        }
+    }
+});
+
+var Bun = {
+    // 获取滚动条坐标 
+    getScrollTop: function () {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+            scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+    }
+}
+
+var English = {
+    // 全局变量
+    follow_flag: false,
+    order_play_flag: true, // 为false时不会连续播放 
+    voice_path: "/english/voice/",
+    wordaudio: new Audio(),
+    current_id: null, // 当前
+    origin_click: null,
+    all_word_flag: null,
+    // 隐藏单词
+    hideWord: function () {
+        console.log("hello hideWord")
+        let word = document.getElementsByClassName('word');
+        // "word" 显示单词  "word hide" 隐藏单词 
+        // 按下按钮后互换 
+        if (word[2].className == "word") {
+            for (let i = 0; i < word.length; i++) {
+                // 隐藏所有单词 
+                word[i].classList.add("hide")
+            }
+            document.getElementById("btnword").textContent = "显示单词";
+        } else {
+            for (let i = 0; i < word.length; i++) {
+                // 显示所有单词 
+                word[i].classList.remove("hide")
+            }
+            document.getElementById("btnword").textContent = "隐藏单词";
+        }
+    },
+    // 随机排序
+    randomSort: function () {
+        let tbody = document.getElementById('entbody');
+        let rows = tbody.rows;
+        let array = [];
+        for (let i = 0; i < rows.length; i++) {
+            array.push(rows[i]);
+        }
+        array.sort(function (a, b) {
+            let rand = Math.random();
+            if (rand >= 0.5) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+        for (let i = 0; i < array.length; i++) {
+            tbody.appendChild(array[i]);
+        }
+    },
+    // 播放声音
+    play: function (id) {
+        // param id : string or list 
+        // 可传入字符串直接播放 或者列表 按顺序递归 
+        // 正在播放的时候 会有一个暂停按钮 根据这个判断是否在播放 
+        var isOrderplay = document.getElementsByClassName("sstop").length;
+        this.stop()
+        if (typeof (id) == 'string') {
+            this.current_id = id;
+            if (isOrderplay > 0) {
+                // 如果正在连续播放 则停止 
+                this.orderPlay(-1);
+            }
+        } else {
+            this.current_id = id.shift();
+        }
+        // 判断是否在可视区域 不在则滑动屏幕
+        if (this.follow_flag && !this.isVisible(this.current_id)) {
+            this.scroll_visible(this.current_id);
+        }
+        url = this.voice_path + (this.current_id + '.mp3')
+        this.wordaudio.src = url;
+        let a = document.getElementById(this.current_id);
+        let span = document.getElementById(this.current_id + "_span");
+        this.origin_click = a.getAttribute('onclick');
+        var or = this.origin_click;
+        span.className = "sstop";
+        a.setAttribute("onclick", "English.stop()");
+        this.wordaudio.onended = function () {
+            span.className = "splay";
+            a.setAttribute("onclick", or)
+            if (typeof (id) == "object" && English.order_play_flag) {
+                if (id.length > 0) {
+                    English.play(id);
+                } else { // 最后一个播放完毕时 重置按钮状态
+                    English.orderPlay(-1);
+                }
+
+            }
+        };
+        this.wordaudio.play();
+        return this.wordaudio
+    },
+    // 停止播放
+    stop: function () {
+        if (this.current_id != null) {
+            document.getElementById(this.current_id + "_span").className = "splay";
+            this.wordaudio.currentTime = 0;
+            this.wordaudio.pause();
+            document.getElementById(this.current_id).setAttribute("onclick", this.origin_click)
+        }
+    },
+    // 顺序播放 
+    orderPlay: function (start_id = 0) {
+        let btnplay = document.getElementById("btnplay")
+        // 点击停止播放 
+        if (start_id == -1) {
+            this.stop();
+            this.order_play_flag = false;
+            btnplay.textContent = "顺序播放";
+            btnplay.setAttribute('onclick', 'English.orderPlay()');
+            return;
+        }
+        // 点击顺序播放 
+        this.order_play_flag = true;
+        let cls_play = document.getElementsByClassName("play");
+        let i;
+        let ids = [];
+        btnplay.textContent = "停止播放";
+        btnplay.setAttribute("onclick", 'English.orderPlay(-1)');
+        for (i = 0; i < cls_play.length; i++) {
+            ids.push(cls_play[i].id)
+        }
+        if (start_id != 0) {
+            for (i = 0; i < ids.length; i++) {
+                if (ids[i] != start_id) {
+                    // 循环移除第一个元素 直到元素等于开始的start_id
+                    ids.shift();
+                    continue;
+                }
+                // 此时找到目标 退出循环 
+                break
+            }
+        }
+        // 走完上面代码以后 ids就是需要播放的 id
+        // url = path + id + '.mp3' 
+        this.play(ids);
+    },
+    // 隐藏翻译
+    hideTran: function () {
+        let tran = document.getElementsByClassName('tran');
+        if (tran[0].className == "tran") {
+            for (let i = 0; i < tran.length; i++) {
+                tran[i].classList.add("hide")
+            }
+            document.getElementById("btntran").textContent = "显示翻译";
+        } else {
+            for (let i = 0; i < tran.length; i++) {
+                tran[i].classList.remove("hide")
+            }
+            document.getElementById("btntran").textContent = "隐藏单词";
+        }
+    },
+    // 屏幕跟随 
+    follow: function (f) {
+        var btn = document.getElementById("btnfollow");
+        if (f) {
+            this.follow_flag = true;
+            btn.textContent = "关闭跟随";
+            btn.setAttribute("onclick", "English.follow(false)")
+        } else {
+            this.follow_flag = false;
+            btn.textContent = "屏幕跟随";
+            btn.setAttribute("onclick", "English.follow(true)")
+        }
+    },
+    //判断id是否在可视范围内
+    isVisible: function (id) {
+        // t: id距离窗口可视范围最顶端的距离 最顶端为0 越大距离越远 负数时 该id在可视范围上方 需要滚动向上才能看见 
+        var t = document.getElementById(id).getBoundingClientRect().top;
+        var top = 20;
+        var bottom = 20;
+        if (typeof (t) == "number" && t > top && t < window.innerHeight - bottom) {
+            return true
+        }
+        return false
+    },
+    // 使id进入可视区域 
+    scroll_visible: function (id, pxi = 123) {
+        var y = document.getElementById(id).offsetTop - pxi;
+        $('html,body').animate({
+            scrollTop: y + 'px'
+        }, 800)
+    },
+    // 鼠标移动到魔理沙图片事件
+    marisa: function () {
+        if (Bun.getScrollTop() <= 100) {
+            $('#marisaimg').animate({
+                right: '-200px'
+            }, 500)
+        }
+    },
+    // 鼠标离开魔理沙图片事件
+    marisaout: function () {
+        setTimeout(function () {
+            $('#marisaimg').animate({
+                right: '0px'
+            }, 500)
+        }, Math.random() * 10000 + 2000);
+    },
+    // 点击魔理沙回到最顶部
+    backtop: function () {
+        if (document.location.pathname == "/english/") {
+            this.follow(false);
+            console.log("2333")
+        }
+        $('html,body').animate({
+            scrollTop: '0px'
+        }, 800);
+        $('#marisaimg').animate({
+            right: '-200px'
+        }, 500)
+    },
+    // json相关
+    get: function (url = '/english/json/0.json') {
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', url)
+        xhr.onreadystatechange = function () {
+            var data = xhr.responseText;
+            if (data) {
+                try {
+                    data = JSON.parse(data);
+                    English.add(data);
+                } catch (error) {
+                    ;
+                }
+            }
+        }
+        try {
+            xhr.send();
+        } catch (error) {
+            // console.log('error 正在重新请求 ', error);
+            // setTimeout("document.getElementById('move_en').onclick()", 2000);
+        }
+    },
+    // 添加单词 
+    add: function (data) {
+        for (let i = 0; i < data.data.length; i++) {
+            let l = data.data[i];
+            if ($("#" + l.uk.replace(".mp3", '')).length > 0) {
+                // 重复的不添加
+                continue;
+            }
+            // 创建tr标签
+            let wd = '<td align="left" class="word">__tg</td>'
+            let ipa = '<td align="left">__tg</td>'
+            let uks = '<td align=""><a id="__thisid__" href="javascript:void(0);" onclick="English.play(\'__thisid__\')" target="" class="play"><span id="__thisid___span" class="splay"></span></a></td>'
+            let tran = '<td align="left" class="tran">__tg</td>'
+            var new_tr = $('<tr>' +
+                wd.replace("__tg", l.w.replace("_", ' ')) +
+                ipa.replace('__tg', '[' + l.ipa + ']') +
+                uks.replace(/__thisid__/g, l.uk.replace(".mp3", '')) +
+                uks.replace(/__thisid__/g, l.us.replace(".mp3", '')) +
+                tran.replace("__tg", l.tran) +
+                '</tr>'
+            )
+            $("#entbody").append(new_tr);
+            $("#word_count").text(document.getElementsByClassName("word").length);
+        }
+        if (data.next) {
+            $("#move_en")[0].setAttribute("onclick", "English.get('__')".replace("__", data.next));
+            if (this.all_word_flag) {
+                this.get(url = data.next);
+            }
+        } else {
+            $("#move_en")[0].text = "没有了..."
+            $("#move_en")[0].setAttribute("onclick", '$("#enpager").remove();')
+        }
+    },
+    // 获取全部单词 
+    all: function () {
+        document.getElementById("btnwall").textContent = "加载中...";
+        this.get(url = "/english/json/allword.json")
+        $("#btnwall").remove()
+    },
+    // 单词练习 
+    wExercise: function () {
+        alert("下次一定");
+    },
+    // 翻译练习 
+    tExercise: function () {
+        alert("下次一定");
+    },
+};
+
+function insertAfter(newNode, curNode) {
+    curNode.parentNode.insertBefore(newNode, curNode.nextElementSibling);
+}
+
+var drag = {
+    max_time: 15, // 倒计时15秒
+    cparr: [], // 出题的牌点数 
+    timecount: 0, // 计时用
+    class_name: null, //允许放置的容器
+    permitDrag: false, //是否允许移动标识
+
+    _x: 0, //节点x坐标
+    _y: 0, //节点y坐标
+    _left: 0, //光标与节点坐标的距离
+    _top: 0, //光标与节点坐标的距离
+
+    old_elm: null, //拖拽原节点
+    tmp_elm: null, //跟随光标移动的临时节点
+    new_elm: null, //拖拽完成后添加的新节点
+
+    //初始化
+    init: function (className) {
+
+        //允许拖拽节点的父容器的classname(可按照需要，修改为id或其他)
+        drag.class_name = className;
+
+        //监听鼠标按下事件，动态绑定要拖拽的节点（因为节点可能是动态添加的）
+        $('.' + drag.class_name).on('mousedown', 'ul li', function (event) {
+            //当在允许拖拽的节点上监听到点击事件，将标识设置为可以拖拽
+            drag.permitDrag = true;
+            //获取到拖拽的原节点对象
+            drag.old_elm = $(this);
+            //执行开始拖拽的操作
+            drag.mousedown(event);
+            return false;
+        });
+
+        //监听鼠标移动
+        $(document).mousemove(function (event) {
+            //判断拖拽标识是否为允许，否则不进行操作
+            if (!drag.permitDrag) return false;
+            //执行移动的操作
+            drag.mousemove(event);
+            return false;
+        });
+
+        //监听鼠标放开
+        $(document).mouseup(function (event) {
+            //判断拖拽标识是否为允许，否则不进行操作
+            if (!drag.permitDrag) return false;
+            //拖拽结束后恢复标识到初始状态
+            drag.permitDrag = false;
+            //执行拖拽结束后的操作
+            drag.mouseup(event);
+            return false;
+        });
+
+    },
+
+    //按下鼠标 执行的操作
+    mousedown: function (event) {
+
+        // console.log('我被mousedown了');
+        //1.克隆临时节点，跟随鼠标进行移动
+        drag.tmp_elm = $(drag.old_elm).clone();
+
+        //2.计算 节点 和 光标 的坐标
+        drag._x = $(drag.old_elm).offset().left;
+        drag._y = $(drag.old_elm).offset().top;
+
+        var e = event || window.event;
+        drag._left = e.pageX - drag._x;
+        drag._top = e.pageY - drag._y;
+
+        //3.修改克隆节点的坐标，实现跟随鼠标进行移动的效果
+        $(drag.tmp_elm).css({
+            'position': 'absolute',
+            'background-color': '#FF8C69',
+            'left': drag._x,
+            'top': drag._y,
+        });
+
+        //4.添加临时节点
+        tmp = $(drag.old_elm).parent().append(drag.tmp_elm);
+        drag.tmp_elm = $(tmp).find(drag.tmp_elm);
+        $(drag.tmp_elm).css('cursor', 'move');
+
+    },
+
+    //移动鼠标 执行的操作
+    mousemove: function (event) {
+
+        // console.log('我被mousemove了');
+
+        //2.计算坐标
+        var e = event || window.event;
+        var x = e.pageX - drag._left;
+        var y = e.pageY - drag._top;
+        var maxL = $(document).width() - $(drag.old_elm).outerWidth();
+        var maxT = $(document).height() - $(drag.old_elm).outerHeight();
+        //不允许超出浏览器范围
+        x = x < 0 ? 0 : x;
+        x = x > maxL ? maxL : x;
+        y = y < 0 ? 0 : y;
+        y = y > maxT ? maxT : y;
+
+        //3.修改克隆节点的坐标
+        $(drag.tmp_elm).css({
+            'left': x,
+            'top': y,
+        });
+
+        //判断当前容器是否允许放置节点
+        $.each($('.' + drag.class_name + ' ul'), function (index, value) {
+
+            //获取容器的坐标范围 (区域)
+            var box_x = $(value).offset().left; //容器左上角x坐标
+            var box_y = $(value).offset().top; //容器左上角y坐标
+            var box_width = $(value).outerWidth(); //容器宽
+            var box_height = $(value).outerHeight(); //容器高
+
+            //给可以放置的容器加背景色
+            if (e.pageX > box_x && e.pageX < box_x - 0 + box_width && e.pageY > box_y && e
+                .pageY < box_y - 0 + box_height) {
+
+                //判断是否不在原来的容器下（使用坐标进行判断：x、y任意一个坐标不等于原坐标，则表示不是原来的容器）
+                if ($(value).offset().left !== drag.old_elm.parent().offset().left ||
+                    $(value).offset().top !== drag.old_elm.parent().offset().top) {
+
+                    $(value).css('background-color', '#FFEFD5');
+                }
+            } else {
+                //恢复容器原背景色
+                $(value).css('background-color', '#FFFFF0');
+            }
+
+        });
+
+    },
+
+    //放开鼠标 执行的操作
+    mouseup: function (event) {
+
+        // console.log('我被mouseup了');
+        //移除临时节点
+        $(drag.tmp_elm).remove();
+
+        //判断所在区域是否允许放置节点
+        var e = event || window.event;
+
+        $.each($('.' + drag.class_name + ' ul'), function (index, value) {
+
+            //获取容器的坐标范围 (区域)
+            var box_x = $(value).offset().left; //容器左上角x坐标
+            var box_y = $(value).offset().top; //容器左上角y坐标
+            var box_width = $(value).outerWidth(); //容器宽
+            var box_height = $(value).outerHeight(); //容器高
+
+            //判断放开鼠标位置是否想允许放置的容器范围内
+            if (e.pageX > box_x && e.pageX < box_x - 0 + box_width && e.pageY > box_y && e
+                .pageY < box_y - 0 + box_height) {
+
+                //判断是否不在原来的容器下（使用坐标进行判断：x、y任意一个坐标不等于原坐标，则表示不是原来的容器）
+                if ($(value).offset().left !== drag.old_elm.parent().offset().left ||
+                    $(value).offset().top !== drag.old_elm.parent().offset().top) {
+                    //向目标容器添加节点并删除原节点
+                    tmp = $(drag.old_elm).clone();
+                    var newObj = $(value).append(tmp);
+                    $(drag.old_elm).remove();
+                    //获取新添加节点的对象
+                    drag.new_elm = $(newObj).find(tmp);
+                }
+            }
+            //恢复容器原背景色
+            $(value).css('background-color', '#FFFFF0');
+        });
+
+    },
+
+    // 随机选取一个卡牌 
+    randCard: function () {
+        // color a 方块 b梅花 
+        // rtype demo :  4cc.png  第二张红桃4 
+        let nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"];
+        let randint = Math.floor(Math.random() * 13);
+        this.cparr.push(randint + 1) // 因为是下标 所以要+1 
+        let target = nums[randint];
+        let color = ['a', 'b', 'c', 'd'][Math.floor(Math.random() * 4)]
+        let count = Math.floor(Math.random() * 3) + 1;
+        for (let i = 0; i < count; i++) {
+            target += color;
+        }
+        if (document.getElementById(target) != null) {
+            // 发现重复id 
+            return target;
+        }
+        return target;
+
+    },
+    // 提交按钮倒数 
+    btnCountdown: function () {
+        this.timeStop();
+        let btn = document.getElementById("btncp");
+        btn.style.display = 'block';
+        btn.style.width = "100%";
+        btn.innerHTML = "提交 " + 15
+        var count = this.max_time * 1000;
+        this.timeres = setInterval(function () {
+            count -= 100;
+            drag.timecount = count;
+            if (count < 0) {
+                btn.innerHTML = "Game Over!"
+                drag.timeStop();
+            }
+            if (count % 1000 == 0) {
+                btn.innerHTML = "提交 " + count / 1000;
+            }
+            btn.style.width = 100 - (15000 - count) / 15000 * 80 + "%";
+        }, 100);
+    },
+    // 停止计时
+    timeStop: function () {
+        if (this.timeres) {
+            clearInterval(this.timeres);
+        }
+    },
+    // 开始游戏 
+    start: function (n = null) {
+        if (this.initflag == undefined) {
+            this.init('container')
+            this.initflag = true;
+        }
+        this.cparr = [];
+        document.getElementById("uswer").innerHTML = '';
+        document.getElementById("answer").innerHTML = '';
+        var container = document.getElementsByClassName("container")[0];
+        container.innerHTML = '';
+        if (n == null) {
+            n = Math.floor(Math.random() * 4) + 4;
+        }
+        for (let i = 0; i < 3; i++) {
+            let ul = document.createElement("ul");
+            container.append(ul);
+
+        }
+        for (let i = 0; i < n; i++) {
+            let li = document.createElement("li");
+            let liid = this.randCard()
+            li.style.backgroundImage = "url(/img/sanguo/__.png)".replace("__", liid);
+            li.id = liid;
+            container.getElementsByTagName('ul')[0].append(li);
+        }
+        this.btnCountdown();
+        if (English.isVisible("Demo") == false || English.isVisible("btncp") == false) {
+            English.scroll_visible("Demo", pxi = 0);
+        }
+
+    },
+    // 提交
+    up: function () {
+        this.timeStop();
+        if (this.timecount > 0) {
+            let t = this.max_time * 1000 - this.timecount; // 开始到提交经过的时间
+            t = t / 1000;
+            document.getElementById("btncp").innerHTML = "耗时" + t.toFixed(1) + "秒";
+        }
+        console.log(this.count);
+        let uswer = this.getNum();
+        uswer.push(this.sumArray(uswer[0]))
+        uswer.push(this.sumArray(uswer[1]))
+        let arr = this.cbnArray(this.cparr);
+        arr = this.arrRapeat(arr);
+        this.answer(arr);
+        let t = "";
+        if (uswer[2] == 0 && uswer[3] == 0) {
+            document.getElementById("uswer").innerHTML = "<h2>队友的谩骂即将来袭</h2>"
+        } else if (uswer[2] == uswer[3]) {
+            if (arr[0][0].length + arr[0][1].length == uswer[0].length + uswer[1].length) {
+                document.getElementById("uswer").innerHTML = "<h2>太厉害了</h2><h3> l = r = s </h3> <br> ".replace("l", uswer[0].join("+")).replace("r", uswer[1].join("+")).replace("s", uswer[2]);
+            } else {
+                document.getElementById("uswer").innerHTML = "<h2>某人缓缓打出一个问号</h2><h3> l = r = s </h3> <br> ".replace("l", uswer[0].join("+")).replace("r", uswer[1].join("+")).replace("s", uswer[2]);
+            }
+        } else {
+            document.getElementById("uswer").innerHTML = "<h2>买菜这么好骗就好了</h2><h3>( l = sl ) != ( r = sr ) </h3> <br> ".replace("l", uswer[0].join("+")).replace("r", uswer[1].join("+")).replace("sl", uswer[2]).replace("sr", uswer[3]);
+        }
+
+    },
+    // 算术相关 
+    cbn: function (nums) {
+        // 计算nums的所有排列 
+        let res = [];
+        for (let i = 0; i < nums.length; i++) {
+            let rlen = res.length;
+            for (let j = 0; j < rlen; j++) {
+                let temp = this.copyArray(res[j]);
+                temp.push(nums[i]);
+                res.push(temp);
+            }
+            res.push([nums[i]]);
+        }
+        return res
+    },
+    // 求数字排列最优值 
+    cbnArray: function (nums) {
+        let res = []; // 返回值 符合点数和相等的组合 
+        let ones = this.cbn(nums);
+        let max_k = 0; // 两组相加和相等序列的 牌张数和 
+        // ones 是数组所有排列合集 放置到第一组
+        for (let i = 0; i < ones.length; i++) {
+            // temp是去掉第一组后 剩下的牌
+            let temp = this.copyArray(nums);
+            for (let j = 0; j < ones[i].length; j++) {
+                temp = this.remove(ones[i][j], temp);
+            }
+            let twos = this.cbn(temp);
+            for (let t = 0; t < twos.length; t++) {
+                if (this.sumArray(ones[i]) == this.sumArray(twos[t])) {
+                    if (ones[i].length + twos[t].length > max_k) {
+                        res = [
+                            [ones[i], twos[t]]
+                        ];
+                        max_k = ones[i].length + twos[t].length;
+                        continue
+                    }
+                    if (ones[i].length + twos[t].length == max_k) {
+                        res.push([ones[i], twos[t]])
+                    }
+                }
+            }
+        }
+        return res
+    },
+    // 复制列表
+    copyArray: function (target) {
+        let res = [];
+        for (let i = 0; i < target.length; i++) {
+            res.push(target[i]);
+        }
+        return res
+    },
+    // 删除列表指定元素 
+    remove: function (val, arr, count = 1) {
+        let res = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (count > 0 && val == arr[i]) {
+                count -= 1;
+                continue;
+            }
+            res.push(arr[i]);
+        }
+        return res
+    },
+    sumArray: function (arr) {
+        let res = 0;
+        for (let i = 0; i < arr.length; i++) {
+            res += arr[i];
+        }
+        return res
+    },
+    // 去除重复元素
+    arrRapeat: function (arr) {
+        let res = [];
+        let temp = []; // 保存已存在的组合 
+        // 遍历arr 
+        for (let i = 0; i < arr.length; i++) {
+            // 遍历arr左列表和右列表  
+            for (let j = 0; j < 2; j++) {
+                for (let k = 0; k < temp.length; k++) {
+                    // target 目前从arr取出的组合 用于下面判断
+                    let target = this.copyArray(arr[i][j]);
+                    if (temp[k].length == target.length) {
+                        // 遍历前面碰过的组合 target删掉对应数字 如果能删完 就说明相等
+                        for (tar in temp[k]) {
+                            target = this.remove(temp[k][tar], target);
+                        }
+                        // 如果target与前面某一个组合每个数字相等 就跳出
+                        if (target.length == 0) {
+                            j += 3;
+                            break
+                        }
+                    }
+                }
+                // 前面的 如果target被删完 j+3 
+                // j<2 就是前面组合都没有一个与target相等的组合
+                if (j < 2) {
+                    res.push(arr[i]);
+                    temp.push(arr[i][0]);
+                    temp.push(arr[i][1]);
+                    j += 3;
+                }
+            }
+        }
+        return res
+    },
+    // 计算丢弃的牌 
+    dis: function (one, two) {
+        let res = this.copyArray(this.cparr);
+        for (let i = 0; i < one.length; i++) {
+            res = this.remove(one[i], res);
+        }
+        for (let i = 0; i < two.length; i++) {
+            res = this.remove(two[i], res);
+        }
+        return res;
+    },
+    // 写入答案 
+    answer: function (arr) {
+        let andiv = document.getElementById("answer");
+        andiv.innerHTML = "<h3>最优解共" + arr.length + "种搭配 </h3><br>";
+        for (let i = 0; i < arr.length; i++) {
+            let h = document.createElement("h3");
+            let re = this.dis(arr[i][0], arr[i][1]);
+            let ret = '';
+            if (re.length > 0) {
+                ret = "丢牌 [_]".replace("_", re);
+            }
+            h.innerHTML = "( l ) = ( r ) = sum re".replace("l", arr[i][0].join(" + ")).replace("r", arr[i][1].join(" + ")).replace("sum", this.sumArray(arr[i][0])).replace("re", ret);
+            andiv.append(h)
+        }
+    },
+    // 获取ul标签的牌的数字 
+    getNum: function () {
+        let dictnum = {
+            '1': 1,
+            '2': 2,
+            '3': 3,
+            '4': 4,
+            '5': 5,
+            '6': 6,
+            '7': 7,
+            '8': 8,
+            '9': 9,
+            'j': 11,
+            'q': 12,
+            'k': 13
+        };
+        let res = [];
+        // ul下标是 1 2 
+        for (let i = 1; i < 3; i++) {
+            let arr = [];
+            target = document.getElementsByClassName("container")[0].getElementsByTagName("ul")[i].getElementsByTagName('li');
+            for (let j = 0; j < target.length; j++) {
+                if (target[j].id[1] == '0') {
+                    arr.push(10);
+                } else {
+                    arr.push(dictnum[target[j].id[0]]);
+                }
+            }
+            res.push(arr);
+        }
+        return res
+    }
+};
