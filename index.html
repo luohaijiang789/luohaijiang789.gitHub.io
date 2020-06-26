@@ -1,166 +1,271 @@
-<!doctype html>
-<html lang="en" ng-app="myApp">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <title></title>
-    <!--人员进出管控系统-->
-    <link rel="stylesheet" type="text/css" href="css/angular-confirm.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/cropper.min.css">
-    <link rel="stylesheet" type="text/css" href="css/shards.min.css">
-    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css"/>
-
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-
-
+<!DOCTYPE html>
+<!-- saved from url=(0030)https://hotobun.gitee.io/index -->
+<html lang="en" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>罗海江</title>
+    <meta name="description" content="记得按时吃饭">
+    <meta name="google-site-verification" content="LyHvS1CQMGE9HRZt8oqgWXF_rkO-40FF6NbkYiiBWIA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <link rel="stylesheet" href="./馒++_files/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="keywords" content="cocoa,馒++,"> 
+    
+    <meta name="author" content="Hoto cocoa"> 
+    <link rel="alternative" href="https://hotobun.gitee.io/atom.xml" title="馒++" type="application/atom+xml"> 
+    <link rel="icon" href="https://hotobun.gitee.io/favicon.ico">  
+    <link rel="stylesheet" href="./馒++_files/diaspora.css"> 
 </head>
 
-<body ng-controller="MainCtrl">
-<div id="Layer1" style="position:absolute; left:0px; top:0px; width:100%; height:100%">
-    <img src="1111.jpg" width="100%" height="200%"/>
+<body class="">
+    <span id="config-title" style="display:none">馒++</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://hotobun.gitee.io/whoami/" title="whoami" external="false" class="pviewa">whoami</a>
+        </li>
+        
+        <li class="  menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://hotococoa.com/" target="_blank" rel="noopener" title="主页" external="false">主页</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://hotobun.gitee.io/tags/" title="标签" external="false" class="pviewa">标签</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://hotobun.gitee.io/archives/" title="归档" external="false" class="pviewa">归档</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://hotobun.gitee.io/search/" title="搜索" external="false" class="pviewa">搜索</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://hotobun.gitee.io/log/" title="日志" external="false" class="pviewa">日志</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://hotobun.gitee.io/english/" title="背单词" external="false" class="pviewa">背单词</a>
+        </li>
+        
+    </ul>
+    <p id="copyright">
+        © 2020 Hoto cocoa.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/Fechin/hexo-theme-diaspora" title="Diaspora" target="_blank" rel="noopener">Diaspora</a>
+        by Fechin
+    </p>
 </div>
 
-
-<div class="pages-content welcome__form page_passport ncu_background" data-ng-init="pageInit()">
-    <div class="container" id="container">
-        <div class="page d-flex justify-content-center align-items-center flex-column passport_panel"
-             data-page="welcome">
-            <div class="page-box">
-
-                <div class="page-panel">
-
-                    <div class="align-items-center my-3">
-                        <div class="welcome-loading"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 text-center my-3">
-                            <span class="title page-title">南昌大学电子ID</span>
-                            <div class="clock color-white" style=" font-size: 18px; ">&nbsp;
-                                <SCRIPT src="js/Clock.js" type=text/javascript></SCRIPT>
-                                <label id=clock></label>
-                                <SCRIPT type=text/javascript>
-                                    var clock = new Clock();
-                                    clock.display(document.getElementById("clock"));
-                                </SCRIPT>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="card passport_card mb-3 user-info-card">
-                        <div class="bg-wave">
-                            <div class="wave1"></div>
-                            <div class="wave2"></div>
-                            <div class="wave3"></div>
-                        </div>
-
-                        <div class="card-body p-3"
-                             style="background-image: url('8.jpg');
-                             background-size: 100% 100%;
-                            background-position: 100% 100%;">
-                            <div class="row">
-                                <div class="col p-0">
-                                    <div class="col-12">
-                                        <label for="name" class="col-form-label card-label"
-                                               style="color:#ffffff">姓名</label>
-                                        <p class="col-form-text d-inline-block pl-3" style="color:#ffffff">罗海江</p>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="sex" class="col-form-label card-label"
-                                               style="color:#ffffff">性别</label>
-                                        <p class="col-form-text d-inline-block pl-3" style="color:#ffffff">男</p>
-                                    </div>
-                                    <div class="col-12">
-                                        <!--<label class="col-form-label card-label" for="number" ng-show="passport.userType=='1'">学号</label>-->
-                                        <label class="col-form-label card-label" for="number"
-                                               ng-show="passport.userType!='1'" style="color:#ffffff">工号</label>
-                                        <p class="col-form-text d-inline-block pl-3" style="color:#ffffff">102000361</p>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="avatar-img-panel">
-                                        <img id="avatar-img" src="228.jpg" class="photo w-100">
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <label class="card-label" for="mobile" style="color:#ffffff">手机号</label>
-                                    <p class="col-form-text d-inline-block pl-3" style="color:#ffffff">18907958131</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <label class="card-label" for="idCard" style="color:#ffffff">身份证号</label>
-                                    <p class="col-form-text d-inline-block pl-3" style="color:#ffffff">
-                                        362201199508274872</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12" ng-show="passport.userType!='1'">
-                                    <label class="card-label mt-2 mb-0" for="deptId" style="color:#ffffff">部门</label>
-                                    <p class="col-form-text d-inline p-3" style="color:#ffffff">后勤保障部</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="card mb-3 overflow-hidden">
-                        <div class="card-body p-0">
-                            <div class="d-flex f-row align-items-center campus-panel">
-                                <div class="campus-box " style="background: #4b8bf5">
-                                    <span style="color:#ffffff">前湖北</span>
-                                </div>
-                                <div class="campus-box campus_id-100004" style="background: #6f42c1">
-                                    <span style="color:#ffffff">前湖南</span>
-                                </div>
-                                <div class="campus-box campus_id-100001" style="background: #18a05f">
-                                    <span style="color:#ffffff">青山湖</span>
-                                </div>
-                                <div class="campus-box campus_id-100003" style="background: #ffce44">
-                                    <span style="color:#ffffff">东湖</span>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-12">
-
-                                    <div class="qr-code-canvas">
-                                        <div class="canvas text-center py-4" style=" min-height: 180px; ">
-                                            <img id="" src="18.jpg" class="canvas">
-                                        </div>
-                                    </div>
-                                    <div class="my-3 px-3 text-center font-weight-bold color-black">
-                                        <span class="" style="">红码不表示您的健康状况。仅说明按照相关规定，暂时不能入校。</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="page-box">
-                <div class="page-panel">
-                    <div class="align-items-center my-4" ng-if="userRoleId == 1002 || userRoleId == 1003">
-                        <button href="#" class="btn btn-light btn-block" ng-click="goto_list_apply()"><span
-                                class="text">许可审批</span></button>
-                    </div>
-                </div>
-            </div>
+<div id="container">
+    
+<div id="screen">
+    <div id="mark" style="height: 711px; position: relative; transform: translate3d(0px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
+        <div class="layer" data-depth="0.4" style="width: 1681.26px; height: 786.95px; margin-left: -81.1308px; margin-top: -37.975px; position: relative; display: block; left: 0px; top: 0px; transform: translate3d(-35.0447px, 28.2736px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
+            <img src="./馒++_files/index.png" id="cover" crossorigin="anonymous" width="1920" height="1080" style="width: 1681px; height: 945.563px; left: 0px; top: -79.5px;">
         </div>
+    </div>
+    <div id="vibrant">
+        <svg viewBox="0 0 2880 1620" height="100%" preserveAspectRatio="xMaxYMax slice">
+            <polygon opacity="0.7" points="2000,1620 0,1620 0,0 600,0 " style="fill: rgb(6, 11, 19);"></polygon>
+        </svg>
+        <div style="background-color: rgb(6, 11, 19);"></div>
+    </div>
+    <div id="header">
+        <div>
+
+            <!-- 
+            <a class="image-logo" href="/"></a>
+                -->
+
+            <div class="icon-menu switchmenu" style="color: rgb(189, 94, 93);"></div>
+        </div>
+    </div>
+    
+    <div id="post0">
+        <p>十一月 21, 9102</p>
+        <h2><a href="https://hotobun.gitee.io/9102/11/21/hello/" title="Welcome" class="posttitle">Welcome</a></h2>
+        <p class="summary">
+再次感谢原作者创作出这么精美的主题 @Fechin @LoeiFy
+
+</p>
+    </div>
+    
+</div>
+
+    <div id="primary">
+        
+<div class="post">
+    <a href="./lhj/lhj.html" title="男的点这个">
+        <img src="./馒++_files/sanguosha.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>四月 06, 2020</p>
+        <h3><a href="./lhj/lhj.html" title="男的点这个" class="posttitle">男的点这个</a></h3>
+        <p>嘿嘿嘿，此页面纯属娱乐！本人不承担任何责任</p>
+    </div>
+</div>
+
+<div class="post">
+    <a href="./lhj/lhj.html" title="男的点这个">
+        <img src="./馒++_files/fiddler.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>四月 06, 2020</p>
+        <h3><a href="./ly/ly.html" title="男的点这个" class="posttitle">女的点这个</a></h3>
+        <p>嘿嘿嘿，此页面纯属娱乐！本人不承担任何责任</p>
     </div>
 </div>
 
 
-</body>
-</html>
+
+<div class="post">
+    <a href="https://hotobun.gitee.io/2020/03/28/javascript/" title="JavaScript">
+        <img src="./馒++_files/javascript.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>三月 28, 2020</p>
+        <h3><a href="https://hotobun.gitee.io/2020/03/28/javascript/" title="JavaScript" class="posttitle">JavaScript</a></h3>
+        <p>记录点零散知识吧本文大部分为后盾人JavaScript视频笔记B站教程链接
+
+ 基础知识
+    使用JavaScript
+    注释与执行符
+   ...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="https://hotobun.gitee.io/2020/03/15/house/" title="爬二手房信息">
+        <img src="./馒++_files/house.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>三月 15, 2020</p>
+        <h3><a href="https://hotobun.gitee.io/2020/03/15/house/" title="爬二手房信息" class="posttitle">爬二手房信息</a></h3>
+        <p>绘图库使用的 pyecharts  文档跟疫情地图差不多 以后有需求再用用 
+ajax太难了异步加载 JavaScript代码有的不执行手动按实例出来吧数...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="https://hotobun.gitee.io/2020/03/06/fydeos/" title="安装FydeOS系统">
+        <img src="./馒++_files/fydeos.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>三月 06, 2020</p>
+        <h3><a href="https://hotobun.gitee.io/2020/03/06/fydeos/" title="安装FydeOS系统" class="posttitle">安装FydeOS系统</a></h3>
+        <p>前言续上篇尝试几个安卓系统 RemixOS也不尽人意百度排序真的不知怎么排 换了必应搜索 才发现有FydeOS系统然后下载尝鲜 效果意外的不错 但是偶尔会...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="https://hotobun.gitee.io/2020/03/03/android/" title="笔记本安装安卓双系统">
+        <img src="./馒++_files/android.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>三月 03, 2020</p>
+        <h3><a href="https://hotobun.gitee.io/2020/03/03/android/" title="笔记本安装安卓双系统" class="posttitle">笔记本安装安卓双系统</a></h3>
+        <p>注意使用几天后 因为内存问题 偶尔卡死打开fgo的时候 加载太多新数据如抽卡 好友 看大量剧情等 就会卡4G的内存 最后会掉到50M 然后响应速度是分钟级...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="https://hotobun.gitee.io/2020/02/27/docker/" title="Docker使用笔记">
+        <img src="./馒++_files/docker.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>二月 27, 2020</p>
+        <h3><a href="https://hotobun.gitee.io/2020/02/27/docker/" title="Docker使用笔记" class="posttitle">Docker使用笔记</a></h3>
+        <p>本地环境
+Windows10 1909
+Docker 2.2.0.3(42716)
+
+
+简介Docker是一个能够把开发的应用程序自动部署到容器的开源引擎...</p>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="https://hotobun.gitee.io/page/2/" class="more">加载更多</a></div>
+    
+</div>
+<div id="preview" style="min-height: 760px;"></div>
+
+
+<script src="./馒++_files/jquery.min.js.下载"></script><remove-web-limits-iqxin id="rwl-iqxin" class="rwl-exempt" style="position: fixed; top: 29px; left: 0px;"><qxinbutton type="qxinbutton" id="rwl-setbtn"> set </qxinbutton> <lalala style="cursor:move; font-size:12px;">限制解除</lalala> <input type="checkbox" name="" id="black_node"><style type="text/css">#rwl-iqxin{position:fixed;transform:translate(-95px,0);width:85px;height:25px;font-size:12px;font-weight: 500;font-family:Verdana, Arial, '宋体';color:#fff;background:#333;z-index:2147483647;margin: 0;opacity:0.05;transition:0.3s;overflow:hidden;user-select:none;text-align:center;white-space:nowrap;line-height:25px;padding:0 16px;border:1px solid #ccc;border-width:1px 1px 1px 0;border-bottom-right-radius:5px;box-sizing: content-box;}#rwl-iqxin input{margin: 0;padding: 0;vertical-align:middle;-webkit-appearance:checkbox;-moz-appearance:checkbox;position: static;clip: auto;opacity: 1;cursor: pointer;}#rwl-iqxin.rwl-active-iqxin{left: 0px;transform:translate(0,0);opacity: 0.9;height: 32px;line-height: 32px}#rwl-iqxin label{margin:0;padding:0;font-weight:500;}#rwl-iqxin #rwl-setbtn{margin: 0 4px 0 0;padding: 0 0 0 4px;border: none;border-radius: 2px;cursor: pointer;background: #fff;color: #000;} </style></remove-web-limits-iqxin>
+<script src="./馒++_files/plugin.js.下载"></script>
+<script src="./馒++_files/diaspora.js.下载"></script>
+<link rel="stylesheet" href="./馒++_files/photoswipe.css">
+<link rel="stylesheet" href="./馒++_files/default-skin.css">
+<script src="./馒++_files/photoswipe.min.js.下载"></script>
+<script src="./馒++_files/photoswipe-ui-default.min.js.下载"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+<!-- 网页变灰 哀悼效果 -->
+<!-- <script>
+    var now=Date.now();if (15859296e5<now&&now<1586016e6){document.getElementsByTagName("html")[0].style="-webkit-filter: grayscale(.95);"};
+</script> -->
+ 
+
+
+
+</body></html>
