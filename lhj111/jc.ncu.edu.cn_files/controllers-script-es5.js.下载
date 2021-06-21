@@ -1,0 +1,89 @@
+'use strict';
+
+angular.module('myApp.controllers_application', [])
+//出入申请操作
+.controller('applicationCtrl', ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
+    if (!$rootScope.userData || !$rootScope.userData.userId) $rootScope.re_login();
+
+    // $scope.goto_itinerary = function () {
+    //     $rootScope.go('/itinerary');
+    // };
+    // $scope.goto_list_approved = function () {
+    //     $rootScope.go('/list_approved');
+    // };
+    // $scope.goto_list_pending = function () {
+    //     $rootScope.go('/list_pending');
+    // };
+    // $scope.goto_list_dismiss = function () {
+    //     $rootScope.go('/list_dismiss');
+    // };
+}]);
+
+angular.module('myApp.controllers_itinerary_approvedLog', [])
+//出行记录
+.controller('itinerary_approvedLogCtrl', ['$scope', '$rootScope', '$http', '$timeout', function ($scope, $rootScope, $http, $timeout) {}]);
+
+angular.module('myApp.controllers_test', []).controller('testCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$routeParams', function ($scope, $rootScope, $http, $timeout, $routeParams) {
+
+    jQuery.ajax({
+        url: $rootScope.apiUrl + '/system/auth/getTicket',
+        method: 'get',
+        data: {
+            url: window.location.href.split('#')[0]
+        },
+        traditional: true
+    }).then(function (response) {
+        if (response.data) {
+            // alert(JSON.stringify(response.data));
+            wx.config({
+                beta: true, // 必须这么写，否则wx.invoke调用形式的jsapi会有问题
+                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: response.data.appId, // 必填，企业微信的corpID
+                timestamp: response.data.timestamp, // 必填，生成签名的时间戳
+                nonceStr: response.data.nonceStr, // 必填，生成签名的随机串
+                signature: response.data.signature, // 必填，签名，见 附录-JS-SDK使用权限签名算法
+                jsApiList: ['checkJsApi', 'scanQRCode', 'getLocation'] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
+            });
+
+            wx.error(function (res) {
+                // $('#test-result').val('出错了' + JSON.stringify(err));
+                alert("出错了：" + res.errMsg); //这个地方的好处就是wx.config配置错误，会弹出窗口哪里错误，然后根据微信文档查询即可。
+            });
+
+            wx.ready(function () {
+                wx.checkJsApi({
+                    jsApiList: ['scanQRCode', 'getLocation'],
+                    success: function success(res) {}
+                });
+
+                jQuery('#btn').on('click', function () {
+                    wx.getLocation({
+                        type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                        altitude: true,
+                        isHighAccuracy: true,
+                        highAccuracyExpireTime: 6000,
+                        success: function success(res) {
+                            console.info(res);
+                            alert(JSON.stringify(res));
+                            var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                            var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                            var speed = res.speed; // 速度，以米/每秒计
+                            var accuracy = res.accuracy; // 位置精度
+
+                            wx.openLocation({
+                                latitude: res.latitude, // 纬度，浮点数，范围为90 ~ -90
+                                longitude: res.longitude, // 经度，浮点数，范围为180 ~ -180。
+                                name: '打卡位置', // 位置名
+                                scale: 16 // 地图缩放级别,整形值,范围从1~28。默认为16
+                            });
+                        }
+                    });
+                });
+            });
+        }
+    }).fail(function (err) {
+        // $('#test-result').val('err' + JSON.stringify(err));
+    });
+}]);
+
+angular.module('myApp.controllers_maintenance', []).controller('maintenanceCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$routeParams', function ($scope, $rootScope, $http, $timeout, $routeParams) {}]);

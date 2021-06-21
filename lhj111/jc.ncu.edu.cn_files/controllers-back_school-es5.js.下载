@@ -1,0 +1,411 @@
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+angular.module('myApp.controllers_back_school', []).controller('back_schoolCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$routeParams', function ($scope, $rootScope, $http, $timeout, $routeParams) {
+    window.document.title = '返程登记';
+
+    window.addEventListener('popstate', function (e) {
+        e.preventDefault();
+        // wx.closeWindow();
+    });
+
+    $scope.pageInit = function () {
+        // TEST ⚡️
+        // $rootScope.getToken();
+        // $rootScope.getUserData();
+        // getTravelInfo();
+        if (!!$rootScope.work_weixin.token && !!$rootScope.userData) {
+            $rootScope.markerLoggedIn();
+            if (!!$rootScope.userData) {
+                getTravelInfo();
+            }
+        } else {
+            // 微信鉴权登录
+
+            $rootScope.markerLoggedConnecting();
+            var result = window.getRequest();
+            if (result.code) {
+                // $rootScope.removeToken();
+                // $rootScope.removeUserData();
+                console.info(result.code);
+                jQuery.ajax({
+                    url: $rootScope.apiUrl + '/system/auth/getWebChat',
+                    method: 'post',
+                    data: {
+                        code: result.code
+                    }
+                }).complete(function (xhr) {
+                    var response = xhr.responseJSON;
+                    var token = xhr.getResponseHeader('token');
+
+                    $rootScope.setToken(token);
+                    // alert('token： ' + token);
+                    // let server_time = null;
+
+                    $rootScope.markerLoggedIn();
+                    var userData = response.data;
+
+                    if (response.code == "308") {
+                        $rootScope.setUserData(userData);
+                        // alert('userData： ' + JSON.stringify(userData));
+
+                        getTravelInfo();
+                    } else {
+                        alert(response.message);
+                    }
+                });
+            }
+        }
+    };
+
+    var personCount = [];
+    var travelInfo = {};
+    var personCountCaps = 500;
+
+    var datepickerOptions = {
+        language: 'zh-CN', //显示中文
+        todayBtn: false, //显示今日按钮
+        showClose: true,
+        minDate: true,
+        autoclose: true,
+        minView: 'month'
+    };
+
+    var input_details_placeholder = {
+        "飞机": "航班号，座位号",
+        "火车": "车次，车厢，座位号",
+        "客运班车": "车次，座位号",
+        "公交": "线路名称，座位号",
+        "轮船": "线路名称，座位号",
+        "自驾": "详细描述",
+        "非公共交通": "详细描述",
+        "其他": "详细描述"
+    };
+
+    // 表单校验
+    var forms = $('form');
+    var validation = Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+            $('.invalid-feedback').hide();
+            $('.form-control, .custom-select').removeClass('invalid valid');
+            var validityFlag = false;
+            if ($('#datetimepicker-nanchang').val() == '') {
+                validityFlag = true;
+                $('#datetimepicker-nanchang').addClass('invalid');
+                $('.nanchang-invalid-feedback').show();
+            } else {
+                $('#datetimepicker-nanchang').removeClass('invalid');
+                $('.nanchang-invalid-feedback').hide();
+            }
+
+            if ($('#addressProvince').val() == '') {
+                validityFlag = true;
+                $('#addressProvince').addClass('invalid');
+                $('.distpicker-invalid-feedback').show();
+            } else {
+                $('#addressProvince').removeClass('invalid');
+                $('.distpicker-invalid-feedback').hide();
+            }
+            if ($('#addressCity').val() == '') {
+                validityFlag = true;
+                $('#addressCity').addClass('invalid');
+                $('.distpicker-invalid-feedback').show();
+            } else {
+                $('#addressCity').removeClass('invalid');
+                $('.distpicker-invalid-feedback').hide();
+            }
+
+            $('.transport-form .transport-form-row').each(function (i) {
+                var node = $('.transport-form .transport-form-row').eq(i);
+                if (node.find('.input-transport-date').val() == '') {
+                    validityFlag = true;
+                    node.find('.input-transport-date').addClass('invalid');
+                } else {
+                    node.find('.input-transport-date').removeClass('invalid');
+                }
+            });
+
+            // if($('#datetimepicker-backSchool').val() == ''){
+            //     validityFlag = true;
+            //     $('#datetimepicker-backSchool').addClass('invalid');
+            //     $('.backSchoolDate-invalid-feedback').show();
+            // }
+
+            if (!$('input[name="isPassedHB"]:checked').val()) {
+                validityFlag = true;
+                $('input[name="isPassedHB"]').addClass('invalid');
+                $('.backSchoolTime-invalid-feedback').show();
+            } else {
+                $('input[name="isPassedHB"]').removeClass('invalid');
+                $('.backSchoolTime-invalid-feedback').hide();
+            }
+
+            if ($('#input-backSchool').val() == '') {
+                validityFlag = true;
+                $('#input-backSchool').addClass('invalid');
+                $('.isPassedHB-invalid-feedback').show();
+            } else {
+                $('#input-backSchool').removeClass('invalid');
+                $('.isPassedHB-invalid-feedback').hide();
+            }
+
+            event.preventDefault();
+            if (form.checkValidity() === false || validityFlag) {
+                event.stopPropagation();
+            } else {
+                submit();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+
+    function getRequest() {
+        var url = window.location.search;
+        var jsonList = {};
+        if (url.indexOf("?") > -1) {
+            var str = url.slice(url.indexOf("?") + 1);
+            var strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                jsonList[strs[i].split("=")[0]] = strs[i].split("=")[1]; //如果出现乱码的话，可以用decodeURI()进行解码
+            }
+        }
+        return jsonList;
+    }
+
+    var getTravelInfo = function getTravelInfo() {
+        $('#input-userId').html($rootScope.userData.userId);
+        $('#input-userName').html($rootScope.userData.userName);
+
+        jQuery.ajax({
+            url: $rootScope.apiUrl + '/gate/travel/getTravelInfo',
+            // url: $rootScope.apiUrl + ':8086/gate/travel/getTravelInfo',
+            method: 'post',
+            data: {},
+            headers: {
+                "token": $rootScope.work_weixin.token
+            }
+        }).complete(function (xhr) {
+            var response = xhr.responseJSON;
+            var server_time = xhr.getResponseHeader('server_time');
+
+            if (response.data) {
+                initForm(response.data);
+                var serverNowDate = moment(parseInt(server_time)).tz("Asia/Shanghai");
+                var arriveSchoolDate = moment(response.data['arriveSchoolDate'] + ' 23:59:59').tz("Asia/Shanghai");
+                // 返校时间早于当前时间
+                if (arriveSchoolDate.isBefore(serverNowDate)) {
+                    $('.alert-timeout').fadeIn();
+                    $('input').attr('disabled', 'disabled');
+                    $('#submit-btn').parents('.card').hide();
+                } else {}
+                if (!response.data.travelDetails || response.data.travelDetails.length == 0) {
+                    $('#submit-btn').html('提交');
+                } else {
+                    $('#submit-btn').html('修改');
+                }
+            } else {
+                alert('目前未安排返校');
+                // 目前未安排返校
+                $('.alert-noentry').fadeIn();
+                $('input').attr('disabled', 'disabled');
+                $('#submit-btn').parents('.card').hide();
+            }
+        });
+    };
+
+    var initForm = function initForm(info) {
+        travelInfo = info;
+        console.info(travelInfo);
+        if (travelInfo.arriveSchoolDate) $('#datetimepicker-backSchool').html(travelInfo.arriveSchoolDate);
+        if (travelInfo.arriveCampus) $('#campus-backSchool').html($rootScope.echarts.campusId[travelInfo.arriveCampus]);
+        if (travelInfo.arriveSchoolTime) {
+            $('#input-backSchool').val(travelInfo.arriveSchoolTime);
+            $('#backSchool_modal .form-check-input[value="' + travelInfo.arriveSchoolTime + '"]').attr('checked', 'checked');
+        }
+        if (travelInfo.arriveNCDate) $('#datetimepicker-nanchang').val(travelInfo.arriveNCDate);
+        if (travelInfo.currentProvince) {
+            $('#distpicker').distpicker({
+                province: travelInfo.currentProvince,
+                city: travelInfo.currentCity
+            });
+        } else {
+            $('#distpicker').distpicker({
+                province: '江西省',
+                city: '南昌市'
+            });
+        }
+        if (travelInfo.passHb) $('input[name="isPassedHB"][value="' + travelInfo.passHb + '"]').attr('checked', 'checked');
+
+        if (travelInfo.travelDetails && travelInfo.travelDetails.length > 0) {
+            travelInfo.travelDetails.sort(function (a, b) {
+                return a.sort - b.sort;
+            });
+            travelInfo.travelDetails.forEach(function (item, key) {
+                var node = $('.transport-form .transport-form-row:nth-child(' + (key + 1) + ')');
+                if (!node[0]) {
+                    $('.transport-form').append($('template').html());
+                    node = $('.transport-form .transport-form-row:nth-child(' + (key + 1) + ')');
+                }
+                node.find('.select-transport').val(item.transportation);
+                node.find('.input-destination').val(item.destination);
+                // var departureDateFormat = new Date('2020-04-12 21:19:13');
+                // var departureDateFormat = new Date(item.departureDate);
+                var departureDateText = moment(item.departureDate).format("YYYY-MM-DD HH:mm:ss");
+                // var departureDateText = departureDateFormat.getFullYear() + '-' + ('0' + (departureDateFormat.getMonth() + 1)).substr(-2) + '-' + ('0' + departureDateFormat.getDate()).substr(-2) + ' ' + ('0' + departureDateFormat.getHours()).substr(-2) + ':' + ('0' + departureDateFormat.getMinutes()).substr(-2);
+                node.find('.input-transport-date').val(departureDateText);
+                node.find('.input-details').val(item.travelInfo);
+            });
+        } else {
+            $('.transport-form').append($('template').html());
+        }
+
+        $('#datetimepicker-nanchang').datetimepicker(_extends({}, datepickerOptions, {
+            format: 'yyyy-mm-dd', //显示格式
+            minView: 'month',
+            startDate: new Date(),
+            endDate: new Date(travelInfo['arriveSchoolDate'])
+        }));
+
+        // $('#datetimepicker-backSchool').datetimepicker({
+        //     ...datepickerOptions,
+        //     format: 'yyyy-mm-dd',//显示格式
+        //     minView: 'month',
+        //     startDate: new Date(),
+        // });
+
+        $('.input-transport-date').datetimepicker(_extends({}, datepickerOptions, {
+            format: 'yyyy-mm-dd hh:ii', //显示格式
+            minView: 'hour',
+            startDate: new Date(),
+            endDate: new Date(travelInfo['arriveSchoolDate'].split(' ')[0] + ' 23:59:59')
+        }));
+
+        $('#input-backSchool').on('click', function () {
+            $('#backSchool_modal').modal('show');
+            // if(personCount.length == 0){
+            //     getPersonCountByTime(function () {
+            //         renderPersonCountForm();
+            //     });
+            // }else {
+            renderPersonCountForm();
+            // }
+        });
+
+        $('#checked-btn').on('click', function () {
+            $('#backSchool_modal').modal('hide');
+            $('#input-backSchool').val($('#backSchool_modal input[name="radios"]:checked').val());
+        });
+
+        $('#append-transport-btn').on('click', function () {
+            $('.transport-form').append($('template').html());
+            $('.input-transport-date').datetimepicker(_extends({}, datepickerOptions, {
+                format: 'yyyy-mm-dd hh:ii', //显示格式
+                minView: 'hour',
+                startDate: new Date(),
+                endDate: new Date(travelInfo['arriveSchoolDate'].split(' ')[0] + ' 23:59:59')
+            }));
+        });
+
+        $('.transport-form-row:first-child .del-transport-btn').replaceWith('<div class="ml-3" style="width: 64px;"></div>');
+
+        $(document).on('click', '.del-transport-btn', function (e) {
+            $(e.target).parents('.transport-form-row').remove();
+        });
+        $(document).on('change', '.select-transport', function (e) {
+            $(e.target).parents('.transport-form-panel').find('.input-details').attr('placeholder', input_details_placeholder[e.target.value]);
+        });
+    };
+
+    // var getPersonCountByTime = function (callback) {
+    //     jQuery.ajax({
+    //         url: $rootScope.apiUrl + '/gate/travel/getPersonCountByTime',
+    //         // url: $rootScope.apiUrl + ':8086/gate/travel/getPersonCountByTime',
+    //         method: 'post',
+    //         traditional: true,
+    //         data: {
+    //             selectedDate: travelInfo['arriveSchoolDate']
+    //         },
+    //         headers: {
+    //             "token": $rootScope.work_weixin.token
+    //         },
+    //     }).then(response => {
+    //         if(response.data){
+    //             personCount = response.data;
+    //             if(callback) callback();
+    //         }
+    //     }).fail(err => {
+    //     });
+    // };
+
+    var renderPersonCountForm = function renderPersonCountForm() {
+        personCount.forEach(function (item) {
+            var node = $('#backSchool_modal .form-label-input[data-value="' + item.arrive_school_time + '"]');
+            node.find('.count').html(item.count);
+            // if (item.count > personCountCaps) {
+            //     node.addClass('color-red');
+            //     node.append('<strong class="color-red">（人数过多）</strong>');
+            //     // node.prev().attr('disabled', 'disabled');
+            // }
+        });
+    };
+
+    var submit = function submit() {
+        delete travelInfo['id'];
+        delete travelInfo['userId'];
+        delete travelInfo['arriveSchoolDate'];
+        delete travelInfo['updateTime'];
+
+        travelInfo['currentProvince'] = $('#addressProvince').val();
+        travelInfo['currentCity'] = $('#addressCity').val();
+        travelInfo['arriveNCDate'] = $('#datetimepicker-nanchang').val();
+        travelInfo['arriveSchoolTime'] = $('#input-backSchool').val();
+        travelInfo['passHb'] = $('input[name="isPassedHB"]:checked').val();
+
+        travelInfo['travelDetails'] = [];
+        $('.transport-form .transport-form-row').each(function (i) {
+            var node = $('.transport-form .transport-form-row').eq(i);
+            var travelInfoItem = {};
+            travelInfoItem['transportation'] = node.find('.select-transport').val();
+            travelInfoItem['destination'] = node.find('.input-destination').val();
+            travelInfoItem['departureDate'] = node.find('.input-transport-date').val() + ':00';
+            travelInfoItem['travelInfo'] = node.find('.input-details').val();
+            travelInfoItem['userId'] = travelInfo['userId'];
+            travelInfoItem['sort'] = i;
+            travelInfo['travelDetails'][i] = travelInfoItem;
+        });
+        jQuery.ajax({
+            url: $rootScope.apiUrl + '/gate/travel/backToSchool',
+            // url: $rootScope.apiUrl + ':8086/gate/travel/backToSchool',
+            method: 'post',
+            contentType: 'application/json;charset=UTF-8',
+            traditional: true,
+            data: JSON.stringify(travelInfo),
+            headers: {
+                "token": $rootScope.work_weixin.token
+            },
+            type: 'json'
+        }).then(function (response) {
+            $('input').attr('disabled', 'disabled');
+            $('#submit-btn').parents('.card').hide();
+            $('#append-transport-btn').hide();
+            $('.alert-submit').fadeIn();
+            if (response.code == 0) {
+                alert('提交成功');
+            } else {
+                alert(response.message);
+            }
+        });
+    };
+
+    $('#iagree-btn').on('click', function () {
+        $('#bulletin_modal').removeClass('was-validated');
+        $('#iagree, #iagree+label').removeClass('invalid');
+        if ($('#iagree:checked')[0]) {
+            $('#bulletin_modal').modal('hide');
+        } else {
+            $('#bulletin_modal').addClass('was-validated');
+            $('#iagree, #iagree+label').addClass('invalid');
+        }
+    });
+}]);
