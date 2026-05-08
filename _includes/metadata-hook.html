@@ -1,20 +1,25 @@
 <!-- 宫崎骏·夏日物语主题 -->
 <link rel="stylesheet" href="{{ '/assets/css/ghibli-summer.css' | relative_url }}">
 
-<!-- 修复 PWA 更新 toast 点击"更新"后不消失 -->
+<!-- 修复 PWA 更新 toast 点击后不消失（替换 app.min.js 的 buggy handler） -->
 <script>
-document.addEventListener('DOMContentLoaded',function(){
-  var t=document.getElementById('notification');
-  if(!t)return;
-  var b=t.querySelector('.toast-body>button');
-  if(!b)return;
-  b.addEventListener('click',function(e){
-    t.classList.remove('show');
-    t.style.display='none';
-    navigator.serviceWorker.ready.then(function(r){
-      if(r.waiting)r.waiting.postMessage('SKIP_WAITING');
-      setTimeout(function(){window.location.reload()},300);
+(function(){
+  function wait(){
+    var t=document.getElementById('notification');
+    if(!t||!t.querySelector('.toast-body>button'))return setTimeout(wait,200);
+    var btn=t.querySelector('.toast-body>button');
+    // 用新按钮替换旧按钮，彻底干掉 app.min.js 绑的所有事件
+    var newBtn=btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn,btn);
+    newBtn.addEventListener('click',function(){
+      t.classList.remove('show');
+      t.style.display='none';
+      navigator.serviceWorker.ready.then(function(r){
+        if(r.waiting)r.waiting.postMessage('SKIP_WAITING');
+        setTimeout(function(){window.location.reload()},300);
+      });
     });
-  });
-});
+  }
+  document.addEventListener('DOMContentLoaded',wait);
+})();
 </script>
