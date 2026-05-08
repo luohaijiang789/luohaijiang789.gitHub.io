@@ -1,0 +1,49 @@
+<aside
+  id="notification"
+  class="toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-animation="false"
+  data-bs-autohide="false"
+  style="display:none"
+>
+  <div class="toast-header">
+    <button
+      type="button"
+      class="btn-close ms-auto"
+      id="notification-close"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body text-center pt-0">
+    <p class="px-2 mb-3">{{ site.data.locales[include.lang].notification.update_found }}</p>
+    <button type="button" class="btn btn-primary" aria-label="Update"
+      onclick="
+        var n=document.getElementById('notification');
+        n.style.display='none';
+        n.classList.remove('show');
+        navigator.serviceWorker.ready.then(function(r){
+          if(r.waiting)r.waiting.postMessage('SKIP_WAITING');
+          setTimeout(function(){window.location.reload()},200);
+        });
+      ">
+      {{ site.data.locales[include.lang].notification.update }}
+    </button>
+  </div>
+  <script>
+  (function(){
+    var n=document.getElementById('notification');
+    document.getElementById('notification-close').onclick=function(){
+      n.style.display='none';
+      n.classList.remove('show');
+    };
+    // 接管 app.min.js 的 show 方法：改为用 style.display 控制
+    var origShow=n.classList.add.bind(n.classList);
+    n.classList.add=function(cls){
+      origShow(cls);
+      if(cls==='show')n.style.display='block';
+    };
+  })();
+  </script>
+</aside>
