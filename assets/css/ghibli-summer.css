@@ -1,0 +1,790 @@
+/* ================================================
+   宫崎骏 · 夏日物语主题
+   Ghibli Summer Sky — Full Theme Override
+   ================================================ */
+
+/* ── Color Palette ────────────────────────────── */
+:root {
+  --ghibli-sky: #87CEEB;
+  --ghibli-sky-light: #B0E0F0;
+  --ghibli-cream: #FFF8E7;
+  --ghibli-card: #FFFFF0;
+  --ghibli-tan: #E8DCC8;
+  --ghibli-wood: #C4A97D;
+  --ghibli-forest: #5B8C5A;
+  --ghibli-forest-dark: #3D6B3D;
+  --ghibli-sun: #F0C75E;
+  --ghibli-sunset: #E8A87C;
+  --ghibli-straw: #F5DEB3;
+  --ghibli-brown: #6B4226;
+  --ghibli-text: #2C1810;
+  --ghibli-text-muted: #8B7355;
+  --ghibli-leaf: #6BA36B;
+  --ghibli-water: #A8D8EA;
+  --ghibli-flower: #FFB7C5;
+  --ghibli-border: rgba(196, 169, 125, 0.25);
+  --ghibli-forest-alpha: rgba(91, 140, 90, 0.08);
+  --ghibli-sun-alpha: rgba(240, 199, 94, 0.15);
+  --ghibli-wood-alpha: rgba(196, 169, 125, 0.12);
+}
+
+/* ── Background ───────────────────────────────── */
+body {
+  background: linear-gradient(
+    170deg,
+    #B0E0F0 0%,
+    #C8EEF8 25%,
+    #E0F4FA 45%,
+    #F0FFE8 70%,
+    #E0F0D0 100%
+  ) fixed !important;
+  background-attachment: fixed !important;
+}
+
+[data-mode="dark"] body {
+  background: linear-gradient(
+    170deg,
+    #1A1D26 0%,
+    #1E2230 30%,
+    #222538 55%,
+    #252838 80%,
+    #282B3A 100%
+  ) fixed !important;
+}
+
+/* ── Sky Clouds (decorative pseudo-elements) ──── */
+
+
+
+#sidebar {
+  background: rgba(255, 248, 231, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: none !important;
+  box-shadow: 2px 0 25px rgba(139, 115, 85, 0.06);
+}
+
+[data-mode="dark"] #sidebar {
+  background: rgba(26, 29, 38, 0.95) !important;
+}
+
+/* ── Sidebar Profile (Avatar Area) ────────────── */
+#sidebar .profile-wrapper {
+  position: relative;
+}
+
+#avatar {
+  border: 3px solid var(--ghibli-forest) !important;
+  box-shadow:
+    0 0 0 4px var(--ghibli-cream),
+    0 0 20px rgba(91, 140, 90, 0.15),
+    0 0 0 1px rgba(91, 140, 90, 0.2) inset !important;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+#avatar:hover {
+  transform: rotate(-5deg) scale(1.08);
+  box-shadow:
+    0 0 0 4px var(--ghibli-cream),
+    0 0 30px rgba(91, 140, 90, 0.25),
+    0 0 0 1px rgba(91, 140, 90, 0.3) inset !important;
+}
+
+/* ── Sidebar Site Title ───────────────────────── */
+.site-title {
+  color: var(--ghibli-forest-dark) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em;
+  font-size: 1.1rem !important;
+}
+
+.site-subtitle {
+  color: var(--ghibli-text-muted) !important;
+  font-style: italic;
+  font-size: 0.75rem !important;
+}
+
+/* ── Sidebar Navigation ───────────────────────── */
+#sidebar .nav-item a.nav-link {
+  color: var(--ghibli-text-muted) !important;
+  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+  transition: all 0.25s;
+}
+
+#sidebar .nav-item a.nav-link:hover {
+  color: var(--ghibli-forest) !important;
+  background: var(--ghibli-forest-alpha);
+}
+
+#sidebar .nav-item.active a.nav-link {
+  color: var(--ghibli-forest-dark) !important;
+  background: var(--ghibli-forest-alpha);
+  font-weight: 600;
+}
+
+#sidebar .nav-item.active i {
+  color: var(--ghibli-forest) !important;
+}
+
+#sidebar .nav-item i {
+  color: var(--ghibli-forest) !important;
+  opacity: 0.65;
+}
+
+/* ── Sidebar Bottom ───────────────────────────── */
+#sidebar .sidebar-bottom {
+  background: var(--ghibli-wood-alpha) !important;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 14px !important;
+  padding: 0.35rem 0.6rem !important;
+}
+
+#sidebar .sidebar-bottom a {
+  color: var(--ghibli-text-muted) !important;
+  border-radius: 8px;
+  padding: 0.25rem 0.45rem;
+  transition: all 0.2s;
+}
+
+#sidebar .sidebar-bottom a:hover {
+  color: var(--ghibli-forest) !important;
+  background: var(--ghibli-forest-alpha);
+}
+
+#sidebar .sidebar-bottom .mode-toggle {
+  color: var(--ghibli-sun) !important;
+}
+
+/* ── Top Bar ──────────────────────────────────── */
+#topbar-wrapper {
+  background: rgba(176, 224, 240, 0.3) !important;
+  border-bottom: 1px solid var(--ghibli-border) !important;
+}
+
+[data-mode="dark"] #topbar-wrapper {
+  background: rgba(26, 29, 38, 0.95) !important;
+}
+
+#topbar-title {
+  color: var(--ghibli-forest-dark) !important;
+  font-weight: 700;
+}
+
+#breadcrumb span {
+  color: var(--ghibli-text-muted) !important;
+}
+
+#topbar .btn {
+  color: var(--ghibli-text-muted) !important;
+}
+
+#topbar .btn:hover {
+  color: var(--ghibli-forest) !important;
+}
+
+/* ── Card Styles ──────────────────────────────── */
+.card-wrapper.card {
+  border: none !important;
+  border-radius: 16px !important;
+  background: var(--ghibli-card) !important;
+  box-shadow: 0 2px 14px rgba(139, 115, 85, 0.06), 0 0 0 1px var(--ghibli-border) !important;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-wrapper.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 28px rgba(139, 115, 85, 0.1), 0 0 0 1px rgba(91, 140, 90, 0.2) !important;
+}
+
+[data-mode="dark"] .card-wrapper.card {
+  background: #222533 !important;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(107, 163, 107, 0.1) !important;
+}
+
+/* Decorative leaf on cards */
+#post-list .card-wrapper.card::after {
+  content: '🍃';
+  position: absolute;
+  top: -6px;
+  right: 0px;
+  font-size: 28px;
+  opacity: 0.12;
+  transform: rotate(15deg);
+  pointer-events: none;
+}
+
+.post-preview .card-body {
+  padding: 1.5rem !important;
+}
+
+/* ── Post Titles ──────────────────────────────── */
+.card-title {
+  color: var(--ghibli-forest-dark) !important;
+  font-weight: 700;
+}
+
+.card-title a {
+  color: inherit !important;
+}
+
+.card-title a:hover {
+  color: var(--ghibli-forest) !important;
+}
+
+/* ── Post Meta ────────────────────────────────── */
+.post-meta {
+  color: var(--ghibli-text-muted) !important;
+}
+
+.post-meta i {
+  color: var(--ghibli-forest) !important;
+  opacity: 0.55;
+}
+
+.post-meta .pin i {
+  color: var(--ghibli-sun) !important;
+  opacity: 1;
+  animation: soft-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes soft-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* ── Post Content ─────────────────────────────── */
+.post-content h1 {
+  color: var(--ghibli-forest-dark);
+  border-bottom: 2px solid var(--ghibli-border);
+  padding-bottom: 0.5rem;
+}
+
+.post-content h2 {
+  color: var(--ghibli-forest);
+  padding-left: 0.75rem;
+  border-left: 4px solid var(--ghibli-leaf);
+}
+
+.post-content h3 {
+  color: var(--ghibli-brown);
+}
+
+.post-content a {
+  color: var(--ghibli-forest) !important;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.post-content a:hover {
+  border-bottom-color: var(--ghibli-forest);
+}
+
+.post-content blockquote {
+  border-left: 3px solid var(--ghibli-leaf) !important;
+  background: rgba(107, 163, 107, 0.06) !important;
+  border-radius: 0 8px 8px 0;
+  color: var(--ghibli-text-muted);
+}
+
+.post-content blockquote::before {
+  content: '💬 ';
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.post-content pre {
+  border: 1px solid var(--ghibli-border);
+  border-radius: 12px;
+  background: rgba(255, 248, 231, 0.5) !important;
+}
+
+[data-mode="dark"] .post-content pre {
+  background: rgba(34, 37, 51, 0.8) !important;
+}
+
+.post-content code {
+  background: var(--ghibli-forest-alpha) !important;
+  color: var(--ghibli-forest) !important;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.post-content ul li::marker {
+  content: '🌱 ';
+}
+
+.post-content ol li::marker {
+  color: var(--ghibli-forest);
+  font-weight: 600;
+}
+
+.post-content hr {
+  border: none !important;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--ghibli-border),
+    rgba(107, 163, 107, 0.3),
+    transparent
+  );
+  margin: 2rem 0;
+}
+
+.post-content img {
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(139, 115, 85, 0.08);
+}
+
+.post-content table thead {
+  background: var(--ghibli-forest-alpha);
+}
+
+.post-content table tbody tr {
+  border-bottom: 1px solid var(--ghibli-border);
+}
+
+/* ── Tags ─────────────────────────────────────── */
+.post-tag.btn-outline-primary {
+  border-color: rgba(107, 163, 107, 0.25) !important;
+  color: var(--ghibli-forest) !important;
+  background: var(--ghibli-forest-alpha) !important;
+  border-radius: 20px !important;
+  padding: 0.15rem 0.7rem !important;
+  font-size: 0.7rem !important;
+  transition: all 0.25s !important;
+}
+
+.post-tag.btn-outline-primary:hover {
+  background: rgba(91, 140, 90, 0.18) !important;
+  border-color: var(--ghibli-forest) !important;
+  transform: translateY(-1px);
+}
+
+/* ── Sidebar Panel ────────────────────────────── */
+#panel-wrapper .panel-heading {
+  color: var(--ghibli-forest-dark);
+  font-weight: 700;
+  border-bottom: 2px solid var(--ghibli-border);
+  padding-bottom: 0.5rem;
+}
+
+#panel-wrapper #access-lastmod a {
+  color: var(--ghibli-text-muted);
+  transition: color 0.2s;
+}
+
+#panel-wrapper #access-lastmod a:hover {
+  color: var(--ghibli-forest);
+}
+
+/* ── Categories ───────────────────────────────── */
+.categories a {
+  color: var(--ghibli-forest) !important;
+  background: var(--ghibli-forest-alpha);
+  padding: 0.1rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.categories a:hover {
+  background: rgba(91, 140, 90, 0.18);
+}
+
+/* ── Footer ───────────────────────────────────── */
+footer {
+  position: relative;
+}
+
+footer::before {
+  content: '🐛 🌸 🌾';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 6px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* ── Pagination ──────────────────────────────── */
+.pagination .page-link {
+  border-radius: 8px;
+  color: var(--ghibli-text-muted);
+  border: 1px solid var(--ghibli-border);
+  margin: 0 2px;
+  transition: all 0.2s;
+}
+
+.pagination .page-link:hover {
+  background: var(--ghibli-forest-alpha);
+  border-color: var(--ghibli-forest);
+}
+
+.pagination .page-item.active .page-link {
+  background: var(--ghibli-forest) !important;
+  border-color: var(--ghibli-forest) !important;
+  color: white !important;
+}
+
+/* ── Selection ────────────────────────────────── */
+::selection {
+  background: var(--ghibli-sun-alpha);
+  color: var(--ghibli-text);
+}
+
+/* ── Scrollbar ──────────────────────────────── */
+::-webkit-scrollbar-track {
+  background: rgba(196, 169, 125, 0.06);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(196, 169, 125, 0.25);
+  border-radius: 10px;
+}
+
+/* ── Search ──────────────────────────────────── */
+#search-results a {
+  color: var(--ghibli-forest-dark);
+}
+
+#search-results .post-meta i {
+  color: var(--ghibli-forest);
+  opacity: 0.55;
+}
+
+/* ── TOC ─────────────────────────────────────── */
+#toc-wrapper .toc-link {
+  color: var(--ghibli-text-muted);
+}
+
+#toc-wrapper .toc-link.active {
+  color: var(--ghibli-forest);
+  font-weight: 600;
+}
+
+/* ── Back to Top ────────────────────────────── */
+#back-to-top {
+  background: rgba(255, 248, 231, 0.9) !important;
+  border: 1px solid var(--ghibli-border) !important;
+  color: var(--ghibli-forest) !important;
+  border-radius: 12px !important;
+  transition: all 0.3s !important;
+}
+
+#back-to-top:hover {
+  background: var(--ghibli-card) !important;
+  box-shadow: 0 4px 16px rgba(91, 140, 90, 0.15) !important;
+  transform: translateY(-2px);
+}
+
+/* ── Notification Toast ──────────────────────── */
+
+/* ── Read Mode ──────────────────────────────── */
+.post-content.read-mode .card {
+  background: var(--ghibli-card);
+}
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 849px) {
+  #sidebar {
+    background: rgba(255, 248, 231, 0.97) !important;
+  }
+  
+  [data-mode="dark"] #sidebar {
+    background: rgba(26, 29, 38, 0.98) !important;
+  }
+}
+
+/* ── Dark mode adjustments ──────────────────── */
+[data-mode="dark"] {
+  --ghibli-card: #222533;
+  --ghibli-forest: #7EC87E;
+  --ghibli-forest-dark: #90D890;
+  --ghibli-text: #E0D8C8;
+  --ghibli-text-muted: #9E9178;
+  --ghibli-border: rgba(107, 163, 107, 0.15);
+  --ghibli-forest-alpha: rgba(126, 200, 126, 0.08);
+  --ghibli-wood-alpha: rgba(126, 200, 126, 0.05);
+  --ghibli-sun-alpha: rgba(240, 199, 94, 0.1);
+  --ghibli-card: #222533;
+  
+  .card-wrapper.card {
+    background: #222533 !important;
+  }
+  
+  .site-title {
+    color: #90D890 !important;
+  }
+  
+  .card-title {
+    color: #90D890 !important;
+  }
+  
+  .post-content h1 {
+    color: #90D890;
+  }
+  
+  .post-content h2 {
+    color: #7EC87E;
+    border-left-color: #7EC87E;
+  }
+  
+  .post-content h3 {
+    color: #E8C878;
+  }
+  
+  #sidebar .sidebar-bottom .mode-toggle {
+    color: #FFD700 !important;
+  }
+  
+  #sidebar .nav-item.active a.nav-link {
+    color: #7EC87E !important;
+  }
+}
+
+/* ── 修复底部白色块 ─────────────────────────── */
+
+#search-result-wrapper {
+  background: transparent !important;
+}
+
+#mask {
+  background: rgba(44, 24, 16, 0.3) !important;
+}
+
+/* ── 修复 cloud 定位（不遮挡交互） ─────────── */
+
+/* ── 彻底修复底部白色通知框 ─────────────────── */
+
+
+
+
+
+/* ── 天空云朵装饰（不遮挡布局） ─────────────── */
+#main-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100px;
+  background: radial-gradient(ellipse at 20% 30%, rgba(255,255,255,0.25) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#main-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 60px;
+  left: 100px;
+  width: 140px;
+  height: 60px;
+  background: radial-gradient(ellipse at 40% 50%, rgba(255,255,255,0.18) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── 底部通知框（硬编码颜色，确保覆盖） ──────── */
+#notification.toast,
+#notification.toast.show {
+  display: block !important;
+  background: #FFFFF0 !important;
+  background-color: #FFFFF0 !important;
+  border: 1px solid rgba(196, 169, 125, 0.25) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(139, 115, 85, 0.1) !important;
+  color: #2C1810 !important;
+  min-width: 20rem !important;
+  position: fixed !important;
+  left: 50% !important;
+  bottom: 20% !important;
+  transform: translateX(-50%) !important;
+}
+
+#notification .toast-header {
+  background: none !important;
+  border-bottom: none !important;
+}
+
+#notification .toast-body {
+  font-family: var(--bs-body-font-family) !important;
+  line-height: 1.25rem !important;
+}
+
+#notification .btn-primary {
+  background: #5B8C5A !important;
+  border-color: #5B8C5A !important;
+  color: white !important;
+  border-radius: 8px !important;
+}
+
+#notification .btn-close {
+  filter: none !important;
+  opacity: 0.5 !important;
+}
+
+[data-mode="dark"] #notification.toast,
+[data-mode="dark"] #notification.toast.show {
+  background: #222533 !important;
+  background-color: #222533 !important;
+  border-color: rgba(107, 163, 107, 0.2) !important;
+  color: #E0D8C8 !important;
+}
+
+/* ── Footer 白色背景修复 ────────────────────── */
+#tail-wrapper {
+  background: transparent !important;
+}
+
+footer {
+  background: rgba(196, 169, 125, 0.08) !important;
+  border-top: 1px solid rgba(196, 169, 125, 0.15) !important;
+  padding: 1.5rem 0 2rem !important;
+  margin-top: 2rem !important;
+}
+
+[data-mode="dark"] footer {
+  background: rgba(107, 163, 107, 0.05) !important;
+  border-top-color: rgba(107, 163, 107, 0.1) !important;
+}
+
+footer p,
+footer a {
+  color: var(--ghibli-text-muted, #8B7355) !important;
+}
+
+footer a:hover {
+  color: var(--ghibli-forest, #5B8C5A) !important;
+}
+
+/* ── 文章页宽度自适应优化 ──────────────────── */
+.post-content {
+  max-width: 100% !important;
+  padding: 0 0.5rem !important;
+}
+
+.post-content p,
+.post-content li,
+.post-content blockquote,
+.post-content pre,
+.post-content table {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+/* 文章卡片布局优化 */
+.post-content pre {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* 文章页容器宽度 */
+#post-wrapper .container,
+#post-wrapper > .row > main {
+  max-width: 100% !important;
+}
+
+.post-content img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* 移动端适配 */
+@media (max-width: 849px) {
+  .post-content {
+    padding: 0 0.25rem !important;
+  }
+  
+  #post .card-body {
+    padding: 1rem !important;
+  }
+}
+
+/* 桌面端优化宽度 */
+@media (min-width: 1200px) {
+  .post-content {
+    padding: 0 2rem !important;
+    max-width: 48rem !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* ════════════════════════════════════════════
+   全局布局：全宽自适应
+   ════════════════════════════════════════════ */
+
+/* ── 主容器全宽 ─────────────────────────────── */
+#main-wrapper > .container {
+  max-width: none !important;
+  width: 100% !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* ── 顶部栏全宽，搜索定位到浏览器右上角 ────── */
+#topbar-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+#topbar {
+  max-width: 100% !important;
+  padding-right: 2rem !important;
+}
+
+/* 搜索框靠右对齐 */
+search#search {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+/* ── 内容区自适应 ───────────────────────────── */
+#main-wrapper > .container > .row.flex-grow-1 {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 2rem !important;
+}
+
+#main-wrapper > .container > .row.flex-grow-1 > main {
+  flex: 1 1 auto !important;
+  max-width: 100% !important;
+}
+
+#main-wrapper > .container > .row.flex-grow-1 > aside#panel-wrapper {
+  flex: 0 0 280px !important;
+  max-width: 280px !important;
+}
+
+/* ── 文章内容全宽 ───────────────────────────── */
+.post-content {
+  max-width: 100% !important;
+  padding: 0 1rem !important;
+}
+
+/* ── 删除底部 footer ────────────────────────── */
+#tail-wrapper {
+  display: none !important;
+}
+
+/* ── 移动端适配 ─────────────────────────────── */
+@media (max-width: 849px) {
+  #topbar {
+    padding: 0 1rem !important;
+  }
+  
+  #main-wrapper > .container > .row.flex-grow-1 {
+    padding: 0 1rem !important;
+  }
+  
+  #main-wrapper > .container > .row.flex-grow-1 > aside#panel-wrapper {
+    display: none !important;
+  }
+}
