@@ -1,7 +1,20 @@
 <!-- 宫崎骏·夏日物语主题 -->
 <link rel="stylesheet" href="{{ '/assets/css/ghibli-summer.css' | relative_url }}">
 
-<!-- 修复 PWA 更新 toast 关闭按钮 -->
+<!-- 修复 PWA 更新 toast 点击"更新"后不消失 -->
 <script>
-(function(){var t=document.getElementById('notification');if(!t)return;var o=new MutationObserver(function(){var b=t.querySelector('.toast-body>button');if(b){o.disconnect();b.addEventListener('click',function(){t.classList.remove('show');t.style.display='none';navigator.serviceWorker.ready.then(function(r){r.waiting&&r.waiting.postMessage('SKIP_WAITING');setTimeout(function(){window.location.reload()},300)})})}});o.observe(t,{childList:true,subtree:true})})();
+document.addEventListener('DOMContentLoaded',function(){
+  var t=document.getElementById('notification');
+  if(!t)return;
+  var b=t.querySelector('.toast-body>button');
+  if(!b)return;
+  b.addEventListener('click',function(e){
+    t.classList.remove('show');
+    t.style.display='none';
+    navigator.serviceWorker.ready.then(function(r){
+      if(r.waiting)r.waiting.postMessage('SKIP_WAITING');
+      setTimeout(function(){window.location.reload()},300);
+    });
+  });
+});
 </script>
