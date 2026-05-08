@@ -1,49 +1,96 @@
 <aside
   id="notification"
-  class="toast"
-  role="alert"
-  aria-live="assertive"
-  aria-atomic="true"
-  data-bs-animation="false"
-  data-bs-autohide="false"
   style="display:none"
 >
-  <div class="toast-header">
-    <button
-      type="button"
-      class="btn-close ms-auto"
-      id="notification-close"
-      aria-label="Close"
-    ></button>
+  <div class="notification-panel">
+    <div class="notification-header">
+      <span class="notification-emoji">🌻</span>
+      <button type="button" class="notification-close"
+        onclick="document.getElementById('notification').style.display='none'">&times;</button>
+    </div>
+    <div class="notification-body">
+      <p>{{ site.data.locales[include.lang].notification.update_found }}</p>
+      <button type="button" class="notification-update-btn"
+        onclick="
+          var n=document.getElementById('notification');
+          n.style.display='none';
+          if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+            navigator.serviceWorker.ready.then(function(r){
+              if(r.waiting){r.waiting.postMessage('SKIP_WAITING')}
+            });
+          }
+        ">
+        {{ site.data.locales[include.lang].notification.update }}
+      </button>
+    </div>
   </div>
-  <div class="toast-body text-center pt-0">
-    <p class="px-2 mb-3">{{ site.data.locales[include.lang].notification.update_found }}</p>
-    <button type="button" class="btn btn-primary" aria-label="Update"
-      onclick="
-        var n=document.getElementById('notification');
-        n.style.display='none';
-        n.classList.remove('show');
-        navigator.serviceWorker.ready.then(function(r){
-          if(r.waiting)r.waiting.postMessage('SKIP_WAITING');
-          setTimeout(function(){window.location.reload()},200);
-        });
-      ">
-      {{ site.data.locales[include.lang].notification.update }}
-    </button>
-  </div>
-  <script>
-  (function(){
-    var n=document.getElementById('notification');
-    document.getElementById('notification-close').onclick=function(){
-      n.style.display='none';
-      n.classList.remove('show');
-    };
-    // 接管 app.min.js 的 show 方法：改为用 style.display 控制
-    var origShow=n.classList.add.bind(n.classList);
-    n.classList.add=function(cls){
-      origShow(cls);
-      if(cls==='show')n.style.display='block';
-    };
-  })();
-  </script>
+
+  <style>
+    #notification {
+      position: fixed;
+      bottom: 1.2rem;
+      right: 1.5rem;
+      z-index: 9999;
+      max-width: 320px;
+      background: linear-gradient(135deg, #FFF8E7 0%, #F0FFE8 100%);
+      border: 2px solid #C4A97D;
+      border-radius: 18px;
+      box-shadow: 0 6px 30px rgba(196,169,125,0.25);
+      overflow: hidden;
+      font-family: 'Noto Sans SC','Source Sans Pro',sans-serif;
+    }
+    #notification.show { display:block !important; }
+    .notification-panel { padding: 12px 16px; }
+    .notification-header {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:6px;
+    }
+    .notification-emoji { font-size:1.2rem; }
+    .notification-close {
+      background:none; border:none; font-size:1.4rem; cursor:pointer;
+      color:#8B7355; line-height:1; padding:0 4px;
+    }
+    .notification-close:hover { color:#6B4226; }
+    .notification-body { text-align:center; }
+    .notification-body p {
+      margin:0 0 10px 0; font-size:0.95rem; color:#2C1810;
+    }
+    .notification-update-btn {
+      background: linear-gradient(135deg, #6BA36B, #5B8C5A);
+      color:#fff; border:none; border-radius:20px;
+      padding:7px 22px; font-size:0.9rem; cursor:pointer;
+      font-weight:600; box-shadow:0 2px 8px rgba(91,140,90,0.3);
+      transition: transform 0.2s;
+    }
+    .notification-update-btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #5B8C5A, #3D6B3D);
+    }
+    @media(max-width:576px) {
+      #notification { right:0.8rem; bottom:0.8rem; max-width:280px; }
+    }
+    [data-mode="dark"] #notification {
+      background: linear-gradient(135deg, #2A2D3A 0%, #1E2230 100%);
+      border-color: #4A4D5A;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.4);
+    }
+    [data-mode="dark"] .notification-body p { color:#E0D8C8; }
+    [data-mode="dark"] .notification-close { color:#8B8A90; }
+    [data-mode="dark"] .notification-close:hover { color:#C0B8A8; }
+  </style>
 </aside>
+<script>
+(function(){
+  var n=document.getElementById('notification');
+  if(!n)return;
+  // 接管 classList.add 用于显示
+  var origAdd=n.classList.add.bind(n.classList);
+  n.classList.add=function(c){
+    var args=Array.from(arguments);
+    origAdd.apply(n.classList,args);
+    for(var i=0;i<args.length;i++){
+      if(args[i]==='show'){n.style.display='block'}
+    }
+  };
+})();
+</script>
