@@ -99,3 +99,14 @@ sidebar:
 ## 阶段提交约定
 
 按维护者要求，每个可验收阶段在检查通过后自动创建聚焦的 Git 提交并推送远端；推送前 fetch，推送后检查工作流与线上页面，不使用强制推送。
+
+## 英语手册与词义图
+
+英语主入口按文章课程组织，目录源为 `src/data/english/curriculum.json`。篇章下包含单元和具体文章；正文位于 `src/content/docs/english/` 的 pronunciation、grammar、words、everyday、skills、practice 子目录。每节保留核心问题、对比例句、练习和答案解释，正文底部自动连接前后章节并保存自报完成标记。不要用少量卡片或未写正文的目录代替课程。
+
+- 新增正文时同步课程目录；普通文章用 Markdown，需要图表或交互时用 MDX。
+- Mermaid 词义图集中在 `src/data/english/word-maps.json`。在 MDX 中导入 `WordMeaningMap.astro`，使用 `<WordMeaningMap name="root-port" />`。每图提供标题、文字解释、`accTitle` 和 `accDescr`；每张图只讲清一个关系。历史词源、现代构词和自创联想要分别表述。
+- Mermaid 从本地依赖按需加载，以 strict 安全级别生成 SVG，支持大图与深浅主题，失败时保留文字关系说明。不依赖外部图表 CDN。
+- 核心词汇索引来自 `core-vocabulary.json`，按主题提供当前常用义与搭配，不冒充穷尽所有词义的词典。音素教学图来自 `phonemes.json`，说明口音与音标体系差异。
+- 综合检查来自 `checkpoint.json`，答案解释链接到具体课程，不把小测成绩换算成总体水平。
+- 新的章节完成状态添加在 v1 备份的 `english.completedLessons` 中。保持旧草稿、词汇笔记、卡片时间和旧版备份可读。

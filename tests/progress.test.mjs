@@ -60,8 +60,8 @@ test('v1 backups retain original state and initialize new English notes safely',
   const restored = normalizeProgress(old);
   assert.equal(restored.notes, 'Original draft');
   assert.deepEqual(restored.reviews, old.reviews);
-  assert.deepEqual(restored.english, { wordNotes: {}, sceneDrafts: {} });
+  assert.deepEqual(restored.english, { wordNotes: {}, sceneDrafts: {}, completedLessons: [] });
   const updated = normalizeProgress({ ...restored, english: { wordNotes: { inspect: 'My picture', unknown: 'ignore' }, sceneDrafts: { cafe: 'To go, please.', unknown: 'ignore' } } });
-  assert.deepEqual(updated.english, { wordNotes: { inspect: 'My picture' }, sceneDrafts: { cafe: 'To go, please.' } });
+  assert.deepEqual(updated.english, { wordNotes: { inspect: 'My picture' }, sceneDrafts: { cafe: 'To go, please.' }, completedLessons: [] });
   assert.equal(rateCard(updated, 'vocab-inspect', true, 0).english.wordNotes.inspect, 'My picture');
 });

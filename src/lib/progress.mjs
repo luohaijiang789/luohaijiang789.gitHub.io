@@ -1,3 +1,4 @@
+import { lessons } from '../data/english/curriculum.mjs';
 import { reviewCards } from '../data/english/review-cards.mjs';
 import vocabulary from '../data/english/vocabulary.json' with { type: 'json' };
 import scenes from '../data/english/scenes.json' with { type: 'json' };
@@ -6,7 +7,7 @@ export const STORAGE_KEY = 'haijiang-lab:v1';
 export const STEP_IDS = ['http', 'boundary', 'explain', 'project'];
 export const CARD_IDS = reviewCards.map(card => card.id);
 const DAY = 86_400_000;
-export function emptyProgress() { return { version: 1, completed: [], reviews: {}, notes: '', english: { wordNotes: {}, sceneDrafts: {} } }; }
+export function emptyProgress() { return { version: 1, completed: [], reviews: {}, notes: '', english: { wordNotes: {}, sceneDrafts: {}, completedLessons: [] } }; }
 function cleanNotes(value, ids) {
   return Object.fromEntries(ids.filter(id => typeof value?.[id] === 'string').map(id => [id, value[id].slice(0, 4000)]));
 }
@@ -17,7 +18,7 @@ export function normalizeProgress(value) {
     const r = value.reviews?.[id];
     if (r && Number.isFinite(r.due) && r.due >= 0 && Number.isInteger(r.level) && r.level >= 0 && r.level <= 5) reviews[id] = { due: r.due, level: r.level };
   }
-  return { version: 1, completed: [...new Set((Array.isArray(value.completed) ? value.completed : []).filter(id => STEP_IDS.includes(id)))], reviews, notes: typeof value.notes === 'string' ? value.notes.slice(0, 20000) : '', english: { wordNotes: cleanNotes(value.english?.wordNotes, vocabulary.map(w => w.id)), sceneDrafts: cleanNotes(value.english?.sceneDrafts, scenes.map(s => s.id)) } };
+  return { version: 1, completed: [...new Set((Array.isArray(value.completed) ? value.completed : []).filter(id => STEP_IDS.includes(id)))], reviews, notes: typeof value.notes === 'string' ? value.notes.slice(0, 20000) : '', english: { wordNotes: cleanNotes(value.english?.wordNotes, vocabulary.map(w => w.id)), sceneDrafts: cleanNotes(value.english?.sceneDrafts, scenes.map(s => s.id)), completedLessons: [...new Set((Array.isArray(value.english?.completedLessons) ? value.english.completedLessons : []).filter(id => lessons.some(lesson => lesson.slug === id)))] } };
 }
 export function readProgress(storage) {
   try { const target = storage ?? globalThis.localStorage; const raw = target?.getItem(STORAGE_KEY); return raw ? normalizeProgress(JSON.parse(raw)) : emptyProgress(); }

@@ -1,0 +1,344 @@
+[
+  {
+    "slug": "pronunciation",
+    "title": "发音与拼读",
+    "description": "从音素与发音动作出发，理解字母、重音和实际语流之间的关系。",
+    "units": [
+      {
+        "title": "音素与口腔动作",
+        "lessons": [
+          {
+            "slug": "pronunciation/sounds/map",
+            "title": "字母、音素与音标：先分清三套系统",
+            "goal": "能读懂词典的发音标记，理解一个字母为什么会有不同读音。"
+          },
+          {
+            "slug": "pronunciation/sounds/vowels",
+            "title": "元音：用舌位、口型与对比词建立听感",
+            "goal": "区分常见元音，理解“长短”之外还存在音质差别。"
+          },
+          {
+            "slug": "pronunciation/sounds/consonants",
+            "title": "辅音：气流在哪里受到阻碍",
+            "goal": "掌握常见辅音动作，减少添元音、漏尾音和易混音造成的误解。"
+          }
+        ]
+      },
+      {
+        "title": "拼读与语流规则",
+        "lessons": [
+          {
+            "slug": "pronunciation/rules/spelling",
+            "title": "拼读规则：从字母组合推测，再用词典确认",
+            "goal": "理解常见拼写模式，知道规则的适用条件与例外。"
+          },
+          {
+            "slug": "pronunciation/rules/endings",
+            "title": "-s 与 -ed：看前一个音，不只看字母",
+            "goal": "根据词干末音判断常见词尾读音，避免增加或遗漏音节。"
+          },
+          {
+            "slug": "pronunciation/rules/stress",
+            "title": "单词重音、句子重音与弱读",
+            "goal": "用突出与弱化组织信息，而不是把每个词读得一样重。"
+          },
+          {
+            "slug": "pronunciation/rules/connected",
+            "title": "连读、失去爆破与听力切分",
+            "goal": "理解自然语流为何与逐词朗读不同，并学会从意义和声音两侧切分。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "grammar",
+    "title": "语法体系",
+    "description": "先掌握句子骨架，再建立动词时间与语气，最后组合复杂信息。",
+    "units": [
+      {
+        "title": "句子与词类",
+        "lessons": [
+          {
+            "slug": "grammar/basics/sentence",
+            "title": "句子骨架：词类、成分与五种基本结构",
+            "goal": "把句子拆成主语、谓语、宾语、补语和修饰语，理解词类与成分的区别。"
+          },
+          {
+            "slug": "grammar/basics/nouns",
+            "title": "名词、冠词、代词与限定词",
+            "goal": "根据可数性、指代与信息是否已知，选择名词形式和限定词。"
+          },
+          {
+            "slug": "grammar/basics/modifiers",
+            "title": "形容词、副词、介词与比较",
+            "goal": "用修饰语表达方式、位置、时间与程度，避免词性和搭配错位。"
+          }
+        ]
+      },
+      {
+        "title": "动词体系",
+        "lessons": [
+          {
+            "slug": "grammar/verbs/present",
+            "title": "一般现在与现在进行：习惯、状态与正在发生",
+            "goal": "用时间视角选择动词形式，理解助动词与第三人称变化。"
+          },
+          {
+            "slug": "grammar/verbs/past",
+            "title": "过去时间：事件、背景与先后",
+            "goal": "区分过去事件、当时正在进行的背景，以及过去的过去。"
+          },
+          {
+            "slug": "grammar/verbs/future",
+            "title": "将来表达：预测、打算、安排与时刻表",
+            "goal": "根据表达意图选择 will、going to、现在进行或一般现在形式。"
+          },
+          {
+            "slug": "grammar/verbs/perfect",
+            "title": "完成体与完成进行：把事件连到参照点",
+            "goal": "理解 have done 与 have been doing，以及时间和体的组合。"
+          },
+          {
+            "slug": "grammar/verbs/modals",
+            "title": "情态动词：能力、许可、义务与推测",
+            "goal": "用情态表达态度和把握程度，尤其区分禁止与不必。"
+          },
+          {
+            "slug": "grammar/verbs/passive",
+            "title": "被动语态：让动作承受者成为信息中心",
+            "goal": "构造不同时体的被动形式，并说明执行者何时需要出现。"
+          },
+          {
+            "slug": "grammar/verbs/nonfinite",
+            "title": "不定式、-ing 与分词：句子里的第二个动作",
+            "goal": "用动词搭配和句法角色选择非谓语形式，避免只靠中文译义判断。"
+          }
+        ]
+      },
+      {
+        "title": "复合句与语篇",
+        "lessons": [
+          {
+            "slug": "grammar/clauses/questions",
+            "title": "疑问、否定与间接提问",
+            "goal": "根据助动词与主语位置构造问句，同时保持礼貌与清晰。"
+          },
+          {
+            "slug": "grammar/clauses/content",
+            "title": "并列句与名词性从句：把想法组织成整体",
+            "goal": "使用连接词表达关系，让一个从句承担主语、宾语或补充说明的作用。"
+          },
+          {
+            "slug": "grammar/clauses/relative",
+            "title": "关系从句：说明你指的是哪一个",
+            "goal": "区分限定与补充信息，掌握关系词与省略条件。"
+          },
+          {
+            "slug": "grammar/clauses/conditionals",
+            "title": "状语从句与条件：时间、原因、让步和假设",
+            "goal": "表达事件关系，并区分开放条件与反事实条件。"
+          },
+          {
+            "slug": "grammar/clauses/reported",
+            "title": "转述与时态呼应：把别人的话讲准确",
+            "goal": "调整人称、时间与语序，理解何时需要时态后移。"
+          },
+          {
+            "slug": "grammar/clauses/emphasis",
+            "title": "强调、倒装、省略与信息顺序",
+            "goal": "在认识高级形式的同时，保持重点、指代和逻辑清楚。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "words",
+    "title": "词汇与构词",
+    "description": "把常用词、词根词缀、词族和自然搭配组织为能够理解与使用的知识。",
+    "units": [
+      {
+        "title": "构词系统",
+        "lessons": [
+          {
+            "slug": "words/morphology/prefixes",
+            "title": "前缀系统：否定、方向、时间与程度",
+            "goal": "按意义组织常见前缀，理解同形与例外，不用拆词代替查义。"
+          },
+          {
+            "slug": "words/morphology/suffixes",
+            "title": "后缀系统：词性、拼写变化与屈折",
+            "goal": "用后缀辨认词的句法职责，同时区分派生与时态等语法变化。"
+          },
+          {
+            "slug": "words/morphology/roots",
+            "title": "常见词根：建立有依据的词族线索",
+            "goal": "认识常见拉丁与希腊来源的线索，并区分历史词源与现代构词。"
+          }
+        ]
+      },
+      {
+        "title": "词根分组与词义图",
+        "lessons": [
+          {
+            "slug": "words/roots/perception",
+            "title": "看与听：spect、vis/vid、aud、phon",
+            "goal": "用感知动作联系单词，同时区分检查、可见、听得见与语音。"
+          },
+          {
+            "slug": "words/roots/movement",
+            "title": "移动与传递：port、tract、ject、mit/miss",
+            "goal": "用搬运、拉动、投放与传递的动作线索记住现代搭配。"
+          },
+          {
+            "slug": "words/roots/expression",
+            "title": "书写与构建：scrib/script、struct、graph、dict",
+            "goal": "将写、造、记录与说的来源线索连接到词性、对象和表达。"
+          },
+          {
+            "slug": "words/roots/knowledge",
+            "title": "信任、生命、地球与时间：cred、bio、geo、chron",
+            "goal": "使用学科与判断相关的词根线索，避免把相关词误当成同义词。"
+          },
+          {
+            "slug": "words/roots/scale",
+            "title": "大小、距离、自身与温度：micro/macro、tele、auto、therm",
+            "goal": "把尺度和方向画成关系，再核对现代词义与实际搭配。"
+          }
+        ]
+      },
+      {
+        "title": "词义与使用",
+        "lessons": [
+          {
+            "slug": "words/usage/families",
+            "title": "词族、一词多义与词性转换",
+            "goal": "让一个基本词扩展成可使用的表达网络，而不是机械增加生词数量。"
+          },
+          {
+            "slug": "words/usage/collocations",
+            "title": "搭配、语块与易混词：从认识走到用对",
+            "goal": "按动作与对象记表达，并用对比句修正常见中文直译。"
+          },
+          {
+            "slug": "words/usage/wordbook",
+            "title": "核心词汇：按主题查义、搭配与复习",
+            "goal": "使用可检索的核心词表，建立从词义、搭配到实际使用的记录。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "everyday",
+    "title": "日常与海外生活",
+    "description": "按意图组织对话：理解问题、表达需求、确认条件，再处理意外。",
+    "units": [
+      {
+        "title": "建立联系与日常消费",
+        "lessons": [
+          {
+            "slug": "everyday/introductions",
+            "title": "自我介绍、拼写与联系方式",
+            "goal": "按场景控制信息量，说明身份与目的，并确认姓名和联系方式。"
+          },
+          {
+            "slug": "everyday/food-shopping",
+            "title": "点餐、购物与付款：数量、偏好与核对",
+            "goal": "表达想买什么、确认规格和价格，并处理听不清或点错。"
+          },
+          {
+            "slug": "everyday/social",
+            "title": "闲聊、邀请、拒绝与人际边界",
+            "goal": "让对话有来有往，表达兴趣，也能清楚而礼貌地拒绝。"
+          }
+        ]
+      },
+      {
+        "title": "出行与独立生活",
+        "lessons": [
+          {
+            "slug": "everyday/transport",
+            "title": "问路、乘车与行程变化",
+            "goal": "确认方向、站台、换乘、时间和延误，避免只听到熟悉词就作决定。"
+          },
+          {
+            "slug": "everyday/housing",
+            "title": "租房、看房与报修：把条件问具体",
+            "goal": "询问可用性、费用与设施，并清楚报告居住问题。"
+          },
+          {
+            "slug": "everyday/services",
+            "title": "预约、办事与就医沟通",
+            "goal": "问清所需信息，说明自己的情况，并复述关键安排。"
+          },
+          {
+            "slug": "everyday/problems",
+            "title": "投诉、误解与协商：事实、诉求与下一步",
+            "goal": "在出现问题时保持具体，提出可回答的请求并确认后续。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "skills",
+    "title": "听说读写",
+    "description": "把声音、词汇和语法用于理解与表达，形成能够反复执行的练习流程。",
+    "units": [
+      {
+        "title": "理解输入",
+        "lessons": [
+          {
+            "slug": "skills/listening",
+            "title": "听力：主旨、细节、声音与推断分开练",
+            "goal": "定位听不懂的原因，避免把无限重复播放当成唯一方法。"
+          },
+          {
+            "slug": "skills/reading",
+            "title": "阅读：句子主干、段落结构与证据边界",
+            "goal": "从连接关系理解文章，不把每个生词都当成必须立即停下的问题。"
+          }
+        ]
+      },
+      {
+        "title": "组织输出",
+        "lessons": [
+          {
+            "slug": "skills/speaking",
+            "title": "口语：从短句到完整解释",
+            "goal": "通过跟读、复述与迁移练习提高可懂度，不依赖逐字背稿。"
+          },
+          {
+            "slug": "skills/writing",
+            "title": "写作：句子、段落、邮件与修改",
+            "goal": "把事实、目的与请求组织清楚，并保留初稿和修改理由。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "practice",
+    "title": "路线与综合练习",
+    "description": "先查出具体缺口，再用分章学习、练习解析与阶段复盘形成自己的路径。",
+    "units": [
+      {
+        "title": "学习顺序与自检",
+        "lessons": [
+          {
+            "slug": "practice/roadmap",
+            "title": "怎样学完这套基础课程",
+            "goal": "按先修关系组织学习，以可检验的输出决定是否进入下一步。"
+          },
+          {
+            "slug": "practice/checkpoint",
+            "title": "综合检查：找到该回看的章节",
+            "goal": "用短题定位概念与结构问题，并根据解析回到相应课程。"
+          }
+        ]
+      }
+    ]
+  }
+]

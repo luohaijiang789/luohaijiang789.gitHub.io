@@ -1,0 +1,1756 @@
+[
+  {
+    "id": "function",
+    "label": "代词与限定",
+    "entries": [
+      {
+        "word": "I",
+        "meaning": "我（主语）",
+        "chunk": "I work here."
+      },
+      {
+        "word": "you",
+        "meaning": "你；你们",
+        "chunk": "Can you help?"
+      },
+      {
+        "word": "we",
+        "meaning": "我们",
+        "chunk": "We need more time."
+      },
+      {
+        "word": "they",
+        "meaning": "他们；它们",
+        "chunk": "They are ready."
+      },
+      {
+        "word": "he",
+        "meaning": "他",
+        "chunk": "He is available."
+      },
+      {
+        "word": "she",
+        "meaning": "她",
+        "chunk": "She works remotely."
+      },
+      {
+        "word": "it",
+        "meaning": "它；指代事物",
+        "chunk": "It looks useful."
+      },
+      {
+        "word": "this",
+        "meaning": "这个",
+        "chunk": "this document"
+      },
+      {
+        "word": "that",
+        "meaning": "那个",
+        "chunk": "that building"
+      },
+      {
+        "word": "these",
+        "meaning": "这些",
+        "chunk": "these files"
+      },
+      {
+        "word": "those",
+        "meaning": "那些",
+        "chunk": "those questions"
+      },
+      {
+        "word": "some",
+        "meaning": "一些",
+        "chunk": "some information"
+      },
+      {
+        "word": "any",
+        "meaning": "任何；一些（依语境）",
+        "chunk": "Do you have any questions?"
+      },
+      {
+        "word": "each",
+        "meaning": "每个（逐一）",
+        "chunk": "each request"
+      },
+      {
+        "word": "every",
+        "meaning": "每个（整体规律）",
+        "chunk": "every morning"
+      },
+      {
+        "word": "another",
+        "meaning": "另一个",
+        "chunk": "another option"
+      },
+      {
+        "word": "other",
+        "meaning": "其他的",
+        "chunk": "other people"
+      },
+      {
+        "word": "both",
+        "meaning": "两者都",
+        "chunk": "both versions"
+      },
+      {
+        "word": "all",
+        "meaning": "全部",
+        "chunk": "all the details"
+      },
+      {
+        "word": "either",
+        "meaning": "两者中任一个",
+        "chunk": "either option"
+      },
+      {
+        "word": "neither",
+        "meaning": "两者都不",
+        "chunk": "neither answer"
+      }
+    ]
+  },
+  {
+    "id": "relations",
+    "label": "时间、位置与关系",
+    "entries": [
+      {
+        "word": "at",
+        "meaning": "在某个点或时刻",
+        "chunk": "at the door"
+      },
+      {
+        "word": "in",
+        "meaning": "在范围内；在某月年",
+        "chunk": "in the room"
+      },
+      {
+        "word": "on",
+        "meaning": "在表面；在某天",
+        "chunk": "on Monday"
+      },
+      {
+        "word": "to",
+        "meaning": "向；到",
+        "chunk": "go to work"
+      },
+      {
+        "word": "from",
+        "meaning": "来自；从",
+        "chunk": "from the station"
+      },
+      {
+        "word": "with",
+        "meaning": "和；用",
+        "chunk": "work with a team"
+      },
+      {
+        "word": "without",
+        "meaning": "没有",
+        "chunk": "without permission"
+      },
+      {
+        "word": "for",
+        "meaning": "为了；持续",
+        "chunk": "for two hours"
+      },
+      {
+        "word": "since",
+        "meaning": "自某起点以来",
+        "chunk": "since Monday"
+      },
+      {
+        "word": "until",
+        "meaning": "直到",
+        "chunk": "wait until noon"
+      },
+      {
+        "word": "by",
+        "meaning": "不晚于；经由",
+        "chunk": "by Friday"
+      },
+      {
+        "word": "before",
+        "meaning": "在……之前",
+        "chunk": "before the meeting"
+      },
+      {
+        "word": "after",
+        "meaning": "在……之后",
+        "chunk": "after work"
+      },
+      {
+        "word": "between",
+        "meaning": "在……之间",
+        "chunk": "between two buildings"
+      },
+      {
+        "word": "among",
+        "meaning": "在一群之中",
+        "chunk": "among colleagues"
+      },
+      {
+        "word": "through",
+        "meaning": "穿过；通过",
+        "chunk": "through the park"
+      },
+      {
+        "word": "across",
+        "meaning": "从一边到另一边",
+        "chunk": "across the street"
+      },
+      {
+        "word": "along",
+        "meaning": "沿着",
+        "chunk": "along the road"
+      },
+      {
+        "word": "near",
+        "meaning": "在……附近",
+        "chunk": "near the station"
+      },
+      {
+        "word": "behind",
+        "meaning": "在……后面",
+        "chunk": "behind the building"
+      },
+      {
+        "word": "beside",
+        "meaning": "在……旁边",
+        "chunk": "beside the desk"
+      },
+      {
+        "word": "above",
+        "meaning": "在……上方",
+        "chunk": "above the entrance"
+      },
+      {
+        "word": "below",
+        "meaning": "在……下方",
+        "chunk": "below the table"
+      },
+      {
+        "word": "within",
+        "meaning": "在范围以内",
+        "chunk": "within a week"
+      }
+    ]
+  },
+  {
+    "id": "actions",
+    "label": "常用动作",
+    "entries": [
+      {
+        "word": "be",
+        "meaning": "是；处于某状态",
+        "chunk": "be ready"
+      },
+      {
+        "word": "have",
+        "meaning": "有；经历",
+        "chunk": "have a question"
+      },
+      {
+        "word": "do",
+        "meaning": "做；用于助动结构",
+        "chunk": "do research"
+      },
+      {
+        "word": "make",
+        "meaning": "制作；造成",
+        "chunk": "make a decision"
+      },
+      {
+        "word": "get",
+        "meaning": "得到；变得",
+        "chunk": "get an update"
+      },
+      {
+        "word": "go",
+        "meaning": "去",
+        "chunk": "go home"
+      },
+      {
+        "word": "come",
+        "meaning": "来",
+        "chunk": "come to the office"
+      },
+      {
+        "word": "take",
+        "meaning": "拿；花费；乘坐",
+        "chunk": "take a train"
+      },
+      {
+        "word": "give",
+        "meaning": "给予",
+        "chunk": "give feedback"
+      },
+      {
+        "word": "put",
+        "meaning": "放置",
+        "chunk": "put it on the desk"
+      },
+      {
+        "word": "keep",
+        "meaning": "保留；保持",
+        "chunk": "keep the receipt"
+      },
+      {
+        "word": "leave",
+        "meaning": "离开；留下",
+        "chunk": "leave a message"
+      },
+      {
+        "word": "bring",
+        "meaning": "带来",
+        "chunk": "bring your document"
+      },
+      {
+        "word": "send",
+        "meaning": "发送",
+        "chunk": "send an email"
+      },
+      {
+        "word": "receive",
+        "meaning": "接收",
+        "chunk": "receive a reply"
+      },
+      {
+        "word": "find",
+        "meaning": "找到；发现",
+        "chunk": "find a solution"
+      },
+      {
+        "word": "look",
+        "meaning": "看；显得",
+        "chunk": "look at the screen"
+      },
+      {
+        "word": "see",
+        "meaning": "看到；理解",
+        "chunk": "see the difference"
+      },
+      {
+        "word": "hear",
+        "meaning": "听到",
+        "chunk": "hear a noise"
+      },
+      {
+        "word": "listen",
+        "meaning": "倾听",
+        "chunk": "listen to the recording"
+      },
+      {
+        "word": "speak",
+        "meaning": "说；发言",
+        "chunk": "speak clearly"
+      },
+      {
+        "word": "tell",
+        "meaning": "告诉",
+        "chunk": "tell me the time"
+      },
+      {
+        "word": "say",
+        "meaning": "说出",
+        "chunk": "say it again"
+      },
+      {
+        "word": "ask",
+        "meaning": "询问；请求",
+        "chunk": "ask for help"
+      },
+      {
+        "word": "answer",
+        "meaning": "回答",
+        "chunk": "answer the question"
+      }
+    ]
+  },
+  {
+    "id": "thinking",
+    "label": "学习与判断",
+    "entries": [
+      {
+        "word": "know",
+        "meaning": "知道",
+        "chunk": "know the answer"
+      },
+      {
+        "word": "understand",
+        "meaning": "理解",
+        "chunk": "understand the requirement"
+      },
+      {
+        "word": "learn",
+        "meaning": "学会；学习",
+        "chunk": "learn a skill"
+      },
+      {
+        "word": "study",
+        "meaning": "学习；研究",
+        "chunk": "study grammar"
+      },
+      {
+        "word": "read",
+        "meaning": "阅读",
+        "chunk": "read a report"
+      },
+      {
+        "word": "write",
+        "meaning": "写",
+        "chunk": "write a summary"
+      },
+      {
+        "word": "think",
+        "meaning": "思考；认为",
+        "chunk": "think about the problem"
+      },
+      {
+        "word": "believe",
+        "meaning": "相信；认为",
+        "chunk": "believe the evidence"
+      },
+      {
+        "word": "remember",
+        "meaning": "记得",
+        "chunk": "remember to check"
+      },
+      {
+        "word": "forget",
+        "meaning": "忘记",
+        "chunk": "forget the password"
+      },
+      {
+        "word": "explain",
+        "meaning": "解释",
+        "chunk": "explain the reason"
+      },
+      {
+        "word": "clarify",
+        "meaning": "澄清",
+        "chunk": "clarify the requirement"
+      },
+      {
+        "word": "compare",
+        "meaning": "比较",
+        "chunk": "compare the results"
+      },
+      {
+        "word": "choose",
+        "meaning": "选择",
+        "chunk": "choose an option"
+      },
+      {
+        "word": "decide",
+        "meaning": "决定",
+        "chunk": "decide to continue"
+      },
+      {
+        "word": "consider",
+        "meaning": "考虑",
+        "chunk": "consider another approach"
+      },
+      {
+        "word": "expect",
+        "meaning": "预期",
+        "chunk": "expect a reply"
+      },
+      {
+        "word": "predict",
+        "meaning": "预测",
+        "chunk": "predict a failure"
+      },
+      {
+        "word": "notice",
+        "meaning": "注意到",
+        "chunk": "notice a change"
+      },
+      {
+        "word": "check",
+        "meaning": "检查；核对",
+        "chunk": "check the details"
+      },
+      {
+        "word": "verify",
+        "meaning": "核验",
+        "chunk": "verify the result"
+      },
+      {
+        "word": "confirm",
+        "meaning": "确认",
+        "chunk": "confirm the time"
+      },
+      {
+        "word": "guess",
+        "meaning": "猜测",
+        "chunk": "guess the meaning"
+      },
+      {
+        "word": "solve",
+        "meaning": "解决",
+        "chunk": "solve a problem"
+      }
+    ]
+  },
+  {
+    "id": "people",
+    "label": "人物、关系与感受",
+    "entries": [
+      {
+        "word": "person",
+        "meaning": "人",
+        "chunk": "one person"
+      },
+      {
+        "word": "people",
+        "meaning": "人们",
+        "chunk": "meet new people"
+      },
+      {
+        "word": "friend",
+        "meaning": "朋友",
+        "chunk": "a close friend"
+      },
+      {
+        "word": "colleague",
+        "meaning": "同事",
+        "chunk": "ask a colleague"
+      },
+      {
+        "word": "manager",
+        "meaning": "经理；管理者",
+        "chunk": "speak to the manager"
+      },
+      {
+        "word": "customer",
+        "meaning": "顾客",
+        "chunk": "help a customer"
+      },
+      {
+        "word": "client",
+        "meaning": "客户",
+        "chunk": "a client meeting"
+      },
+      {
+        "word": "neighbour",
+        "meaning": "邻居",
+        "chunk": "talk to a neighbour"
+      },
+      {
+        "word": "family",
+        "meaning": "家庭；家人",
+        "chunk": "visit my family"
+      },
+      {
+        "word": "partner",
+        "meaning": "搭档；伴侣",
+        "chunk": "a project partner"
+      },
+      {
+        "word": "team",
+        "meaning": "团队",
+        "chunk": "join a team"
+      },
+      {
+        "word": "guest",
+        "meaning": "客人",
+        "chunk": "welcome a guest"
+      },
+      {
+        "word": "happy",
+        "meaning": "高兴的",
+        "chunk": "happy to help"
+      },
+      {
+        "word": "worried",
+        "meaning": "担心的",
+        "chunk": "worried about the delay"
+      },
+      {
+        "word": "tired",
+        "meaning": "疲惫的",
+        "chunk": "feel tired"
+      },
+      {
+        "word": "busy",
+        "meaning": "忙碌的",
+        "chunk": "a busy afternoon"
+      },
+      {
+        "word": "comfortable",
+        "meaning": "舒适的",
+        "chunk": "feel comfortable"
+      },
+      {
+        "word": "confident",
+        "meaning": "有信心的",
+        "chunk": "confident about the plan"
+      },
+      {
+        "word": "interested",
+        "meaning": "感兴趣的",
+        "chunk": "interested in security"
+      },
+      {
+        "word": "confused",
+        "meaning": "困惑的",
+        "chunk": "confused about the rule"
+      },
+      {
+        "word": "polite",
+        "meaning": "有礼貌的",
+        "chunk": "a polite request"
+      },
+      {
+        "word": "patient",
+        "meaning": "有耐心的",
+        "chunk": "be patient"
+      },
+      {
+        "word": "honest",
+        "meaning": "诚实的",
+        "chunk": "an honest answer"
+      },
+      {
+        "word": "private",
+        "meaning": "私人的；私密的",
+        "chunk": "private information"
+      }
+    ]
+  },
+  {
+    "id": "home",
+    "label": "住房与日用品",
+    "entries": [
+      {
+        "word": "home",
+        "meaning": "家",
+        "chunk": "work from home"
+      },
+      {
+        "word": "room",
+        "meaning": "房间",
+        "chunk": "a shared room"
+      },
+      {
+        "word": "apartment",
+        "meaning": "公寓",
+        "chunk": "rent an apartment"
+      },
+      {
+        "word": "rent",
+        "meaning": "租金；租用",
+        "chunk": "pay the rent"
+      },
+      {
+        "word": "deposit",
+        "meaning": "押金；存款",
+        "chunk": "a rental deposit"
+      },
+      {
+        "word": "bill",
+        "meaning": "账单",
+        "chunk": "an electricity bill"
+      },
+      {
+        "word": "utilities",
+        "meaning": "水电等公用事业服务",
+        "chunk": "Are utilities included?"
+      },
+      {
+        "word": "furniture",
+        "meaning": "家具（通常不可数）",
+        "chunk": "basic furniture"
+      },
+      {
+        "word": "desk",
+        "meaning": "书桌；办公桌",
+        "chunk": "a desk lamp"
+      },
+      {
+        "word": "chair",
+        "meaning": "椅子",
+        "chunk": "a comfortable chair"
+      },
+      {
+        "word": "door",
+        "meaning": "门",
+        "chunk": "close the door"
+      },
+      {
+        "word": "window",
+        "meaning": "窗户",
+        "chunk": "open the window"
+      },
+      {
+        "word": "key",
+        "meaning": "钥匙",
+        "chunk": "a spare key"
+      },
+      {
+        "word": "kitchen",
+        "meaning": "厨房",
+        "chunk": "a shared kitchen"
+      },
+      {
+        "word": "bathroom",
+        "meaning": "浴室；卫生间",
+        "chunk": "Where is the bathroom?"
+      },
+      {
+        "word": "heating",
+        "meaning": "供暖",
+        "chunk": "the heating system"
+      },
+      {
+        "word": "water",
+        "meaning": "水",
+        "chunk": "hot water"
+      },
+      {
+        "word": "light",
+        "meaning": "灯；光",
+        "chunk": "turn on the light"
+      },
+      {
+        "word": "repair",
+        "meaning": "修理",
+        "chunk": "request a repair"
+      },
+      {
+        "word": "leak",
+        "meaning": "泄漏",
+        "chunk": "a leak under the sink"
+      },
+      {
+        "word": "address",
+        "meaning": "地址",
+        "chunk": "confirm the address"
+      },
+      {
+        "word": "move",
+        "meaning": "搬家；移动",
+        "chunk": "move into the apartment"
+      },
+      {
+        "word": "clean",
+        "meaning": "清洁",
+        "chunk": "clean the room"
+      },
+      {
+        "word": "quiet",
+        "meaning": "安静的",
+        "chunk": "a quiet neighbourhood"
+      }
+    ]
+  },
+  {
+    "id": "transport",
+    "label": "出行与方向",
+    "entries": [
+      {
+        "word": "station",
+        "meaning": "车站",
+        "chunk": "the nearest station"
+      },
+      {
+        "word": "stop",
+        "meaning": "站点；停止",
+        "chunk": "the next bus stop"
+      },
+      {
+        "word": "platform",
+        "meaning": "站台",
+        "chunk": "the departure platform"
+      },
+      {
+        "word": "ticket",
+        "meaning": "票",
+        "chunk": "a return ticket"
+      },
+      {
+        "word": "fare",
+        "meaning": "交通票价",
+        "chunk": "check the fare"
+      },
+      {
+        "word": "train",
+        "meaning": "火车",
+        "chunk": "catch a train"
+      },
+      {
+        "word": "bus",
+        "meaning": "公共汽车",
+        "chunk": "take the bus"
+      },
+      {
+        "word": "flight",
+        "meaning": "航班",
+        "chunk": "a direct flight"
+      },
+      {
+        "word": "airport",
+        "meaning": "机场",
+        "chunk": "arrive at the airport"
+      },
+      {
+        "word": "passport",
+        "meaning": "护照",
+        "chunk": "check your passport"
+      },
+      {
+        "word": "luggage",
+        "meaning": "行李（通常不可数）",
+        "chunk": "carry luggage"
+      },
+      {
+        "word": "journey",
+        "meaning": "旅程",
+        "chunk": "a long journey"
+      },
+      {
+        "word": "route",
+        "meaning": "路线",
+        "chunk": "an alternative route"
+      },
+      {
+        "word": "direction",
+        "meaning": "方向",
+        "chunk": "ask for directions"
+      },
+      {
+        "word": "entrance",
+        "meaning": "入口",
+        "chunk": "the main entrance"
+      },
+      {
+        "word": "exit",
+        "meaning": "出口",
+        "chunk": "the nearest exit"
+      },
+      {
+        "word": "left",
+        "meaning": "左边",
+        "chunk": "turn left"
+      },
+      {
+        "word": "right",
+        "meaning": "右边",
+        "chunk": "on your right"
+      },
+      {
+        "word": "straight",
+        "meaning": "直地；径直",
+        "chunk": "go straight"
+      },
+      {
+        "word": "cross",
+        "meaning": "穿过",
+        "chunk": "cross the road"
+      },
+      {
+        "word": "depart",
+        "meaning": "出发",
+        "chunk": "depart at six"
+      },
+      {
+        "word": "arrive",
+        "meaning": "到达",
+        "chunk": "arrive on time"
+      },
+      {
+        "word": "delay",
+        "meaning": "延误",
+        "chunk": "a short delay"
+      },
+      {
+        "word": "transfer",
+        "meaning": "换乘；转移",
+        "chunk": "transfer at Central"
+      }
+    ]
+  },
+  {
+    "id": "food",
+    "label": "饮食与购物",
+    "entries": [
+      {
+        "word": "food",
+        "meaning": "食物",
+        "chunk": "order food"
+      },
+      {
+        "word": "meal",
+        "meaning": "一餐",
+        "chunk": "a hot meal"
+      },
+      {
+        "word": "breakfast",
+        "meaning": "早餐",
+        "chunk": "have breakfast"
+      },
+      {
+        "word": "lunch",
+        "meaning": "午餐",
+        "chunk": "after lunch"
+      },
+      {
+        "word": "dinner",
+        "meaning": "晚餐",
+        "chunk": "join us for dinner"
+      },
+      {
+        "word": "coffee",
+        "meaning": "咖啡",
+        "chunk": "a small coffee"
+      },
+      {
+        "word": "tea",
+        "meaning": "茶",
+        "chunk": "a cup of tea"
+      },
+      {
+        "word": "milk",
+        "meaning": "牛奶",
+        "chunk": "a bottle of milk"
+      },
+      {
+        "word": "bread",
+        "meaning": "面包（通常不可数）",
+        "chunk": "a slice of bread"
+      },
+      {
+        "word": "rice",
+        "meaning": "米饭；大米",
+        "chunk": "a bowl of rice"
+      },
+      {
+        "word": "vegetable",
+        "meaning": "蔬菜",
+        "chunk": "fresh vegetables"
+      },
+      {
+        "word": "fruit",
+        "meaning": "水果",
+        "chunk": "fresh fruit"
+      },
+      {
+        "word": "sugar",
+        "meaning": "糖",
+        "chunk": "without sugar"
+      },
+      {
+        "word": "salt",
+        "meaning": "盐",
+        "chunk": "a little salt"
+      },
+      {
+        "word": "menu",
+        "meaning": "菜单",
+        "chunk": "look at the menu"
+      },
+      {
+        "word": "order",
+        "meaning": "点单；订单",
+        "chunk": "place an order"
+      },
+      {
+        "word": "price",
+        "meaning": "价格",
+        "chunk": "confirm the price"
+      },
+      {
+        "word": "size",
+        "meaning": "尺寸",
+        "chunk": "a smaller size"
+      },
+      {
+        "word": "receipt",
+        "meaning": "收据；小票",
+        "chunk": "keep the receipt"
+      },
+      {
+        "word": "recipe",
+        "meaning": "食谱",
+        "chunk": "follow a recipe"
+      },
+      {
+        "word": "cash",
+        "meaning": "现金",
+        "chunk": "pay in cash"
+      },
+      {
+        "word": "card",
+        "meaning": "卡",
+        "chunk": "pay by card"
+      },
+      {
+        "word": "change",
+        "meaning": "零钱；变化",
+        "chunk": "keep the change"
+      },
+      {
+        "word": "refund",
+        "meaning": "退款",
+        "chunk": "ask for a refund"
+      }
+    ]
+  },
+  {
+    "id": "services",
+    "label": "预约与办事",
+    "entries": [
+      {
+        "word": "appointment",
+        "meaning": "预约",
+        "chunk": "make an appointment"
+      },
+      {
+        "word": "schedule",
+        "meaning": "日程；安排",
+        "chunk": "schedule a meeting"
+      },
+      {
+        "word": "available",
+        "meaning": "有空的；可用的",
+        "chunk": "Are you available?"
+      },
+      {
+        "word": "availability",
+        "meaning": "有空的时间；可用性",
+        "chunk": "check your availability"
+      },
+      {
+        "word": "reschedule",
+        "meaning": "改期",
+        "chunk": "reschedule an appointment"
+      },
+      {
+        "word": "cancel",
+        "meaning": "取消",
+        "chunk": "cancel the booking"
+      },
+      {
+        "word": "booking",
+        "meaning": "预订",
+        "chunk": "confirm a booking"
+      },
+      {
+        "word": "form",
+        "meaning": "表格",
+        "chunk": "fill in a form"
+      },
+      {
+        "word": "document",
+        "meaning": "文件；证件材料",
+        "chunk": "provide a document"
+      },
+      {
+        "word": "identity",
+        "meaning": "身份",
+        "chunk": "verify your identity"
+      },
+      {
+        "word": "account",
+        "meaning": "账户",
+        "chunk": "open an account"
+      },
+      {
+        "word": "balance",
+        "meaning": "余额",
+        "chunk": "check the balance"
+      },
+      {
+        "word": "fee",
+        "meaning": "费用",
+        "chunk": "a service fee"
+      },
+      {
+        "word": "insurance",
+        "meaning": "保险",
+        "chunk": "health insurance"
+      },
+      {
+        "word": "clinic",
+        "meaning": "诊所",
+        "chunk": "contact the clinic"
+      },
+      {
+        "word": "doctor",
+        "meaning": "医生",
+        "chunk": "see a doctor"
+      },
+      {
+        "word": "symptom",
+        "meaning": "症状",
+        "chunk": "describe the symptoms"
+      },
+      {
+        "word": "pain",
+        "meaning": "疼痛",
+        "chunk": "describe the pain"
+      },
+      {
+        "word": "allergy",
+        "meaning": "过敏",
+        "chunk": "a food allergy"
+      },
+      {
+        "word": "medicine",
+        "meaning": "药；医学",
+        "chunk": "take medicine"
+      },
+      {
+        "word": "prescription",
+        "meaning": "处方",
+        "chunk": "a prescription from a doctor"
+      },
+      {
+        "word": "emergency",
+        "meaning": "紧急情况",
+        "chunk": "in an emergency"
+      },
+      {
+        "word": "assistance",
+        "meaning": "帮助",
+        "chunk": "ask for assistance"
+      },
+      {
+        "word": "information",
+        "meaning": "信息（通常不可数）",
+        "chunk": "some information"
+      }
+    ]
+  },
+  {
+    "id": "work",
+    "label": "工作与职业",
+    "entries": [
+      {
+        "word": "job",
+        "meaning": "职位；工作任务",
+        "chunk": "apply for a job"
+      },
+      {
+        "word": "work",
+        "meaning": "工作（常不可数）",
+        "chunk": "important work"
+      },
+      {
+        "word": "career",
+        "meaning": "职业发展",
+        "chunk": "a career goal"
+      },
+      {
+        "word": "role",
+        "meaning": "职责；岗位",
+        "chunk": "a technical role"
+      },
+      {
+        "word": "experience",
+        "meaning": "经验；经历",
+        "chunk": "relevant experience"
+      },
+      {
+        "word": "skill",
+        "meaning": "技能",
+        "chunk": "communication skills"
+      },
+      {
+        "word": "qualification",
+        "meaning": "资格；资历",
+        "chunk": "a professional qualification"
+      },
+      {
+        "word": "application",
+        "meaning": "申请；应用",
+        "chunk": "a job application"
+      },
+      {
+        "word": "interview",
+        "meaning": "面试",
+        "chunk": "prepare for an interview"
+      },
+      {
+        "word": "resume",
+        "meaning": "简历（美式常用）",
+        "chunk": "update your resume"
+      },
+      {
+        "word": "salary",
+        "meaning": "薪资",
+        "chunk": "discuss the salary"
+      },
+      {
+        "word": "contract",
+        "meaning": "合同",
+        "chunk": "review a contract"
+      },
+      {
+        "word": "project",
+        "meaning": "项目",
+        "chunk": "work on a project"
+      },
+      {
+        "word": "task",
+        "meaning": "任务",
+        "chunk": "complete a task"
+      },
+      {
+        "word": "deadline",
+        "meaning": "截止时间",
+        "chunk": "meet a deadline"
+      },
+      {
+        "word": "meeting",
+        "meaning": "会议",
+        "chunk": "attend a meeting"
+      },
+      {
+        "word": "agenda",
+        "meaning": "议程",
+        "chunk": "share the agenda"
+      },
+      {
+        "word": "progress",
+        "meaning": "进展（常不可数）",
+        "chunk": "report progress"
+      },
+      {
+        "word": "feedback",
+        "meaning": "反馈（常不可数）",
+        "chunk": "ask for feedback"
+      },
+      {
+        "word": "evidence",
+        "meaning": "证据（常不可数）",
+        "chunk": "collect evidence"
+      },
+      {
+        "word": "result",
+        "meaning": "结果",
+        "chunk": "compare results"
+      },
+      {
+        "word": "requirement",
+        "meaning": "要求",
+        "chunk": "clarify a requirement"
+      },
+      {
+        "word": "responsibility",
+        "meaning": "责任；职责",
+        "chunk": "take responsibility"
+      },
+      {
+        "word": "opportunity",
+        "meaning": "机会",
+        "chunk": "a learning opportunity"
+      }
+    ]
+  },
+  {
+    "id": "technology",
+    "label": "技术与安全",
+    "entries": [
+      {
+        "word": "system",
+        "meaning": "系统",
+        "chunk": "a secure system"
+      },
+      {
+        "word": "software",
+        "meaning": "软件（通常不可数）",
+        "chunk": "install software"
+      },
+      {
+        "word": "hardware",
+        "meaning": "硬件（通常不可数）",
+        "chunk": "hardware support"
+      },
+      {
+        "word": "network",
+        "meaning": "网络",
+        "chunk": "connect to the network"
+      },
+      {
+        "word": "server",
+        "meaning": "服务器",
+        "chunk": "restart the server"
+      },
+      {
+        "word": "client-side",
+        "meaning": "客户端的",
+        "chunk": "client-side validation"
+      },
+      {
+        "word": "database",
+        "meaning": "数据库",
+        "chunk": "query a database"
+      },
+      {
+        "word": "file",
+        "meaning": "文件",
+        "chunk": "open a file"
+      },
+      {
+        "word": "folder",
+        "meaning": "文件夹",
+        "chunk": "a shared folder"
+      },
+      {
+        "word": "permission",
+        "meaning": "权限；许可",
+        "chunk": "request permission"
+      },
+      {
+        "word": "access",
+        "meaning": "访问；访问权",
+        "chunk": "have access to a file"
+      },
+      {
+        "word": "password",
+        "meaning": "密码",
+        "chunk": "change your password"
+      },
+      {
+        "word": "token",
+        "meaning": "令牌",
+        "chunk": "validate a token"
+      },
+      {
+        "word": "request",
+        "meaning": "请求",
+        "chunk": "block a request"
+      },
+      {
+        "word": "response",
+        "meaning": "响应",
+        "chunk": "check the response"
+      },
+      {
+        "word": "input",
+        "meaning": "输入",
+        "chunk": "validate user input"
+      },
+      {
+        "word": "output",
+        "meaning": "输出",
+        "chunk": "inspect the output"
+      },
+      {
+        "word": "model",
+        "meaning": "模型",
+        "chunk": "evaluate a model"
+      },
+      {
+        "word": "agent",
+        "meaning": "智能体；代理",
+        "chunk": "an AI agent"
+      },
+      {
+        "word": "threat",
+        "meaning": "威胁",
+        "chunk": "identify a threat"
+      },
+      {
+        "word": "risk",
+        "meaning": "风险",
+        "chunk": "assess a risk"
+      },
+      {
+        "word": "vulnerability",
+        "meaning": "漏洞；脆弱性",
+        "chunk": "fix a vulnerability"
+      },
+      {
+        "word": "attack",
+        "meaning": "攻击",
+        "chunk": "detect an attack"
+      },
+      {
+        "word": "policy",
+        "meaning": "策略；政策",
+        "chunk": "an access policy"
+      }
+    ]
+  },
+  {
+    "id": "communication",
+    "label": "沟通与协作",
+    "entries": [
+      {
+        "word": "message",
+        "meaning": "消息",
+        "chunk": "leave a message"
+      },
+      {
+        "word": "email",
+        "meaning": "电子邮件",
+        "chunk": "send an email"
+      },
+      {
+        "word": "call",
+        "meaning": "通话；打电话",
+        "chunk": "join a call"
+      },
+      {
+        "word": "conversation",
+        "meaning": "交谈",
+        "chunk": "start a conversation"
+      },
+      {
+        "word": "question",
+        "meaning": "问题（问句）",
+        "chunk": "ask a question"
+      },
+      {
+        "word": "issue",
+        "meaning": "问题；议题",
+        "chunk": "raise an issue"
+      },
+      {
+        "word": "problem",
+        "meaning": "需要解决的问题",
+        "chunk": "solve a problem"
+      },
+      {
+        "word": "reason",
+        "meaning": "原因",
+        "chunk": "explain the reason"
+      },
+      {
+        "word": "purpose",
+        "meaning": "目的",
+        "chunk": "state the purpose"
+      },
+      {
+        "word": "opinion",
+        "meaning": "看法",
+        "chunk": "share an opinion"
+      },
+      {
+        "word": "suggestion",
+        "meaning": "建议（可数）",
+        "chunk": "make a suggestion"
+      },
+      {
+        "word": "advice",
+        "meaning": "建议（通常不可数）",
+        "chunk": "a piece of advice"
+      },
+      {
+        "word": "agreement",
+        "meaning": "共识；协议",
+        "chunk": "reach an agreement"
+      },
+      {
+        "word": "difference",
+        "meaning": "差异",
+        "chunk": "explain the difference"
+      },
+      {
+        "word": "detail",
+        "meaning": "细节",
+        "chunk": "confirm the details"
+      },
+      {
+        "word": "context",
+        "meaning": "上下文；背景",
+        "chunk": "provide more context"
+      },
+      {
+        "word": "summary",
+        "meaning": "摘要",
+        "chunk": "write a summary"
+      },
+      {
+        "word": "example",
+        "meaning": "例子",
+        "chunk": "give an example"
+      },
+      {
+        "word": "option",
+        "meaning": "选项",
+        "chunk": "consider an option"
+      },
+      {
+        "word": "alternative",
+        "meaning": "替代方案",
+        "chunk": "an alternative solution"
+      },
+      {
+        "word": "clarification",
+        "meaning": "澄清；说明",
+        "chunk": "ask for clarification"
+      },
+      {
+        "word": "explanation",
+        "meaning": "解释",
+        "chunk": "a clear explanation"
+      },
+      {
+        "word": "recommendation",
+        "meaning": "推荐；建议",
+        "chunk": "ask for a recommendation"
+      },
+      {
+        "word": "update",
+        "meaning": "更新",
+        "chunk": "send an update"
+      }
+    ]
+  },
+  {
+    "id": "qualities",
+    "label": "性质、程度与评价",
+    "entries": [
+      {
+        "word": "good",
+        "meaning": "好的",
+        "chunk": "a good idea"
+      },
+      {
+        "word": "better",
+        "meaning": "更好的",
+        "chunk": "a better approach"
+      },
+      {
+        "word": "best",
+        "meaning": "最好的",
+        "chunk": "the best option"
+      },
+      {
+        "word": "bad",
+        "meaning": "不好的",
+        "chunk": "a bad result"
+      },
+      {
+        "word": "worse",
+        "meaning": "更差的",
+        "chunk": "a worse outcome"
+      },
+      {
+        "word": "useful",
+        "meaning": "有用的",
+        "chunk": "a useful tool"
+      },
+      {
+        "word": "helpful",
+        "meaning": "有帮助的",
+        "chunk": "helpful feedback"
+      },
+      {
+        "word": "careful",
+        "meaning": "仔细的",
+        "chunk": "a careful review"
+      },
+      {
+        "word": "careless",
+        "meaning": "粗心的",
+        "chunk": "a careless mistake"
+      },
+      {
+        "word": "clear",
+        "meaning": "清楚的",
+        "chunk": "a clear message"
+      },
+      {
+        "word": "reliable",
+        "meaning": "可靠的",
+        "chunk": "reliable evidence"
+      },
+      {
+        "word": "accurate",
+        "meaning": "准确的",
+        "chunk": "an accurate description"
+      },
+      {
+        "word": "correct",
+        "meaning": "正确的",
+        "chunk": "the correct answer"
+      },
+      {
+        "word": "possible",
+        "meaning": "可能的",
+        "chunk": "a possible cause"
+      },
+      {
+        "word": "necessary",
+        "meaning": "必要的",
+        "chunk": "a necessary step"
+      },
+      {
+        "word": "important",
+        "meaning": "重要的",
+        "chunk": "an important detail"
+      },
+      {
+        "word": "simple",
+        "meaning": "简单的",
+        "chunk": "a simple explanation"
+      },
+      {
+        "word": "complex",
+        "meaning": "复杂的",
+        "chunk": "a complex problem"
+      },
+      {
+        "word": "safe",
+        "meaning": "安全的",
+        "chunk": "a safe option"
+      },
+      {
+        "word": "unsafe",
+        "meaning": "不安全的",
+        "chunk": "an unsafe operation"
+      },
+      {
+        "word": "secure",
+        "meaning": "安全可靠的",
+        "chunk": "a secure connection"
+      },
+      {
+        "word": "public",
+        "meaning": "公开的",
+        "chunk": "public information"
+      },
+      {
+        "word": "similar",
+        "meaning": "相似的",
+        "chunk": "a similar case"
+      },
+      {
+        "word": "different",
+        "meaning": "不同的",
+        "chunk": "a different approach"
+      }
+    ]
+  },
+  {
+    "id": "organisation",
+    "label": "逻辑、数量与时间",
+    "entries": [
+      {
+        "word": "because",
+        "meaning": "因为",
+        "chunk": "because it failed"
+      },
+      {
+        "word": "although",
+        "meaning": "虽然",
+        "chunk": "although it is useful"
+      },
+      {
+        "word": "however",
+        "meaning": "然而",
+        "chunk": "However, we need more evidence."
+      },
+      {
+        "word": "therefore",
+        "meaning": "因此",
+        "chunk": "Therefore, we changed the plan."
+      },
+      {
+        "word": "if",
+        "meaning": "如果；是否（依结构）",
+        "chunk": "if it works"
+      },
+      {
+        "word": "unless",
+        "meaning": "除非",
+        "chunk": "unless we hear otherwise"
+      },
+      {
+        "word": "whether",
+        "meaning": "是否",
+        "chunk": "whether it is ready"
+      },
+      {
+        "word": "while",
+        "meaning": "当……时；而",
+        "chunk": "while I was waiting"
+      },
+      {
+        "word": "already",
+        "meaning": "已经",
+        "chunk": "already completed"
+      },
+      {
+        "word": "yet",
+        "meaning": "尚；已经（依语境）",
+        "chunk": "not ready yet"
+      },
+      {
+        "word": "still",
+        "meaning": "仍然",
+        "chunk": "still available"
+      },
+      {
+        "word": "just",
+        "meaning": "刚刚；仅仅",
+        "chunk": "just finished"
+      },
+      {
+        "word": "often",
+        "meaning": "经常",
+        "chunk": "often use this tool"
+      },
+      {
+        "word": "usually",
+        "meaning": "通常",
+        "chunk": "usually work here"
+      },
+      {
+        "word": "sometimes",
+        "meaning": "有时",
+        "chunk": "sometimes work remotely"
+      },
+      {
+        "word": "never",
+        "meaning": "从不",
+        "chunk": "never share passwords"
+      },
+      {
+        "word": "enough",
+        "meaning": "足够",
+        "chunk": "enough time"
+      },
+      {
+        "word": "almost",
+        "meaning": "几乎",
+        "chunk": "almost finished"
+      },
+      {
+        "word": "several",
+        "meaning": "几个",
+        "chunk": "several options"
+      },
+      {
+        "word": "few",
+        "meaning": "很少的（可数）",
+        "chunk": "few alternatives"
+      },
+      {
+        "word": "little",
+        "meaning": "很少的（不可数）",
+        "chunk": "little evidence"
+      },
+      {
+        "word": "more",
+        "meaning": "更多",
+        "chunk": "more information"
+      },
+      {
+        "word": "less",
+        "meaning": "更少",
+        "chunk": "less time"
+      },
+      {
+        "word": "recently",
+        "meaning": "最近",
+        "chunk": "recently updated"
+      }
+    ]
+  }
+]

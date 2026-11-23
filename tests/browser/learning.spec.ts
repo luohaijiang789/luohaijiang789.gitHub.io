@@ -16,7 +16,7 @@ test('homepage, all six subjects and mobile navigation remain usable', async ({ 
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.locator('.domain-card').filter({ hasText: '英语与沟通' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('英语训练站');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('英语学习手册');
   await page.getByRole('button', { name: '菜单' }).click();
   await expect(page.getByRole('link', { name: '学习工作台', exact: true })).toBeVisible();
   expect(errors).toEqual([]);

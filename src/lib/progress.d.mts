@@ -1,4 +1,4 @@
-export interface Progress { version: number; completed: string[]; reviews: Record<string, { due: number; level: number }>; notes: string; english: { wordNotes: Record<string, string>; sceneDrafts: Record<string, string> }; }
+export interface Progress { version: number; completed: string[]; reviews: Record<string, { due: number; level: number }>; notes: string; english: { wordNotes: Record<string, string>; sceneDrafts: Record<string, string>; completedLessons: string[] }; }
 export const STORAGE_KEY: string;
 export const STEP_IDS: string[];
 export const CARD_IDS: string[];

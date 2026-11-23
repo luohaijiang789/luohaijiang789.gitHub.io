@@ -8,8 +8,8 @@ test('English hub exposes working learning sections on mobile', async ({ page })
   await page.goto('/english/');
   await expect(page.locator('.english-section-card')).toHaveCount(6);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  await page.locator('.english-section-card').filter({ hasText: '词汇记忆实验室' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('多方法词汇实验室');
+  await page.getByRole('link', { name: '词汇与构词', exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('词汇与构词 · 章节导读');
 });
 
 test('word methods preserve an unsaved note, and saved notes stay attached to the word', async ({ page }) => {

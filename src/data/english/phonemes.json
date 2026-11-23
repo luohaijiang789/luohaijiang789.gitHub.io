@@ -1,0 +1,5 @@
+[
+{"label":"单元音（传统常见英音教学标法）","sounds":[["iː","sheep"],["ɪ","ship"],["ʊ","book"],["uː","food"],["e","bed"],["ə","about"],["ɜː","bird"],["ɔː","thought"],["æ","cat"],["ʌ","cup"],["ɑː","father"],["ɒ","hot"]]},
+{"label":"双元音（实际口音可能合流或采用其他标法）","sounds":[["ɪə","near"],["eɪ","day"],["ʊə","pure"],["ɔɪ","boy"],["əʊ","go"],["eə","hair"],["aɪ","my"],["aʊ","now"]]},
+{"label":"辅音","sounds":[["p","pen"],["b","book"],["t","tea"],["d","day"],["k","key"],["ɡ","go"],["f","fine"],["v","very"],["θ","think"],["ð","this"],["s","see"],["z","zoo"],["ʃ","ship"],["ʒ","vision"],["h","hat"],["m","map"],["n","name"],["ŋ","sing"],["l","tall"],["r","red"],["j","yes"],["w","we"],["tʃ","chair"],["dʒ","job"]]}
+]

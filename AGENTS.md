@@ -11,3 +11,6 @@
 - Run `npm run verify` after changes; run `npm run test:e2e` for interactive or navigation changes, after building. Never weaken checks merely to make them pass.
 - Keep the repository's GitHub Pages deployment. Do not introduce another hosting account or publish to a different service without a request.
 - At each completed, verified milestone, create a focused Git commit and push it to the tracked remote branch automatically. This is the owner's standing instruction; do not ask again for routine milestone commits or pushes. Fetch first, integrate remote changes without force-pushing, and check the resulting GitHub Pages workflow and deployed site.
+
+- English is an article-led handbook, not a demo-card collection. Keep the multi-level pronunciation, grammar, word formation, everyday, skills and practice chapters coherent. Every core lesson needs substantive explanation, contrasts, practice and answer reasoning. Keep `src/data/english/curriculum.json` and the real articles aligned.
+- Use small, accessible Mermaid meaning maps in root/affix and word-family lessons. Separate historical etymology from modern derivation and invented mnemonics; connect forms to meanings, sentence roles and examples. Preserve text explanations when diagrams cannot load.

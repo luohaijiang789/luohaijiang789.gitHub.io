@@ -1,0 +1,146 @@
+[
+  {
+    "id": "sounds",
+    "prompt": "ship 的常见发音 /ʃɪp/ 包含几个音素？",
+    "options": [
+      "四个，因为有四个字母",
+      "三个，sh 对应一个 /ʃ/",
+      "两个，只有元音算声音"
+    ],
+    "answer": 1,
+    "explanation": "字母数量不等于音素数量：/ʃ/、/ɪ/、/p/ 是三个音素。",
+    "lesson": "pronunciation/sounds/map"
+  },
+  {
+    "id": "ending",
+    "prompt": "规则过去式 wanted 中 -ed 常见读法是什么？",
+    "options": [
+      "/t/",
+      "/d/",
+      "/ɪd/"
+    ],
+    "answer": 2,
+    "explanation": "词干 want 以 /t/ 结尾，-ed 常形成额外音节 /ɪd/。",
+    "lesson": "pronunciation/rules/endings"
+  },
+  {
+    "id": "article",
+    "prompt": "哪一个短语通常正确？",
+    "options": [
+      "a user",
+      "an user",
+      "an useful tool"
+    ],
+    "answer": 0,
+    "explanation": "a/an 看起始声音。user 和 useful 通常以 /j/ 起始，用 a。",
+    "lesson": "grammar/basics/nouns"
+  },
+  {
+    "id": "question",
+    "prompt": "选择正确的一般现在式问句。",
+    "options": [
+      "Does it checks the token?",
+      "Does it check the token?",
+      "Is it check the token?"
+    ],
+    "answer": 1,
+    "explanation": "does 已承担时态与人称变化，后面的实义动词用原形 check。",
+    "lesson": "grammar/verbs/present"
+  },
+  {
+    "id": "deadline",
+    "prompt": "表示报告最迟周五提交，哪个表达最直接？",
+    "options": [
+      "Send it until Friday.",
+      "Send it by Friday.",
+      "Send it during Friday."
+    ],
+    "answer": 1,
+    "explanation": "by Friday 表示不晚于该截止点；until 主要表达持续到某点。",
+    "lesson": "grammar/basics/modifiers"
+  },
+  {
+    "id": "perfect",
+    "prompt": "I have worked here ___ 2024.",
+    "options": [
+      "for",
+      "since",
+      "during"
+    ],
+    "answer": 1,
+    "explanation": "2024 是起点，使用 since；for 后接持续时长。",
+    "lesson": "grammar/verbs/perfect"
+  },
+  {
+    "id": "obligation",
+    "prompt": "只想表达“不必周末工作”，选哪一句？",
+    "options": [
+      "You mustn't work this weekend.",
+      "You don't have to work this weekend.",
+      "You can't work this weekend."
+    ],
+    "answer": 1,
+    "explanation": "don't have to 表示没有必要或义务；mustn't 通常表示禁止。",
+    "lesson": "grammar/verbs/modals"
+  },
+  {
+    "id": "nonfinite",
+    "prompt": "I look forward to ___ you.",
+    "options": [
+      "meet",
+      "meeting",
+      "met"
+    ],
+    "answer": 1,
+    "explanation": "look forward to 中 to 是介词，后接 meeting，而不是把它当成不定式标记。",
+    "lesson": "grammar/verbs/nonfinite"
+  },
+  {
+    "id": "indirect",
+    "prompt": "选择间接提问的正确语序。",
+    "options": [
+      "Could you tell me where is the station?",
+      "Could you tell me where the station is?",
+      "Could you tell me where does the station is?"
+    ],
+    "answer": 1,
+    "explanation": "间接疑问从句使用陈述语序：where the station is。",
+    "lesson": "grammar/clauses/questions"
+  },
+  {
+    "id": "relative",
+    "prompt": "选择没有重复宾语的句子。",
+    "options": [
+      "This is the file that I uploaded it.",
+      "This is the file I uploaded.",
+      "This is the file which uploaded it by me."
+    ],
+    "answer": 1,
+    "explanation": "关系从句中对象已经与 file 关联，不重复添加 it；限定性从句作宾语的关系代词也可省略。",
+    "lesson": "grammar/clauses/relative"
+  },
+  {
+    "id": "conditional",
+    "prompt": "表达对过去未做检查的反事实假设，选哪句？",
+    "options": [
+      "If I had checked it, I would have found the error.",
+      "If I check it yesterday, I will find the error.",
+      "If I had check it, I would found the error."
+    ],
+    "answer": 0,
+    "explanation": "常见结构为 if + had + 过去分词，would have + 过去分词。",
+    "lesson": "grammar/clauses/conditionals"
+  },
+  {
+    "id": "wordclass",
+    "prompt": "描述 feedback 的性质，选哪个词？Your feedback was really ___.",
+    "options": [
+      "helpfully",
+      "helpful",
+      "helping"
+    ],
+    "answer": 1,
+    "explanation": "此句用 helpful 作表语描述 feedback；-ly 副词 helpfully 不适合该句位。",
+    "lesson": "words/morphology/suffixes"
+  }
+]
