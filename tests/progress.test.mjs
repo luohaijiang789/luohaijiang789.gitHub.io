@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { emptyProgress, normalizeProgress, readProgress, writeProgress, rateCard, dueCards } from '../src/lib/progress.mjs';
-const cards = [{ id: 'permission' }, { id: 'clarify' }];
+const cards = [{ id: 'tech-permission' }, { id: 'clarify' }];
 test('corrupt, unsupported, or unavailable storage is safe to read', () => {
   assert.deepEqual(readProgress({ getItem: () => '{broken' }), emptyProgress());
   assert.deepEqual(readProgress({ getItem: () => '{"version":2}' }), emptyProgress());
@@ -18,29 +18,29 @@ test('new cards are due, successful recall advances interval and failure resets 
   const now = 1_000_000_000;
   const p = emptyProgress();
   assert.equal(dueCards(p, cards, now).length, 2);
-  const first = rateCard(p, 'permission', true, now);
-  assert.equal(first.reviews.permission.due, now + 86400000);
+  const first = rateCard(p, 'tech-permission', true, now);
+  assert.equal(first.reviews['tech-permission'].due, now + 86400000);
   assert.equal(dueCards(first, cards, now).length, 1);
   assert.equal(dueCards(first, cards, now + 86400000).length, 2);
-  const second = rateCard(first, 'permission', true, now);
-  assert.equal(second.reviews.permission.due, now + 3 * 86400000);
-  const failed = rateCard(second, 'permission', false, now);
-  assert.equal(failed.reviews.permission.level, 0);
-  assert.equal(failed.reviews.permission.due, now + 600000);
+  const second = rateCard(first, 'tech-permission', true, now);
+  assert.equal(second.reviews['tech-permission'].due, now + 3 * 86400000);
+  const failed = rateCard(second, 'tech-permission', false, now);
+  assert.equal(failed.reviews['tech-permission'].level, 0);
+  assert.equal(failed.reviews['tech-permission'].due, now + 600000);
   assert.deepEqual(p, emptyProgress());
 });
 test('review interval caps at thirty days and unknown card IDs are rejected', () => {
   let p = emptyProgress();
-  for (let i = 0; i < 10; i++) p = rateCard(p, 'permission', true, 0);
-  assert.equal(p.reviews.permission.level, 5);
-  assert.equal(p.reviews.permission.due, 30 * 86400000);
+  for (let i = 0; i < 10; i++) p = rateCard(p, 'tech-permission', true, 0);
+  assert.equal(p.reviews['tech-permission'].level, 5);
+  assert.equal(p.reviews['tech-permission'].due, 30 * 86400000);
   assert.throws(() => rateCard(p, 'unknown', true));
 });
 test('write failure is visible and backup roundtrip preserves data', () => {
   assert.equal(writeProgress(emptyProgress(), { setItem() { throw Error('quota'); } }), false);
   let stored;
   const storage = { setItem: (_, value) => { stored = value; }, getItem: () => stored };
-  const p = rateCard({ ...emptyProgress(), completed: ['http'], notes: 'My draft' }, 'permission', true, 0);
+  const p = rateCard({ ...emptyProgress(), completed: ['http'], notes: 'My draft' }, 'tech-permission', true, 0);
   assert.equal(writeProgress(p, storage), true);
   assert.deepEqual(readProgress(storage), p);
 });
@@ -55,13 +55,13 @@ test('a throwing browser localStorage getter does not crash the page', () => {
     else delete globalThis.localStorage;
   }
 });
-test('v1 backups retain original state and initialize new English notes safely', () => {
+test('v1 backups retain original state and preserve legacy drafts without reviving the removed module', () => {
   const old = { version: 1, completed: ['http'], reviews: { permission: { due: 123, level: 1 } }, notes: 'Original draft' };
   const restored = normalizeProgress(old);
   assert.equal(restored.notes, 'Original draft');
   assert.deepEqual(restored.reviews, old.reviews);
   assert.deepEqual(restored.english, { wordNotes: {}, sceneDrafts: {}, completedLessons: [] });
-  const updated = normalizeProgress({ ...restored, english: { wordNotes: { inspect: 'My picture', unknown: 'ignore' }, sceneDrafts: { cafe: 'To go, please.', unknown: 'ignore' } } });
+  const updated = normalizeProgress({ ...restored, english: { wordNotes: { inspect: 'My picture', 'bad key': 'ignore' }, sceneDrafts: { cafe: 'To go, please.', 'bad key': 'ignore' } } });
   assert.deepEqual(updated.english, { wordNotes: { inspect: 'My picture' }, sceneDrafts: { cafe: 'To go, please.' }, completedLessons: [] });
-  assert.equal(rateCard(updated, 'vocab-inspect', true, 0).english.wordNotes.inspect, 'My picture');
+  assert.equal(rateCard(updated, 'tech-isolation', true, 0).english.wordNotes.inspect, 'My picture');
 });

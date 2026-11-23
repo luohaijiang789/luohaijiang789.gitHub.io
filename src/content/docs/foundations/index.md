@@ -20,7 +20,8 @@ sidebar:
 
 ## 从这里开始
 
-[图解：一次 HTTP 请求与权限检查](/foundations/http/)
+- [图解：一次 HTTP 请求与权限检查](/foundations/http/)
+- [GitHub 项目怎么安装：从 npm、npx 到 Docker](/foundations/software-delivery/)
 
 学完后进入[智能体工具调用](/security/tool-boundaries/)。每次只补当前实验缺少的一块基础，逐步扩展这张地图。
 

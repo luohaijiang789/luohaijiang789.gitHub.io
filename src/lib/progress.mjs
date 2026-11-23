@@ -1,24 +1,25 @@
-import { lessons } from '../data/english/curriculum.mjs';
-import { reviewCards } from '../data/english/review-cards.mjs';
-import vocabulary from '../data/english/vocabulary.json' with { type: 'json' };
-import scenes from '../data/english/scenes.json' with { type: 'json' };
+import { reviewCards } from '../data/review-cards.mjs';
 /** Browser-local, versioned learning state. Safe to import during static builds. */
 export const STORAGE_KEY = 'haijiang-lab:v1';
-export const STEP_IDS = ['http', 'boundary', 'explain', 'project'];
+export const STEP_IDS = ['http', 'boundary', 'evidence', 'project'];
 export const CARD_IDS = reviewCards.map(card => card.id);
 const DAY = 86_400_000;
 export function emptyProgress() { return { version: 1, completed: [], reviews: {}, notes: '', english: { wordNotes: {}, sceneDrafts: {}, completedLessons: [] } }; }
-function cleanNotes(value, ids) {
-  return Object.fromEntries(ids.filter(id => typeof value?.[id] === 'string').map(id => [id, value[id].slice(0, 4000)]));
+// Keep bounded legacy v1 drafts exportable after the English module is removed.
+const legacyId = id => typeof id === 'string' && /^[a-z0-9][a-z0-9/_-]{0,159}$/.test(id) && id !== 'constructor';
+function cleanNotes(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
+  return Object.fromEntries(Object.entries(value).filter(([id, note]) => legacyId(id) && typeof note === 'string').slice(0, 100).map(([id, note]) => [id, note.slice(0, 4000)]));
 }
+const oldCards = ['permission', 'clarify', 'authorize', 'deny-default', 'evidence', 'project-intro'];
 export function normalizeProgress(value) {
   if (!value || typeof value !== 'object' || value.version !== 1) throw new Error('不支持的备份格式，请选择 Learning Lab 的 v1 备份。');
   const reviews = {};
-  for (const id of CARD_IDS) {
+  for (const id of Object.keys(value.reviews || {}).filter(id => CARD_IDS.includes(id) || oldCards.includes(id) || /^(vocab|daily)-[a-z0-9-]{1,80}$/.test(id)).slice(0, 200)) {
     const r = value.reviews?.[id];
     if (r && Number.isFinite(r.due) && r.due >= 0 && Number.isInteger(r.level) && r.level >= 0 && r.level <= 5) reviews[id] = { due: r.due, level: r.level };
   }
-  return { version: 1, completed: [...new Set((Array.isArray(value.completed) ? value.completed : []).filter(id => STEP_IDS.includes(id)))], reviews, notes: typeof value.notes === 'string' ? value.notes.slice(0, 20000) : '', english: { wordNotes: cleanNotes(value.english?.wordNotes, vocabulary.map(w => w.id)), sceneDrafts: cleanNotes(value.english?.sceneDrafts, scenes.map(s => s.id)), completedLessons: [...new Set((Array.isArray(value.english?.completedLessons) ? value.english.completedLessons : []).filter(id => lessons.some(lesson => lesson.slug === id)))] } };
+  return { version: 1, completed: [...new Set((Array.isArray(value.completed) ? value.completed : []).filter(id => (STEP_IDS.includes(id) || id === 'explain')))], reviews, notes: typeof value.notes === 'string' ? value.notes.slice(0, 20000) : '', english: { wordNotes: cleanNotes(value.english?.wordNotes), sceneDrafts: cleanNotes(value.english?.sceneDrafts), completedLessons: [...new Set((Array.isArray(value.english?.completedLessons) ? value.english.completedLessons : []).filter(legacyId).slice(0, 512))] } };
 }
 export function readProgress(storage) {
   try { const target = storage ?? globalThis.localStorage; const raw = target?.getItem(STORAGE_KEY); return raw ? normalizeProgress(JSON.parse(raw)) : emptyProgress(); }

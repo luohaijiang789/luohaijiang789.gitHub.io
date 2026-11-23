@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
-import { reviewCards } from '../../src/data/english/review-cards.mjs';
+import { reviewCards } from '../../src/data/review-cards.mjs';
 
-test('homepage, all six subjects and mobile navigation remain usable', async ({ page }) => {
+test('homepage, technical subjects and mobile navigation remain usable', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', e => errors.push(e.message));
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('走向世界');
-  await expect(page.locator('.domain-card')).toHaveCount(6);
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('可复现');
+  await expect(page.locator('.domain-card')).toHaveCount(5);
   await expect(page.locator('[data-due-count]')).toHaveText(String(reviewCards.length));
   await page.getByRole('combobox', { name: '选择主题' }).selectOption('dark');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
@@ -15,8 +15,8 @@ test('homepage, all six subjects and mobile navigation remain usable', async ({ 
   await page.getByRole('combobox', { name: '选择主题' }).selectOption('light');
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  await page.locator('.domain-card').filter({ hasText: '英语与沟通' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('英语学习手册');
+  await page.locator('.domain-card').filter({ hasText: '专业基础' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('专业基础');
   await page.getByRole('button', { name: '菜单' }).click();
   await expect(page.getByRole('link', { name: '学习工作台', exact: true })).toBeVisible();
   expect(errors).toEqual([]);
@@ -46,27 +46,26 @@ test('policy demo checks the actual action and resource', async ({ page }) => {
   await expect(page.locator('[data-policy-result]')).toContainText('拒绝执行');
 });
 
-test('English practice supports hiding, drafting, and persistence', async ({ page }) => {
-  await page.goto('/english/security-standup/');
-  await page.locator('[data-toggle-transcript]').click();
-  await expect(page.locator('[data-practice-text]')).toBeHidden();
-  await page.locator('[data-toggle-transcript]').click();
-  await expect(page.locator('[data-practice-text]')).toBeVisible();
-  await page.locator('#practice-draft').fill('It tried to update a team note.');
-  await page.locator('[data-save-draft]').click();
+test('removed English routes are absent and technical notes persist', async ({ page }) => {
+  const response = await page.goto('/english/');
+  expect(response?.status()).toBe(404);
+  await page.goto('/review/');
+  await page.locator('#research-notes').fill('实验：检查未知资源是否拒绝。');
+  await page.locator('[data-save-notes]').click();
   await page.reload();
-  await expect(page.locator('#practice-draft')).toHaveValue('It tried to update a team note.');
+  await expect(page.locator('#research-notes')).toHaveValue('实验：检查未知资源是否拒绝。');
+  await expect(page.locator('a[href^="/english/"]')).toHaveCount(0);
 });
 
 test('review schedules persist, export succeeds, and invalid imports are rejected', async ({ page }) => {
   await page.goto('/review/');
   await expect(page.locator('[data-answer-panel]')).toBeHidden();
   await page.locator('[data-reveal]').click();
-  await expect(page.locator('[data-card-answer]')).toContainText('permission');
+  await expect(page.locator('[data-card-answer]')).toContainText('身份认证');
   await page.locator('[data-rate="remember"]').click();
-  await expect(page.locator('[data-card-cue]')).toContainText('access');
+  await expect(page.locator('[data-card-cue]')).toContainText('git clone');
   await page.reload();
-  await expect(page.locator('[data-card-cue]')).toContainText('access');
+  await expect(page.locator('[data-card-cue]')).toContainText('git clone');
   const downloadEvent = page.waitForEvent('download');
   await page.locator('[data-export]').click();
   const download = await downloadEvent;
@@ -94,13 +93,13 @@ test('legacy article URL leads to the archive page', async ({ page }) => {
 test('valid backup import restores progress, reviews and draft', async ({ page }) => {
   await page.goto('/review/');
   page.on('dialog', dialog => dialog.accept());
-  const backup = { version: 1, completed: ['http', 'boundary'], reviews: { permission: { level: 2, due: Date.now() + 86400000 } }, notes: 'Restored English draft.' };
+  const backup = { version: 1, completed: ['http', 'boundary'], reviews: { permission: { level: 2, due: Date.now() + 86400000 } }, notes: '实验记录已恢复。' };
   await page.locator('[data-import]').setInputFiles({ name: 'learning.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(backup)) });
   await expect(page.locator('[data-backup-status]')).toHaveText('备份已导入。');
   await page.goto('/paths/first-project/');
   await expect(page.locator('[data-completion-label]')).toHaveText('2 / 4 步骤完成');
-  await page.goto('/english/security-standup/');
-  await expect(page.locator('#practice-draft')).toHaveValue('Restored English draft.');
+  await page.goto('/review/');
+  await expect(page.locator('#research-notes')).toHaveValue('实验记录已恢复。');
 });
 
 test('blocked local storage reports a useful failure without crashing', async ({ page }) => {
@@ -112,4 +111,15 @@ test('blocked local storage reports a useful failure without crashing', async ({
   await expect(page.locator('[data-save-status]')).toContainText('无法保存');
   await expect(page.locator('[data-path-step="http"]')).not.toBeChecked();
   expect(errors).toEqual([]);
+});
+
+test('imported software delivery article is readable and searchable', async ({ page }) => {
+  await page.goto('/foundations/software-delivery/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('GitHub 项目怎么安装');
+  await expect(page.locator('main')).toContainText('不是封装程度依次升高');
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.getByRole('button', { name: '搜索', exact: true }).click();
+  await page.getByRole('textbox', { name: '搜索', exact: true }).fill('uvx');
+  await expect(page.locator('.pagefind-ui__result').filter({ hasText: 'GitHub 项目怎么安装' }).first()).toBeVisible();
 });

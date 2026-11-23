@@ -7,8 +7,8 @@ import Icon from './Icon.astro';
   <section class="intro-grid" aria-labelledby="_top">
     <div class="intro-copy">
       <div class="small-label"><span class="leaf-mark"></span> 持续学习 · 独立思考 · 动手创造</div>
-      <h1 id="_top" data-page-title>让学到的知识，<br/>成为走向世界的<span>能力。</span></h1>
-      <p>以 AI 与安全为主线，在真实场景中练习英语、思考与表达。<br class="desktop-break"/>把每一次理解，变成可以展示的作品。</p>
+      <h1 id="_top" data-page-title>把技术问题，<br/>做成可复现的<span>成果。</span></h1>
+      <p>以计算机基础与 AI 安全为主线，理解原理、验证假设。<br class="desktop-break"/>把每一次理解，变成可以展示的作品。</p>
       <div class="hero-actions"><a class="lab-button primary" href="/paths/first-project/">开始第一条学习路径</a><a class="lab-button quiet" href="#learning-map">探索学习地图</a></div>
       <div class="intro-foot"><Icon name="book" size={17}/> 学习有路径，实践有成果，成长有记录。</div>
     </div>
@@ -35,14 +35,14 @@ import Icon from './Icon.astro';
     <section class="focus-panel" aria-labelledby="focus-title">
       <div class="panel-kicker"><span class="eyebrow">CURRENT FOCUS</span><span class="outline-chip">入门实践 · 4 个步骤</span></div>
       <h2 id="focus-title">给 AI 智能体，画一道权限边界。</h2>
-      <p>从一次 HTTP 请求开始，理解工具调用风险，用英语解释方案，最后完成一个小实验。</p>
+      <p>从一次 HTTP 请求开始，理解工具调用风险，用证据检验结论，最后完成一个小实验。</p>
       <div class="path-preview">{pathSteps.map((step, index) => <a href={step.href} data-step-indicator={step.id}><span class="step-number">{index + 1}</span><span>{step.title}</span></a>)}</div>
       <div class="focus-bottom"><a href="/paths/first-project/">查看完整路径</a><span data-path-progress>0 / 4 步骤已完成</span></div>
     </section>
     <section class="review-panel" aria-labelledby="daily-title">
       <div class="panel-kicker"><span class="eyebrow">A LITTLE, EVERY DAY</span><Icon name="clock" size={20}/></div>
       <h2 id="daily-title">给记忆一点回声。</h2>
-      <p>先尝试回忆，再揭晓答案。今天记住的表达，下次真正用出来。</p>
+      <p>先尝试回忆，再揭晓答案。把概念讲清楚，再放进实验里验证。</p>
       <div class="review-count"><strong data-due-count>{reviewCards.length}</strong><span>张卡片等待复习</span></div>
       <a class="lab-button secondary" href="/review/">进入复习卡片</a>
       <small>进度保存在当前浏览器，可导出备份。</small>
@@ -50,13 +50,13 @@ import Icon from './Icon.astro';
   </div>
 
   <section id="learning-map" aria-labelledby="map-title">
-    <div class="section-heading"><div><span class="eyebrow">YOUR LEARNING MAP</span><h2 id="map-title">六个领域，一条成长主线。</h2></div><span class="section-note">专业能力 × 国际表达 × 独立生活</span></div>
+    <div class="section-heading"><div><span class="eyebrow">YOUR LEARNING MAP</span><h2 id="map-title">知识与实践，互相连接。</h2></div><span class="section-note">原理理解 × 安全判断 × 工程实践</span></div>
     <div class="domain-grid">{domains.map(domain => <a class={`domain-card ${domain.color}`} href={domain.href}><div class="domain-top"><span class="domain-icon"><Icon name={domain.icon}/></span><span class="domain-en">{domain.en}</span></div><h3>{domain.label}</h3><p>{domain.description}</p><div class="domain-topics">{domain.topics}</div></a>)}</div>
   </section>
 
   <section class="featured-section" aria-labelledby="featured-title">
     <div class="section-heading"><div><span class="eyebrow">LEARN IT. MAKE IT YOURS.</span><h2 id="featured-title">从一个具体场景开始。</h2></div><a href="/projects/tool-guard/">进入项目实验室</a></div>
-    <div class="featured-grid"><a class="featured-card" href="/english/security-standup/"><span class="feature-art conversation-art"><span class="speech-bubble">Could you clarify…?</span><span class="speech-bubble reply">Let’s check the policy.</span><span class="art-caption">SCENE 01 · TEAM STAND-UP</span></span><div class="featured-body"><span class="eyebrow">图解英语 · 职场沟通</span><h3>在晨会上，解释一次安全告警</h3><p>看图理解场景，拆解词族，再用自己的话复述。</p><span class="text-link">开始场景练习</span></div></a><a class="featured-card" href="/security/tool-boundaries/"><span class="feature-art boundary-art"><span class="boundary-label">AGENT</span><span class="boundary-gate">POLICY GATE</span><span class="boundary-label">TOOL</span><span class="art-caption">TRUST IS A BOUNDARY, NOT A PROMPT.</span></span><div class="featured-body"><span class="eyebrow">AI 安全 · 原理图解</span><h3>模型能提出建议，谁来批准执行？</h3><p>沿着数据流，找到真正需要做授权检查的位置。</p><span class="text-link">理解信任边界</span></div></a></div>
+    <div class="featured-grid"><a class="featured-card" href="/foundations/software-delivery/"><span class="feature-art conversation-art"><span class="speech-bubble">npm · npx · uvx</span><span class="speech-bubble reply">Docker · Compose</span><span class="art-caption">SOFTWARE DELIVERY</span></span><div class="featured-body"><span class="eyebrow">工程基础 · 安装与运行</span><h3>同一个项目，为什么有多种安装方式？</h3><p>分清源码、依赖、工具执行与容器，按目标选择。</p><span class="text-link">理解安装与运行</span></div></a><a class="featured-card" href="/security/tool-boundaries/"><span class="feature-art boundary-art"><span class="boundary-label">AGENT</span><span class="boundary-gate">POLICY GATE</span><span class="boundary-label">TOOL</span><span class="art-caption">TRUST IS A BOUNDARY, NOT A PROMPT.</span></span><div class="featured-body"><span class="eyebrow">AI 安全 · 原理图解</span><h3>模型能提出建议，谁来批准执行？</h3><p>沿着数据流，找到真正需要做授权检查的位置。</p><span class="text-link">理解信任边界</span></div></a></div>
   </section>
   <footer class="lab-footer"><span>海江的学习实验室 · 保持好奇，持续构建。</span><a href="/about/">关于这里与使用方法</a><span>Built with Astro & Starlight</span></footer>
 </div>

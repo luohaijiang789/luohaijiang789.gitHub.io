@@ -1,5 +1,0 @@
----
-import groups from '../data/english/phonemes.json';
----
-<section class="phoneme-chart" aria-label="常见英音音素对照图">{groups.map(group=><section><h3>{group.label}</h3><div class="phoneme-grid">{group.sounds.map(([symbol,word])=><a href={`https://dictionary.cambridge.org/dictionary/english/${word}`} target="_blank" rel="noopener" aria-label={`查看 ${word} 的词典读音`}><strong>/{symbol}/</strong><span lang="en">{word}</span></a>)}</div></section>)}</section>
-<style>.phoneme-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem}.phoneme-grid a{display:flex;flex-direction:column;align-items:center;padding:.6rem .3rem;border:1px solid var(--lab-border);border-radius:.4rem;text-decoration:none;background:var(--lab-soft);margin:0!important;color:var(--lab-ink)}.phoneme-grid strong{font-size:1.6rem;font-family:'DejaVu Sans','Arial',sans-serif;color:var(--lab-accent);font-weight:500}.phoneme-grid span{font-size:.8rem}.phoneme-chart h3{font-size:1rem!important}.phoneme-chart>section+section{margin-top:1.3rem}@media(max-width:620px){.phoneme-grid{grid-template-columns:repeat(4,1fr)}}@media(max-width:360px){.phoneme-grid{grid-template-columns:repeat(3,1fr)}}</style>
