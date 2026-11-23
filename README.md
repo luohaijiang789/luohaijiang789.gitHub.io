@@ -34,7 +34,8 @@ src/content/docs/
   projects/        # 可复现的实践题目与成果
   review.mdx       # 复习与备份
 src/components/    # 工作台、图解练习与交互组件
-src/data/garden.ts # 领域入口、路径步骤、复习卡片
+src/data/garden.ts # 领域入口、路径步骤
+src/data/english/  # 词汇、日常场景与复习卡片的统一数据源
 src/lib/           # 本地进度与教学权限模型
 public/illustrations/ # 自托管 SVG 图解
 archive/legacy-jekyll/ # 原网站源文件，保留但不参与构建
@@ -67,15 +68,17 @@ sidebar:
 
 ## 添加卡片或路径步骤
 
-1. 修改 `src/data/garden.ts` 的卡片或步骤。
-2. 在 `src/lib/progress.mjs` 的 `CARD_IDS` / `STEP_IDS` 中添加稳定 ID，保持向后兼容。
-3. 补充相关测试并运行 `npm run verify`。
+1. 路径步骤写入 `src/data/garden.ts`，并在 `src/lib/progress.mjs` 的 `STEP_IDS` 中加入稳定 ID。
+2. 单词写入 `src/data/english/vocabulary.json`；日常场景写入 `scenes.json`；其他卡片写入 `core-cards.json`。复习卡片与 ID 白名单自动从这些数据生成，不维护第二份词表。
+3. 每个词提供含义、构词说明、图像线索、联想、词族辨析、原创例句、回忆提示与词典来源。词源和自创联想分开。新增视觉类型时扩展对应 SVG 组件。
+4. 每个场景提供意图、对话、常用语块、替换练习与回忆提示。可用 `/english/daily/?scene=housing` 直接打开。
+5. 保持旧 ID 与 v1 备份兼容，补充相关测试并运行 `npm run verify`。
 
 当前复习安排为：不熟悉时 10 分钟后；连续记住后依次 1、3、7、14、30 天。它是透明的简单安排，不是个性化记忆模型。
 
 ## 本地数据
 
-使用 localStorage 键 `haijiang-lab:v1` 保存完成步骤、卡片时间和英语草稿。无账号、无远端进度同步。复习页支持导出/导入 JSON；导入前校验版本、数据与文件大小，覆盖前要求确认。禁用存储或配额不足时给出失败提示。切换设备前导出备份。
+使用 localStorage 键 `haijiang-lab:v1` 保存完成步骤、卡片时间、原英语草稿、逐词笔记和逐场景草稿。无账号、无远端进度同步。复习页支持导出/导入 JSON；导入前校验版本、数据与文件大小，覆盖前要求确认。禁用存储或配额不足时给出失败提示。切换设备前导出备份。
 
 ## 发布
 
@@ -92,3 +95,7 @@ sidebar:
 - 不给未实现功能放入口，不展示虚构的学习数据。
 - 改交互后运行浏览器测试；改卡片排程或授权规则后运行相应单元测试。
 - 发布前运行完整验证。旧新闻未经重新核验，不直接迁入知识库。
+
+## 阶段提交约定
+
+按维护者要求，每个可验收阶段在检查通过后自动创建聚焦的 Git 提交并推送远端；推送前 fetch，推送后检查工作流与线上页面，不使用强制推送。

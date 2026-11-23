@@ -55,3 +55,13 @@ test('a throwing browser localStorage getter does not crash the page', () => {
     else delete globalThis.localStorage;
   }
 });
+test('v1 backups retain original state and initialize new English notes safely', () => {
+  const old = { version: 1, completed: ['http'], reviews: { permission: { due: 123, level: 1 } }, notes: 'Original draft' };
+  const restored = normalizeProgress(old);
+  assert.equal(restored.notes, 'Original draft');
+  assert.deepEqual(restored.reviews, old.reviews);
+  assert.deepEqual(restored.english, { wordNotes: {}, sceneDrafts: {} });
+  const updated = normalizeProgress({ ...restored, english: { wordNotes: { inspect: 'My picture', unknown: 'ignore' }, sceneDrafts: { cafe: 'To go, please.', unknown: 'ignore' } } });
+  assert.deepEqual(updated.english, { wordNotes: { inspect: 'My picture' }, sceneDrafts: { cafe: 'To go, please.' } });
+  assert.equal(rateCard(updated, 'vocab-inspect', true, 0).english.wordNotes.inspect, 'My picture');
+});

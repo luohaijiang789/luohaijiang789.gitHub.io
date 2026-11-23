@@ -1,0 +1,71 @@
+---
+import scenes from '../data/english/scenes.json';
+import DailyScenePicture from './DailyScenePicture.astro';
+---
+<section class="learning-card daily-scenes" aria-labelledby="scenes-title">
+  <span class="eyebrow">WORDS FOR REAL LIFE</span><h2 id="scenes-title">先有一个场景，再学怎么说。</h2>
+  <label class="scene-selector">今天练什么？<select data-scene-select>{scenes.map(scene => <option value={scene.id}>{scene.title} · {scene.tag}</option>)}</select></label>
+  {scenes.map((scene, i) => <article data-daily-scene={scene.id} hidden={i !== 0}>
+    <DailyScenePicture visual={scene.visual} label={scene.setting}/>
+    <h3>{scene.title}</h3><p><strong>情境：</strong>{scene.setting}</p><p class="scene-goal"><strong>目标：</strong>{scene.goal}</p>
+    <div class="component-actions"><button type="button" data-scene-listen={scene.id}>听完整对话</button><button type="button" data-scene-stop>停止朗读</button></div>
+    <ol class="dialogue-lines">{scene.lines.map(line => <li><span class="speaker">{line.speaker}</span><div><span class="line-english" lang="en">{line.en}</span><span class="line-chinese">{line.zh}</span></div></li>)}</ol>
+    <div class="chunk-grid">{scene.chunks.map(chunk => <span>{chunk}</span>)}</div>
+    <p class="scene-challenge"><strong>换一个情境：</strong>{scene.challenge}</p><p class="scene-tip">{scene.tip}</p>
+    <a class="scene-review-link" href={`/review/?topic=daily&card=daily-${scene.id}`}>不看对话，练这个场景的回忆卡</a>
+  </article>)}
+  <div class="component-actions"><button type="button" data-toggle-scene-english aria-pressed="false">遮住英文，试着复述</button><button type="button" data-toggle-scene-chinese aria-pressed="false">隐藏中文，练习理解</button></div>
+  <p class="speech-note">朗读使用浏览器语音；并非真人录音，声音与可用性取决于设备。</p>
+  <label class="scene-draft-label" for="scene-draft">写出你会怎样说，或记录练习后需要改进的地方</label><textarea id="scene-draft" rows="4" maxlength="4000" placeholder="换成你的真实需求和经历，写两到三句话。"></textarea>
+  <div class="component-actions"><button type="button" data-save-scene>保存当前场景的练习</button></div><p class="feedback" data-scene-status role="status">每个场景单独保存，可在复习页导出备份。</p>
+  <noscript>{scenes.slice(1).map(scene => <details><summary>{scene.title}</summary><p>{scene.setting}</p>{scene.lines.map(line => <p>{line.speaker}: {line.en} — {line.zh}</p>)}</details>)}</noscript>
+</section>
+<style>
+.daily-scenes h2{font-size:1.4rem!important;margin:.4rem 0 1rem}.scene-selector{display:flex;flex-direction:column;gap:.4rem;font-size:.9rem;margin-bottom:1.2rem}.scene-selector select{width:100%;padding:.65rem;border:1px solid var(--lab-border);border-radius:.5rem;color:var(--lab-ink);background:var(--lab-bg)}.scene-goal,.scene-tip{font-size:.875rem}.dialogue-lines{padding:0;list-style:none;margin:1.3rem 0}.dialogue-lines li{display:flex;align-items:start;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--lab-border)}.speaker{min-width:4.5rem;font-size:.8rem;color:var(--lab-accent);font-weight:600}.line-english,.line-chinese{display:block}.line-english{font-size:1.05rem}.line-chinese{font-size:.875rem;color:var(--lab-muted);margin-top:.4rem}.chunk-grid{display:flex;flex-wrap:wrap;gap:.5rem}.chunk-grid>span{padding:.5rem .7rem;border-radius:.5rem;background:var(--lab-soft);font-size:.85rem}.scene-challenge{border-left:3px solid var(--lab-accent);padding:.8rem 1rem;background:var(--lab-soft);font-size:.9rem}.scene-review-link{font-size:.9rem}.scene-draft-label{display:block;font-size:.9rem;margin-top:1.2rem}#scene-draft{display:block;width:100%;padding:.8rem;margin-top:.5rem;border:1px solid var(--lab-border);border-radius:.5rem;background:var(--lab-bg);color:var(--lab-ink);font:inherit;font-size:.9rem}.speech-note{font-size:.75rem}.hide-en .line-english{visibility:hidden}.hide-zh .line-chinese{display:none}[hidden]{display:none!important}@media(max-width:600px){.dialogue-lines li{gap:.6rem}.speaker{min-width:3.8rem;font-size:.75rem}.line-english{font-size:1rem}}
+</style>
+<script>
+  import scenes from '../data/english/scenes.json';
+  import { readProgress, writeProgress } from '../lib/progress.mjs';
+  const container = document.querySelector<HTMLElement>('.daily-scenes')!;
+  const select = document.querySelector<HTMLSelectElement>('[data-scene-select]')!;
+  const draft = document.querySelector<HTMLTextAreaElement>('#scene-draft')!;
+  const status = document.querySelector('[data-scene-status]')!;
+  const fromUrl = new URLSearchParams(location.search).get('scene');
+  if (scenes.some(s => s.id === fromUrl)) select.value = fromUrl!;
+  let previous = select.value;
+  function update() {
+    document.querySelectorAll<HTMLElement>('[data-daily-scene]').forEach(panel => panel.hidden = panel.dataset.dailyScene !== select.value);
+    draft.value = readProgress().english.sceneDrafts[select.value] || '';
+    window.speechSynthesis?.cancel();
+  }
+  select.addEventListener('change', () => {
+    const next = select.value;
+    if (draft.value !== (readProgress().english.sceneDrafts[previous] || '') && !confirm('当前场景的练习还未保存，确定切换并放弃修改？')) { select.value = previous; return; }
+    previous = next; update(); status.textContent = '已切换场景。练习按场景分别保存。';
+  });
+  document.querySelector('[data-save-scene]')!.addEventListener('click', () => {
+    const p = readProgress(); p.english.sceneDrafts[select.value] = draft.value;
+    status.textContent = writeProgress(p) ? '当前场景的练习已保存，可在复习页导出备份。' : '浏览器无法保存，请先复制练习到本地。';
+  });
+  document.querySelector<HTMLButtonElement>('[data-toggle-scene-english]')!.addEventListener('click', e => {
+    const button = e.currentTarget as HTMLButtonElement; const hidden = container.classList.toggle('hide-en');
+    button.setAttribute('aria-pressed', String(hidden)); button.textContent = hidden ? '显示英文' : '遮住英文，试着复述';
+    document.querySelectorAll('.line-english').forEach(line => line.setAttribute('aria-hidden', String(hidden)));
+  });
+  document.querySelector<HTMLButtonElement>('[data-toggle-scene-chinese]')!.addEventListener('click', e => {
+    const button = e.currentTarget as HTMLButtonElement; const hidden = container.classList.toggle('hide-zh');
+    button.setAttribute('aria-pressed', String(hidden)); button.textContent = hidden ? '显示中文' : '隐藏中文，练习理解';
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-scene-listen]').forEach(button => {
+    button.disabled = !('speechSynthesis' in window);
+    button.addEventListener('click', () => {
+      const scene = scenes.find(s => s.id === button.dataset.sceneListen)!;
+      speechSynthesis.cancel();
+      const line = new SpeechSynthesisUtterance(scene.lines.map(line => line.en).join(' ')); line.lang = 'en-US'; line.rate = .8;
+      line.onerror = () => { status.textContent = '设备未能朗读。可以先逐句朗读，或检查系统语音设置。'; };
+      speechSynthesis.speak(line);
+    });
+  });
+  document.querySelectorAll('[data-scene-stop]').forEach(button => button.addEventListener('click', () => window.speechSynthesis?.cancel()));
+  update(); window.addEventListener('pagehide', () => window.speechSynthesis?.cancel());
+</script>

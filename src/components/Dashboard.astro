@@ -1,5 +1,5 @@
 ---
-import { domains, pathSteps } from '../data/garden';
+import { domains, pathSteps, reviewCards } from '../data/garden';
 import Icon from './Icon.astro';
 ---
 <div class="dashboard">
@@ -43,7 +43,7 @@ import Icon from './Icon.astro';
       <div class="panel-kicker"><span class="eyebrow">A LITTLE, EVERY DAY</span><Icon name="clock" size={20}/></div>
       <h2 id="daily-title">给记忆一点回声。</h2>
       <p>先尝试回忆，再揭晓答案。今天记住的表达，下次真正用出来。</p>
-      <div class="review-count"><strong data-due-count>6</strong><span>张卡片等待复习</span></div>
+      <div class="review-count"><strong data-due-count>{reviewCards.length}</strong><span>张卡片等待复习</span></div>
       <a class="lab-button secondary" href="/review/">进入复习卡片</a>
       <small>进度保存在当前浏览器，可导出备份。</small>
     </section>

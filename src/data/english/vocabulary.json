@@ -1,0 +1,327 @@
+[
+  {
+    "id": "inspect",
+    "word": "inspect",
+    "partOfSpeech": "动词",
+    "meaning": "仔细检查；查看",
+    "group": "roots",
+    "visual": "inspect",
+    "pictureCaption": "放大镜停在日志的一行上：检查细节，而不只是扫一眼。",
+    "parts": [
+      {
+        "text": "in-",
+        "meaning": "向内"
+      },
+      {
+        "text": "spect",
+        "meaning": "看"
+      }
+    ],
+    "partsNote": "词源线索：来自拉丁语 inspicere，包含 in- 与 specere（看）。这是历史来源的学习简化，不是所有带 in- 的词都能这样解释。",
+    "association": "想象自己拿着放大镜，一行一行查看日志。把动作与 inspect the logs 连起来。这个画面是记忆联想，不是词源。",
+    "family": [
+      "inspect · 检查",
+      "inspection · 检查（名词）",
+      "inspector · 检查员"
+    ],
+    "contrast": "inspect 强调查看；修复问题要另用 fix 或 repair。发现问题不等于修好了。",
+    "example": "Let’s inspect the logs before changing the policy.",
+    "translation": "修改策略之前，我们先仔细查看日志。",
+    "cue": "准备修改权限策略前，你建议先仔细查看日志。请说出“检查日志”的表达，并造一句建议。",
+    "answer": "inspect the logs — Let’s inspect the logs before changing the policy.",
+    "source": "https://www.merriam-webster.com/dictionary/inspect"
+  },
+  {
+    "id": "predict",
+    "word": "predict",
+    "partOfSpeech": "动词",
+    "meaning": "预测；预料",
+    "group": "roots",
+    "visual": "predict",
+    "pictureCaption": "站在今天，根据已有线索，估计明天会发生什么。",
+    "parts": [
+      {
+        "text": "pre-",
+        "meaning": "在前"
+      },
+      {
+        "text": "dict",
+        "meaning": "说"
+      }
+    ],
+    "partsNote": "词源线索：拉丁语 praedicere 表示预先说出；dicere 表示说。现代使用中，预测通常涉及现有依据，不代表保证。",
+    "association": "把时间线上的“现在”与“未来”连接起来：先有依据，再说出对未来的判断。",
+    "family": [
+      "predict · 预测",
+      "prediction · 预测（名词）",
+      "predictable · 可预测的"
+    ],
+    "contrast": "predict 表达预测；guarantee 表达保证。预测有可能不准确。",
+    "example": "We cannot predict every failure.",
+    "translation": "我们无法预测每一种故障。",
+    "cue": "说明系统仍有局限：“我们无法预测每一种故障。”请尝试说英文。",
+    "answer": "We cannot predict every failure.",
+    "source": "https://www.merriam-webster.com/dictionary/predict"
+  },
+  {
+    "id": "transport",
+    "word": "transport",
+    "partOfSpeech": "动词 / 名词",
+    "meaning": "运输；运送；交通运输",
+    "group": "roots",
+    "visual": "transport",
+    "pictureCaption": "货车把箱子从 A 地搬到 B 地：跨过去，并带过去。",
+    "parts": [
+      {
+        "text": "trans-",
+        "meaning": "跨越"
+      },
+      {
+        "text": "port",
+        "meaning": "携带；搬运"
+      }
+    ],
+    "partsNote": "词源线索：拉丁语 transportare，包含 trans- 与 portare（携带）。这里的 port 是词根线索，不把所有现代 port 的含义混在一起。",
+    "association": "想象你搬家时，一辆货车把箱子运过桥。先记住动作，再记 transport equipment。",
+    "family": [
+      "transport · 运送",
+      "transportation · 运输",
+      "transportable · 可运输的"
+    ],
+    "contrast": "transport 可以是动词或名词；public transport 是常用名词搭配。",
+    "example": "How will we transport the equipment?",
+    "translation": "我们打算怎样运输这些设备？",
+    "cue": "团队需要把设备搬到新办公室。请问“我们打算怎样运输这些设备？”",
+    "answer": "How will we transport the equipment?",
+    "source": "https://www.merriam-webster.com/dictionary/transport"
+  },
+  {
+    "id": "review",
+    "word": "review",
+    "partOfSpeech": "动词 / 名词",
+    "meaning": "复查；回顾；评审",
+    "group": "affixes",
+    "visual": "review",
+    "pictureCaption": "把文件翻回来再看一次，确认细节。",
+    "parts": [
+      {
+        "text": "re-",
+        "meaning": "再次"
+      },
+      {
+        "text": "view",
+        "meaning": "看；查看"
+      }
+    ],
+    "partsNote": "构词记忆线索：re- 常表示再次。词义仍需结合搭配理解；a review 也可以指评论或评审。",
+    "association": "想象提交代码前，把变更重新看一遍。给自己一句动作提示：review before sending。",
+    "family": [
+      "review · 复查",
+      "reviewer · 评审者",
+      "code review · 代码评审"
+    ],
+    "contrast": "review the document 是检查文档；a book review 是书评。上下文决定含义。",
+    "example": "Could you review this document before Friday?",
+    "translation": "你能在周五之前审阅这份文档吗？",
+    "cue": "你需要同事在周五前审阅文档。请礼貌地提出请求。",
+    "answer": "Could you review this document before Friday?",
+    "source": "https://www.merriam-webster.com/dictionary/review"
+  },
+  {
+    "id": "reconnect",
+    "word": "reconnect",
+    "partOfSpeech": "动词",
+    "meaning": "重新连接；恢复联系",
+    "group": "affixes",
+    "visual": "reconnect",
+    "pictureCaption": "两端断开的连接重新接上。",
+    "parts": [
+      {
+        "text": "re-",
+        "meaning": "再次"
+      },
+      {
+        "text": "connect",
+        "meaning": "连接"
+      }
+    ],
+    "partsNote": "现代构词：re- 加 connect。既能表示网络连接，也能表示重新与人联系，具体含义看对象。",
+    "association": "视频会议断开了，你重新接上网络，对同事说：I’ll reconnect。",
+    "family": [
+      "connect · 连接",
+      "disconnect · 断开",
+      "reconnect · 重新连接"
+    ],
+    "contrast": "reconnect to the network 是网络场景；reconnect with a friend 是恢复联系。",
+    "example": "I’ll reconnect to the network and try again.",
+    "translation": "我会重新连接网络，再试一次。",
+    "cue": "视频通话断线了，你准备重新连接网络再试一次。请说明你的行动。",
+    "answer": "I’ll reconnect to the network and try again.",
+    "source": "https://www.merriam-webster.com/dictionary/reconnect"
+  },
+  {
+    "id": "unsafe",
+    "word": "unsafe",
+    "partOfSpeech": "形容词",
+    "meaning": "不安全的",
+    "group": "affixes",
+    "visual": "unsafe",
+    "pictureCaption": "一道没有护栏的边界，旁边明确标出风险。",
+    "parts": [
+      {
+        "text": "un-",
+        "meaning": "不；非"
+      },
+      {
+        "text": "safe",
+        "meaning": "安全的"
+      }
+    ],
+    "partsNote": "现代构词：否定前缀 un- 加 safe。不要把所有以 un 开头的单词都当成同一种构词。",
+    "association": "看见没有护栏的地方时，停下来问：What makes this unsafe? 把词与具体风险连接。",
+    "family": [
+      "safe · 安全的",
+      "unsafe · 不安全的",
+      "safely · 安全地"
+    ],
+    "contrast": "unsafe 是形容词；safety 是名词。用 unsafe 描述操作，用 safety 讨论安全这一概念。",
+    "example": "It is unsafe to share your password.",
+    "translation": "分享你的密码是不安全的。",
+    "cue": "有人想共享自己的密码。请用一个完整英文句子说明这样做不安全。",
+    "answer": "It is unsafe to share your password.",
+    "source": "https://www.merriam-webster.com/dictionary/unsafe"
+  },
+  {
+    "id": "access",
+    "word": "access",
+    "partOfSpeech": "动词 / 名词",
+    "meaning": "访问；使用；访问权",
+    "group": "context",
+    "visual": "access",
+    "pictureCaption": "门口有人提出访问请求，通行卡表示是否有权使用资源。",
+    "parts": [],
+    "partsNote": "这个词先通过场景和搭配学习，不为了拆词而硬拆。access a file 与 have access to a file 要一起比较。",
+    "association": "把资源想象成门后的房间：走到门口、提出请求、有无访问权，是不同的环节。",
+    "family": [
+      "access · 访问",
+      "accessible · 可访问的",
+      "inaccessible · 无法访问的"
+    ],
+    "contrast": "动词：access the file。名词：have access to the file。不要机械地在动词后加 to。",
+    "example": "I don’t have access to this folder.",
+    "translation": "我没有访问这个文件夹的权限。",
+    "cue": "你打不开一个共享文件夹。请说明你没有访问权限。",
+    "answer": "I don’t have access to this folder.",
+    "source": "https://www.merriam-webster.com/dictionary/access"
+  },
+  {
+    "id": "available",
+    "word": "available",
+    "partOfSpeech": "形容词",
+    "meaning": "有空的；可获得的；可用的",
+    "group": "context",
+    "visual": "available",
+    "pictureCaption": "日历上留着一个空白时间段：这个时间有空。",
+    "parts": [],
+    "partsNote": "这里先学整词与句型。用 available 描述人的时间或资源的可用性，再通过不同场景区分含义。",
+    "association": "想象日历上 3 点的位置空着。把 Are you available…? 与询问时间联系起来。",
+    "family": [
+      "available · 可用的",
+      "unavailable · 不可用的",
+      "availability · 可用性；有空的时间"
+    ],
+    "contrast": "available 是形容词，通常需要 be：Are you available? 不能说 Do you available?",
+    "example": "Are you available for a quick call tomorrow?",
+    "translation": "你明天有空简短通个电话吗？",
+    "cue": "你想约同事明天简短通话。请礼貌地询问对方是否有空。",
+    "answer": "Are you available for a quick call tomorrow?",
+    "source": "https://www.merriam-webster.com/dictionary/available"
+  },
+  {
+    "id": "receipt",
+    "word": "receipt",
+    "partOfSpeech": "名词",
+    "meaning": "收据；小票",
+    "group": "context",
+    "visual": "receipt",
+    "pictureCaption": "付款后，从收银台拿到一张购物小票。",
+    "parts": [],
+    "partsNote": "先用真实购物场景、读音和拼写学习。receipt 中的 p 不发音，不能靠逐个字母读来猜发音。",
+    "association": "想象购物结束，伸手接过小票，再说 Can I have a receipt, please? 这是情景联想。",
+    "family": [
+      "receipt · 收据",
+      "keep the receipt · 保留收据",
+      "a digital receipt · 电子收据"
+    ],
+    "contrast": "receipt 是付款凭证；recipe 是食谱。字形相近，但含义和发音不同。",
+    "example": "Can I have a receipt, please?",
+    "translation": "可以给我一张收据吗？",
+    "cue": "超市付款后，你需要一张小票。请礼貌地提出请求。",
+    "answer": "Can I have a receipt, please?",
+    "source": "https://www.merriam-webster.com/dictionary/receipt"
+  },
+  {
+    "id": "helpful",
+    "word": "helpful",
+    "partOfSpeech": "形容词",
+    "meaning": "有帮助的；愿意帮忙的",
+    "group": "affixes",
+    "visual": "helpful",
+    "pictureCaption": "一个人帮另一个人把重箱子托起来：提供具体帮助。",
+    "parts": [
+      {
+        "text": "help",
+        "meaning": "帮助"
+      },
+      {
+        "text": "-ful",
+        "meaning": "具有……的"
+      }
+    ],
+    "partsNote": "现代构词：help 加形容词后缀 -ful。后缀只有一个 l；不要把 helpful 写成 helpfull。",
+    "association": "想象卡住时，同事给你一条真正有用的建议。把“帮助”与 That was helpful 连起来。",
+    "family": [
+      "help · 帮助",
+      "helpful · 有帮助的",
+      "unhelpful · 没有帮助的"
+    ],
+    "contrast": "help 是动词或名词；helpful 是形容词。可以说 Your explanation was helpful。",
+    "example": "Your explanation was really helpful.",
+    "translation": "你的解释很有帮助。",
+    "cue": "同事的解释帮你解决了困惑。请用一句英文具体表达感谢。",
+    "answer": "Thank you. Your explanation was really helpful.",
+    "source": "https://www.merriam-webster.com/dictionary/helpful"
+  },
+  {
+    "id": "careless",
+    "word": "careless",
+    "partOfSpeech": "形容词",
+    "meaning": "粗心的；不够仔细的",
+    "group": "affixes",
+    "visual": "careless",
+    "pictureCaption": "匆忙离开时，没有注意到桌边的杯子正在倾倒。",
+    "parts": [
+      {
+        "text": "care",
+        "meaning": "留意；关心"
+      },
+      {
+        "text": "-less",
+        "meaning": "缺少……的"
+      }
+    ],
+    "partsNote": "现代构词：care 加形容词后缀 -less。比较 careless 与 careful；它们在表达是否仔细上形成对照。",
+    "association": "想象提交前忘记检查拼写的一次经历。把词与可改进的动作联系，不把一次失误当成对整个人的评价。",
+    "family": [
+      "careful · 仔细的",
+      "careless · 粗心的",
+      "carelessly · 粗心地"
+    ],
+    "contrast": "a careless mistake 是一次粗心造成的错误。讨论工作时，可进一步说清具体漏查了什么。",
+    "example": "I made a careless mistake in the address.",
+    "translation": "我粗心地把地址写错了。",
+    "cue": "你把地址写错了，想说明这是一次粗心造成的错误。请说一句英文。",
+    "answer": "I made a careless mistake in the address.",
+    "source": "https://www.merriam-webster.com/dictionary/careless"
+  }
+]

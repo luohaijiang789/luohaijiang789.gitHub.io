@@ -142,3 +142,5 @@ a.lab-button.secondary { background: var(--lab-surface); color: var(--lab-accent
 }
 @media (max-width: 380px) { .domain-grid { grid-template-columns: 1fr; }.featured-card { grid-template-columns: 1fr; }.hero-actions { align-items: stretch; flex-direction: column; }.path-preview { grid-template-columns: 1fr 1fr; row-gap: 1rem; }.path-preview a::before { display: none; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+/* MDX prose spacing must not offset children inside interactive layouts. */
+.sl-markdown-content :is(.component-actions, .method-buttons, .word-controls, .chunk-grid, .english-section-grid, .studio-heading, .word-summary, .parts-equation, .english-section-top, .dialogue-lines li) > * { margin-top: 0; }

@@ -1,0 +1,87 @@
+---
+import words from '../data/english/vocabulary.json';
+import WordPicture from './WordPicture.astro';
+const methods = [
+  { id: 'parts', label: '词根词缀' }, { id: 'picture', label: '图像记忆' },
+  { id: 'association', label: '联想故事' }, { id: 'network', label: '关联与辨析' },
+  { id: 'context', label: '场景搭配' }, { id: 'recall', label: '主动回忆' },
+];
+---
+<section class="vocabulary-studio learning-card" aria-labelledby="vocab-title">
+  <div class="studio-heading"><div><span class="eyebrow">ONE WORD, MANY CONNECTIONS</span><h2 id="vocab-title">给一个词，多几条记忆线索。</h2></div><span class="sample-count">{words.length} 个完整示范词</span></div>
+  <div class="word-controls"><label>词汇类型<select data-word-group><option value="all">全部示范词</option><option value="roots">词根线索</option><option value="affixes">前后缀与构词</option><option value="context">场景与搭配</option></select></label><label>选择一个词<select data-word-select>{words.map(word => <option value={word.id} data-group={word.group}>{word.word} · {word.meaning}</option>)}</select></label></div>
+  <div class="method-buttons" role="group" aria-label="记忆方法">{methods.map((method, index) => <button type="button" data-memory-method={method.id} aria-pressed={index === 0 ? 'true' : 'false'}>{method.label}</button>)}</div>
+  {words.map((word, index) => <article data-word-panel={word.id} hidden={index !== 0} aria-label={`${word.word} 学习卡`}>
+    <div class="word-summary"><h3 lang="en">{word.word}</h3><span>{word.partOfSpeech} · {word.meaning}</span><button type="button" data-word-speak={word.word}>听单词</button></div>
+    <section data-memory-panel="parts"><div class="parts-equation">{word.parts.length ? word.parts.map((part, i) => <><span class="word-part"><strong lang="en">{part.text}</strong><small>{part.meaning}</small></span>{i < word.parts.length - 1 && <span class="parts-plus">+</span>}</>) : <span class="whole-word">整词与搭配优先</span>}</div><p>{word.partsNote}</p><a href={word.source} target="_blank" rel="noopener">查词典与词源资料</a></section>
+    <section data-memory-panel="picture" hidden><WordPicture visual={word.visual} label={word.pictureCaption}/><p>{word.pictureCaption}</p><p class="method-prompt">闭眼还原这个动作，再把英文词和完整搭配说出来。</p></section>
+    <section data-memory-panel="association" hidden><span class="memory-tag">自创记忆联想 · 不是词源</span><p class="association-story">{word.association}</p><p class="method-prompt">把画面中的地点或人物换成你熟悉的内容，再用下面的笔记保存自己的版本。</p></section>
+    <section data-memory-panel="network" hidden><div class="family-cloud">{word.family.map(item => <span>{item}</span>)}</div><p>{word.contrast}</p><p class="method-prompt">比较这些词在句子里的职责。请自己造一句，说明它们能否互换。</p></section>
+    <section data-memory-panel="context" hidden><div class="context-quote"><p lang="en">{word.example}</p><p>{word.translation}</p></div><p>{word.contrast}</p><p class="method-prompt">替换句子中的对象、时间或地点，再说一次。保留自然搭配。</p></section>
+    <section data-memory-panel="recall" hidden><p>下一页会隐藏答案，给你一个情境。先尝试说出自己的表达，再翻卡比较，最后安排下次复习。</p><a class="lab-button primary" href={`/review/?topic=vocabulary&card=vocab-${word.id}`}>进入这个词的回忆卡</a><p class="method-prompt">能用自己的话准确表达，也算掌握。不要只检查是否逐字相同。</p></section>
+  </article>)}
+  <div class="personal-memory"><label for="word-note">我的记忆线索与例句</label><textarea id="word-note" rows="3" maxlength="4000" placeholder="例如：想象我在排查自己的服务日志……这张图比拆词更容易帮我想起 inspect。"></textarea><div class="component-actions"><button type="button" data-save-word-note>保存这个词的笔记</button><button type="button" data-next-word>换一个词</button></div></div>
+  <p class="feedback" data-vocabulary-status role="status">笔记按单词分别保存，并包含在学习备份中。</p>
+  <noscript><p>启用 JavaScript 可切换词汇和方法。无脚本时，下方保留全部词汇的核心材料。</p>{words.slice(1).map(word => <details><summary>{word.word} · {word.meaning}</summary><p>{word.partsNote}</p><p>{word.association}</p><p lang="en">{word.example}</p></details>)}</noscript>
+</section>
+<style>
+.studio-heading{display:flex;justify-content:space-between;align-items:start;gap:.8rem}.studio-heading h2{font-size:1.35rem!important;margin:.4rem 0 1rem}.sample-count{font-size:.75rem;color:var(--lab-muted);white-space:nowrap}.word-controls{display:grid;grid-template-columns:1fr 1.8fr;gap:.8rem}.word-controls label{display:flex;flex-direction:column;gap:.4rem;font-size:.85rem}.word-controls select{width:100%;padding:.6rem;border:1px solid var(--lab-border);border-radius:.45rem;background:var(--lab-bg);color:var(--lab-ink)}.method-buttons{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.2rem 0}.method-buttons button{padding:.5rem .75rem;border:1px solid var(--lab-border);border-radius:2rem;background:var(--lab-bg);color:var(--lab-muted);font-size:.8rem}.method-buttons button[aria-pressed='true']{background:var(--lab-accent);color:var(--lab-bg);border-color:var(--lab-accent)}.word-summary{display:flex;align-items:baseline;flex-wrap:wrap;gap:.7rem;border-bottom:1px solid var(--lab-border);padding-bottom:.8rem}.word-summary h3{font-size:2rem!important;margin:0!important;color:var(--lab-accent)}.word-summary>span{font-size:.85rem;color:var(--lab-muted)}.word-summary button{margin-left:auto;font-size:.8rem;border:1px solid var(--lab-border);background:var(--lab-soft);color:var(--lab-ink);border-radius:.4rem;padding:.35rem .6rem}[data-memory-panel]{margin-top:1.2rem;min-height:14rem}[data-memory-panel] a{font-size:.85rem}.parts-equation{display:flex;align-items:center;justify-content:center;gap:1rem;min-height:7rem;flex-wrap:wrap}.word-part{display:flex;flex-direction:column;align-items:center;padding:.8rem 1.4rem;border:1px solid var(--lab-border);background:var(--lab-soft);border-radius:.75rem}.word-part strong{font-size:1.8rem;color:var(--lab-accent)}.word-part small{font-size:.8rem}.parts-plus{color:var(--lab-muted);font-size:1.4rem}.whole-word{padding:1rem;background:var(--lab-soft);border-radius:.5rem;color:var(--lab-accent)}.memory-tag{font-size:.75rem;color:var(--lab-accent)}.association-story{font-size:1.15rem;line-height:1.9;background:var(--lab-soft);padding:1.2rem;border-radius:.6rem}.method-prompt{font-size:.85rem!important;color:var(--lab-muted)}.family-cloud{display:flex;flex-wrap:wrap;gap:.7rem;padding:.7rem 0}.family-cloud span{border:1px solid var(--lab-border);border-radius:.5rem;padding:.65rem;background:var(--lab-soft);font-size:.9rem}.context-quote{padding:1.2rem;background:var(--lab-soft);border-left:3px solid var(--lab-accent);border-radius:0 .6rem .6rem 0}.context-quote p:first-child{font-size:1.2rem;color:var(--lab-ink)}.context-quote p:last-child{font-size:.9rem}.personal-memory{border-top:1px solid var(--lab-border);margin-top:1.3rem;padding-top:1rem}.personal-memory label{font-size:.9rem}.personal-memory textarea{width:100%;padding:.75rem;border:1px solid var(--lab-border);border-radius:.5rem;background:var(--lab-bg);color:var(--lab-ink);font:inherit;font-size:.9rem;margin-top:.5rem}[hidden]{display:none!important}@media(max-width:600px){.studio-heading{flex-direction:column}.word-controls{grid-template-columns:1fr}.sample-count{margin-bottom:.8rem}.word-summary h3{font-size:1.6rem!important}.parts-equation{gap:.7rem}.word-part{padding:.7rem 1rem}}
+</style>
+<script>
+  import words from '../data/english/vocabulary.json';
+  import { readProgress, writeProgress } from '../lib/progress.mjs';
+  const select = document.querySelector<HTMLSelectElement>('[data-word-select]')!;
+  const group = document.querySelector<HTMLSelectElement>('[data-word-group]')!;
+  const note = document.querySelector<HTMLTextAreaElement>('#word-note')!;
+  const status = document.querySelector('[data-vocabulary-status]')!;
+  let method = 'parts';
+  function update() {
+    document.querySelectorAll<HTMLElement>('[data-word-panel]').forEach(panel => { panel.hidden = panel.dataset.wordPanel !== select.value; });
+    document.querySelectorAll<HTMLElement>('[data-memory-panel]').forEach(panel => { panel.hidden = panel.dataset.memoryPanel !== method; });
+    note.value = readProgress().english.wordNotes[select.value] || '';
+  }
+  function hasUnsavedNote() { return note.value !== (readProgress().english.wordNotes[select.value] || ''); }
+  let previousWord = select.value;
+  let previousGroup = group.value;
+  select.addEventListener('change', () => {
+    const next = select.value; select.value = previousWord;
+    if (hasUnsavedNote() && !confirm('这个词的笔记还未保存，确定切换并放弃修改？')) return;
+    select.value = next; previousWord = next; update();
+    status.textContent = '已切换单词。笔记按词分别保存。';
+    window.speechSynthesis?.cancel();
+  });
+  group.addEventListener('change', () => {
+    if (hasUnsavedNote() && !confirm('当前笔记还未保存，确定切换并放弃修改？')) { group.value = previousGroup; return; }
+    previousGroup = group.value;
+    const visible = words.filter(word => group.value === 'all' || word.group === group.value);
+    [...select.options].forEach(option => { option.hidden = !visible.some(word => word.id === option.value); option.disabled = option.hidden; });
+    if (!visible.some(word => word.id === select.value)) select.value = visible[0].id;
+    previousWord = select.value; update();
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-memory-method]').forEach(button => button.addEventListener('click', () => {
+    method = button.dataset.memoryMethod!;
+    document.querySelectorAll('[data-memory-method]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    // Do not reload the draft when changing only the learning method.
+    document.querySelectorAll<HTMLElement>('[data-memory-panel]').forEach(panel => { panel.hidden = panel.dataset.memoryPanel !== method; });
+  }));
+  document.querySelector('[data-save-word-note]')!.addEventListener('click', () => {
+    const p = readProgress(); p.english.wordNotes[select.value] = note.value;
+    status.textContent = writeProgress(p) ? '这个词的笔记已保存，可在复习页导出备份。' : '浏览器无法保存，请先复制笔记到本地。';
+  });
+  document.querySelector('[data-next-word]')!.addEventListener('click', () => {
+    if (hasUnsavedNote() && !confirm('当前笔记还未保存，确定切换并放弃修改？')) return;
+    const available = words.filter(w => group.value === 'all' || w.group === group.value);
+    select.value = available[(available.findIndex(w => w.id === select.value) + 1) % available.length].id;
+    previousWord = select.value; update(); window.speechSynthesis?.cancel();
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-word-speak]').forEach(button => {
+    button.disabled = !('speechSynthesis' in window);
+    button.addEventListener('click', () => {
+      speechSynthesis.cancel(); const line = new SpeechSynthesisUtterance(button.dataset.wordSpeak!); line.lang = 'en-US'; line.rate = .8;
+      line.onerror = () => { status.textContent = '设备未能朗读，请查词典音频或检查系统语音。'; };
+      speechSynthesis.speak(line);
+    });
+  });
+  update();
+  window.addEventListener('pagehide', () => window.speechSynthesis?.cancel());
+</script>

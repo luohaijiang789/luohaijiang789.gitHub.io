@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { reviewCards } from '../../src/data/english/review-cards.mjs';
 
 test('homepage, all six subjects and mobile navigation remain usable', async ({ page }) => {
   const errors: string[] = [];
@@ -6,7 +7,7 @@ test('homepage, all six subjects and mobile navigation remain usable', async ({ 
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('走向世界');
   await expect(page.locator('.domain-card')).toHaveCount(6);
-  await expect(page.locator('[data-due-count]')).toHaveText('6');
+  await expect(page.locator('[data-due-count]')).toHaveText(String(reviewCards.length));
   await page.getByRole('combobox', { name: '选择主题' }).selectOption('dark');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.reload();
@@ -15,7 +16,7 @@ test('homepage, all six subjects and mobile navigation remain usable', async ({ 
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.locator('.domain-card').filter({ hasText: '英语与沟通' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('英语与沟通');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('英语训练站');
   await page.getByRole('button', { name: '菜单' }).click();
   await expect(page.getByRole('link', { name: '学习工作台', exact: true })).toBeVisible();
   expect(errors).toEqual([]);
@@ -73,7 +74,7 @@ test('review schedules persist, export succeeds, and invalid imports are rejecte
   await page.locator('[data-import]').setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{"version":999}') });
   await expect(page.locator('[data-backup-status]')).toContainText('不支持');
   await page.goto('/');
-  await expect(page.locator('[data-due-count]')).toHaveText('5');
+  await expect(page.locator('[data-due-count]')).toHaveText(String(reviewCards.length - 1));
 });
 
 test('search finds Chinese lesson text in the production index', async ({ page }) => {
