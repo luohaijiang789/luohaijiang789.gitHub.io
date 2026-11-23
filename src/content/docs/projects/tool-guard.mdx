@@ -1,0 +1,61 @@
+---
+title: Tool Guard：一个可测试的权限边界
+description: 实现精确匹配的工具授权规则，并用测试检验允许与拒绝路径。
+sidebar:
+  order: 1
+---
+import PolicyDemo from '../../../components/PolicyDemo.astro';
+
+## 项目目标
+
+给模型提出的工具调用加一道独立规则检查。输入是可信会话身份，以及待执行的操作与资源；输出为允许或拒绝和理由。
+
+这是一个教学实验，不执行真实工具，也没有接入模型。它让你先理解授权决策，再逐步补充工程能力。
+
+<PolicyDemo />
+
+## 在本仓库运行
+
+需要 Node.js 22.23.4 或更高版本。克隆仓库后执行：
+
+```sh
+npm ci
+npm test
+```
+
+核心实现位于 `src/lib/policy.mjs`，测试位于 `tests/policy.test.mjs`。演示与测试使用同一份规则函数。
+
+```js
+import { evaluateCall } from './src/lib/policy.mjs';
+
+const result = evaluateCall('reader', {
+  action: 'read_note',
+  resource: 'public-guide',
+});
+console.log(result); // allowed: true
+```
+
+## 应满足的约束
+
+1. Reader 只能读取 public-guide。
+2. Editor 可以读取公开指南、读取和修改 team-note。
+3. 未知身份、未知操作、未知资源以及错误格式默认拒绝。
+4. 模型在调用参数中声称自己是管理员，不会改变可信会话。
+5. 只有操作和资源同时匹配授权，才允许执行。
+
+## 你要亲手补充的部分
+
+- 加一项新的资源和明确授权，并补充成功与拒绝测试。
+- 尝试空输入、相似资源名和伪造身份字段。
+- 画出数据流和信任边界。
+- 记录测试结果，以及至少一项没有覆盖的风险。
+
+## 工程边界
+
+生产环境还需要可信身份建立、资源映射、参数模式校验、租户隔离、审计、执行时状态检查等设计。示例只返回一个决策，不把用户字符串作为文件路径或命令执行。
+
+## 英文介绍练习
+
+> I built a small policy gate for agent tool calls. It checks the action and resource against permissions from a trusted session. I tested both allowed and denied requests. This is a local teaching model, not a complete production security system.
+
+将这些句子替换为你实际完成的工作。到[英语场景](/english/security-standup/)练习，再到[学习路径](/paths/first-project/)记录完成情况。

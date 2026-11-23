@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 390" role="img" aria-labelledby="title desc">
+<title id="title">智能体工具调用的信任边界</title><desc id="desc">外部文档作为不可信数据进入模型，模型提出调用建议，独立权限检查核验可信会话身份、操作和资源，只有通过后才能执行工具。</desc>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="m0 0 8 4-8 4" fill="none" stroke="#537465" stroke-width="1.5"/></marker><pattern id="p" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#bed1c2"/></pattern></defs>
+<rect width="960" height="390" rx="20" fill="#f1f6ef"/><rect width="960" height="390" rx="20" fill="url(#p)"/>
+<g font-family="system-ui, sans-serif" fill="#243d30"><text x="34" y="39" font-size="14" letter-spacing="2" fill="#536f5c">FOLLOW THE DATA. FIND THE BOUNDARY.</text>
+<rect x="28" y="105" width="178" height="115" rx="15" fill="#fff" stroke="#c9d8ca"/><text x="117" y="141" text-anchor="middle" font-size="19">外部文档 / 网页</text><text x="117" y="169" text-anchor="middle" font-size="14" fill="#775d3e">Untrusted data</text><text x="117" y="196" text-anchor="middle" font-size="13" fill="#6a766b">可能夹带恶意指令</text>
+<path d="M210 162h43" stroke="#537465" stroke-width="2" marker-end="url(#a)"/>
+<rect x="263" y="105" width="174" height="115" rx="15" fill="#fff" stroke="#c9d8ca"/><text x="350" y="142" text-anchor="middle" font-size="20">AI 智能体</text><text x="350" y="170" text-anchor="middle" font-size="14">Proposes a call</text><text x="350" y="196" text-anchor="middle" font-size="13" fill="#6a766b">建议 ≠ 授权</text>
+<path d="M441 162h43" stroke="#537465" stroke-width="2" marker-end="url(#a)"/>
+<rect x="496" y="79" width="212" height="168" rx="15" fill="#dcecdf" stroke="#347554" stroke-width="2"/><text x="602" y="119" text-anchor="middle" font-size="20">独立权限检查</text><text x="602" y="148" text-anchor="middle" font-size="14">Policy gate</text><path d="M526 166h152" stroke="#adccb3"/><text x="602" y="190" text-anchor="middle" font-size="14">身份 · 操作 · 资源</text><text x="602" y="216" text-anchor="middle" font-size="13">未明确允许，就拒绝</text>
+<path d="M713 162h43" stroke="#537465" stroke-width="2" marker-end="url(#a)"/>
+<rect x="769" y="105" width="165" height="115" rx="15" fill="#fff" stroke="#c9d8ca"/><text x="851" y="142" text-anchor="middle" font-size="20">执行工具</text><text x="851" y="171" text-anchor="middle" font-size="14">Executes the call</text><text x="851" y="196" text-anchor="middle" font-size="13" fill="#6a766b">只执行获准操作</text>
+<rect x="471" y="59" width="262" height="208" rx="23" fill="none" stroke="#347554" stroke-dasharray="5 5"/><text x="602" y="290" text-anchor="middle" font-size="13" fill="#347554">信任边界 / TRUST BOUNDARY</text>
+<rect x="293" y="318" width="420" height="45" rx="10" fill="#fff" stroke="#c9d8ca"/><text x="503" y="346" text-anchor="middle" font-size="14">可信会话 / 服务端身份 → 权限检查（不由模型填写）</text><path d="M603 316v-62" stroke="#537465" stroke-width="2" marker-end="url(#a)"/>
+</g></svg>

@@ -1,0 +1,9 @@
+{/* Set the theme before paint, even when browser storage is unavailable. */}
+<script is:inline>
+  (() => {
+    let preference = 'auto';
+    try { preference = localStorage.getItem('starlight-theme') || 'auto'; } catch {}
+    const system = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = preference === 'dark' || preference === 'light' ? preference : system;
+  })();
+</script>

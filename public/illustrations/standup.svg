@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+<title id="title">英语场景：团队晨会中讨论智能体权限告警</title><desc id="desc">Maya 问发生了什么，海江解释智能体试图读取私密文件，权限层已经拦截。桌上的流程图显示智能体、权限检查和私密文件。</desc>
+<defs><pattern id="p" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#d4dccc"/></pattern></defs>
+<rect width="960" height="520" rx="22" fill="#f2f5ec"/><rect width="960" height="520" rx="22" fill="url(#p)"/>
+<g font-family="system-ui, sans-serif"><text x="35" y="40" font-size="14" letter-spacing="2" fill="#536956">SCENE 01 / THE SECURITY STAND-UP</text>
+<rect x="63" y="71" width="334" height="96" rx="18" fill="#fff" stroke="#c7d5c5"/><path d="m165 167 18 21 6-21" fill="#fff" stroke="#c7d5c5"/><text x="86" y="108" font-size="19" fill="#2d4435">What happened with the agent?</text><text x="86" y="140" font-size="15" fill="#677466">Maya · 安全工程师</text>
+<rect x="437" y="71" width="457" height="122" rx="18" fill="#e0ecdd" stroke="#a8c2a5"/><path d="m745 193 16 23 7-23" fill="#e0ecdd" stroke="#a8c2a5"/><text x="459" y="108" font-size="18" fill="#2d4435">It tried to read a private file.</text><text x="459" y="138" font-size="18" fill="#2d4435">The policy gate blocked the request.</text><text x="459" y="170" font-size="15" fill="#677466">Haijiang · 说明观察到的事实</text>
+<path d="M113 389v-55q0-63 62-63t62 63v55" fill="#b5c9b1" stroke="#42694d" stroke-width="2"/><circle cx="175" cy="243" r="36" fill="#edd2b5" stroke="#42694d" stroke-width="2"/><path d="M140 240q-4-56 43-42 37 1 28 45-12-14-22-28-17 24-49 25Z" fill="#405746"/>
+<path d="M716 389v-55q0-63 62-63t62 63v55" fill="#88aaa0" stroke="#42694d" stroke-width="2"/><circle cx="778" cy="243" r="36" fill="#edd2b5" stroke="#42694d" stroke-width="2"/><path d="M743 234q-2-47 41-38 34 3 28 44-14-11-22-23-13 15-47 17Z" fill="#344c41"/>
+<rect x="247" y="232" width="425" height="158" rx="14" fill="#fff" stroke="#b4c9b2"/><text x="270" y="261" font-size="13" fill="#677466" letter-spacing="1">WHAT WE KNOW / 已知事实</text>
+<rect x="270" y="285" width="89" height="50" rx="8" fill="#edf3e9" stroke="#b4c9b2"/><text x="314" y="315" text-anchor="middle" font-size="15" fill="#2d4435">Agent</text><path d="M359 310h35" stroke="#66836d" stroke-width="2"/>
+<rect x="394" y="280" width="119" height="60" rx="8" fill="#dcebd8" stroke="#66836d"/><text x="453" y="315" text-anchor="middle" font-size="15" fill="#2d4435">Policy gate</text><path d="M513 310h30" stroke="#66836d" stroke-width="2"/><path d="m529 303 14 14m-14 0 14-14" stroke="#ac6450" stroke-width="3"/>
+<rect x="553" y="285" width="96" height="50" rx="8" fill="#fbede5" stroke="#d6ad98"/><text x="601" y="315" text-anchor="middle" font-size="14" fill="#7e5340">Private file</text><text x="270" y="369" font-size="14" fill="#677466">Next: check the logs and review the access policy.</text>
+<rect x="72" y="390" width="813" height="17" rx="8" fill="#d5b894"/><path d="M127 407v62m699-62v62" stroke="#9e8e73" stroke-width="12"/>
+<rect x="256" y="445" width="450" height="43" rx="21" fill="#fff" stroke="#c7d5c5"/><text x="481" y="472" text-anchor="middle" font-size="15" fill="#42694d">看图回忆：发生了什么？谁拦截了请求？下一步做什么？</text>
+</g></svg>

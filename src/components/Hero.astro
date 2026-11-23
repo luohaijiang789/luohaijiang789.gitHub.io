@@ -1,0 +1,6 @@
+---
+import DefaultHero from '@astrojs/starlight/components/Hero.astro';
+import Dashboard from './Dashboard.astro';
+const home = Astro.locals.starlightRoute.id === '';
+---
+{home ? <Dashboard /> : <DefaultHero><slot /></DefaultHero>}

@@ -13,7 +13,6 @@ _site
 
 # NPM dependencies
 node_modules
-package-lock.json
 
 # IDE configurations
 .idea
@@ -25,3 +24,9 @@ package-lock.json
 # Misc
 _sass/vendors
 assets/js/dist
+
+# Astro build and browser verification
+.astro/
+dist/
+playwright-report/
+test-results/
