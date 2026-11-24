@@ -1,4 +1,4 @@
-name: Verify and deploy Learning Lab
+name: Verify and deploy Next.js Notes
 on:
   push:
     branches: [main, master]
@@ -22,6 +22,7 @@ jobs:
           node-version: '22.23.4'
           cache: npm
       - run: npm ci
+      - run: echo "NEXT_TELEMETRY_DISABLED=1" >> "$GITHUB_ENV"
       - run: npm run verify
       - name: Install browser for interaction tests
         run: npx playwright install --with-deps chromium

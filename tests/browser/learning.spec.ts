@@ -4,16 +4,16 @@ test('single note directory works on desktop and mobile, with persistent theme',
   const errors: string[] = [];
   page.on('pageerror', e => errors.push(e.message));
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('笔记');
-  await expect(page.locator('.notes-list li')).toHaveCount(7);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('我的笔记');
+  await expect(page.locator('.note-card')).toHaveCount(7);
   await expect(page.locator('a[href^="/paths/"], a[href="/review/"], .dashboard')).toHaveCount(0);
-  await page.getByRole('combobox', { name: '选择主题' }).selectOption('dark');
+  await page.getByRole('button', { name: '切换到深色主题' }).click();
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await page.getByRole('combobox', { name: '选择主题' }).selectOption('light');
+  await page.getByRole('button', { name: '切换到浅色主题' }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  await page.locator('.notes-list a').filter({ hasText: 'GitHub 项目怎么安装' }).click();
+  await page.locator('.note-card').filter({ hasText: 'GitHub 项目怎么安装' }).click();
   await expect(page).toHaveURL(/\/notes\/software-delivery\//);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.getByRole('button', { name: '菜单' }).click();
@@ -23,7 +23,7 @@ test('single note directory works on desktop and mobile, with persistent theme',
 
 test('all directory entries lead to readable articles', async ({ page }) => {
   await page.goto('/');
-  const links = await page.locator('.notes-list a').evaluateAll(nodes => nodes.map(node => ({ href: node.getAttribute('href')!, title: node.querySelector('.note-title')!.textContent! })));
+  const links = await page.locator('.note-card').evaluateAll(nodes => nodes.map(node => ({ href: node.getAttribute('href')!, title: node.querySelector('h2')!.textContent! })));
   for (const link of links) {
     const response = await page.goto(link.href);
     expect(response?.status()).toBe(200);
@@ -59,11 +59,11 @@ test('policy demonstration remains usable within a note', async ({ page }) => {
 
 test('search returns the unified note URL', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: '搜索', exact: true }).click();
-  await page.getByRole('textbox', { name: '搜索', exact: true }).fill('uvx');
-  const result = page.locator('.pagefind-ui__result').filter({ hasText: 'GitHub 项目怎么安装' }).first();
+  await page.getByRole('button', { name: '搜索笔记', exact: true }).click();
+  await page.getByRole('textbox', { name: '搜索笔记内容', exact: true }).fill('uvx');
+  const result = page.locator('.search-result').filter({ hasText: 'GitHub 项目怎么安装' }).first();
   await expect(result).toBeVisible({ timeout: 15000 });
-  await expect(result.locator('a').first()).toHaveAttribute('href', /\/notes\/software-delivery\//);
+  await expect(result).toHaveAttribute('href', /\/notes\/software-delivery\//);
 });
 
 test('historical backups retain drafts and reject invalid imports', async ({ page }) => {
@@ -100,4 +100,49 @@ test('legacy blog article still reaches the archive', async ({ page }) => {
   await page.goto('/posts/hello-ai/');
   await expect(page).toHaveURL(/\/archive\//);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('旧站内容存档');
+});
+
+
+test('topic filtering and keyboard search support empty states and focus return', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'AI 安全', exact: true }).click();
+  await expect(page.locator('.note-card')).toHaveCount(1);
+  await expect(page.locator('.note-card')).toContainText('谁来授权');
+  await page.getByRole('button', { name: '全部', exact: true }).click();
+  await expect(page.locator('.note-card')).toHaveCount(7);
+  await page.keyboard.press('Control+k');
+  const search=page.getByRole('textbox', { name: '搜索笔记内容' });
+  await expect(search).toBeFocused();
+  await search.fill('不存在的关键词 xyz_314159');
+  await expect(page.getByText('没有找到相关笔记，试试更短的关键词。')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+});
+
+test('article headings, highlighted code, clipboard and theme are usable', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read','clipboard-write']);
+  await page.setViewportSize({width:1440,height:1000});
+  await page.goto('/notes/tool-guard/');
+  await expect(page.locator('pre.shiki').first()).toBeVisible();
+  await page.getByRole('button', {name:'复制代码',exact:true}).first().click();
+  await expect.poll(()=>page.evaluate(()=>navigator.clipboard.readText())).toContain('npm ci');
+  const toc=page.getByRole('navigation',{name:'本文目录',exact:true});
+  await toc.getByRole('link',{name:'应满足的约束',exact:true}).click();
+  await expect(page).toHaveURL(/#应满足的约束|#%E5%BA%94/);
+  await page.getByRole('button',{name:'切换到深色主题'}).click();
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
+  await page.setViewportSize({width:390,height:844});
+  await page.locator('.mobile-toc summary').click();
+  await expect(page.getByRole('navigation',{name:'本文目录（移动端）'})).toBeVisible();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+
+test('long tables and code remain inside a mobile article', async ({page}) => {
+  await page.setViewportSize({width:390,height:844});
+  await page.goto('/notes/software-delivery/');
+  await expect(page.locator('article table').first()).toBeVisible();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  const wideTable=page.locator('article table').first();
+  expect(await wideTable.evaluate(el=>getComputedStyle(el).overflowX)).toBe('auto');
 });

@@ -30,3 +30,8 @@ assets/js/dist
 dist/
 playwright-report/
 test-results/
+
+# Next.js outputs
+.next/
+out/
+*.tsbuildinfo

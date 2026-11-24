@@ -4,7 +4,6 @@ description: 用信任边界图和交互实验理解智能体的工具执行权�
 sidebar:
   order: 3
 ---
-import PolicyDemo from '../../../components/PolicyDemo.astro';
 
 ## 一个场景
 
@@ -12,7 +11,7 @@ import PolicyDemo from '../../../components/PolicyDemo.astro';
 
 关键在于：**外部内容和模型提出的调用，都不能自行增加当前会话的权限。**
 
-<figure class="diagram-frame"><img src="/illustrations/tool-boundary.svg" width="960" height="390" alt="外部文档进入智能体，模型提出建议，由独立权限层核验可信会话、操作和资源，之后才执行工具。"/><figcaption>沿着数据流找边界：建议调用，与获准执行，是不同的步骤。 <a href="/illustrations/tool-boundary.svg" target="_blank" rel="noopener">查看大图</a></figcaption></figure>
+<figure className="diagram-frame"><img src="/illustrations/tool-boundary.svg" width="960" height="390" alt="外部文档进入智能体，模型提出建议，由独立权限层核验可信会话、操作和资源，之后才执行工具。"/><figcaption>沿着数据流找边界：建议调用，与获准执行，是不同的步骤。 <a href="/illustrations/tool-boundary.svg" target="_blank" rel="noopener">查看大图</a></figcaption></figure>
 
 ## 为什么只写“不要越权”不够？
 

@@ -1,4 +1,1 @@
-{
-  "files.associations": { "*.mdx": "mdx" },
-  "[astro]": { "editor.defaultFormatter": "astro-build.astro-vscode" }
-}
+{"editor.formatOnSave":true}
