@@ -1,0 +1,29 @@
+<div class="learning-card">
+  <div class="component-actions"><button type="button" data-export>导出历史备份</button><label>导入备份 <input type="file" accept="application/json,.json" data-import /></label></div>
+  <p role="status" data-backup-status></p>
+</div>
+<script>
+  import { readProgress, writeProgress, normalizeProgress } from '../lib/progress.mjs';
+  const status = document.querySelector<HTMLElement>('[data-backup-status]')!;
+  document.querySelector('[data-export]')!.addEventListener('click', () => {
+    try {
+      // Access storage explicitly so blocked/corrupt storage never silently exports an empty backup.
+      const raw = localStorage.getItem('haijiang-lab:v1');
+      const data = raw ? normalizeProgress(JSON.parse(raw)) : readProgress();
+      const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+      const a = document.createElement('a'); a.href = url; a.download = 'haijiang-learning-v1.json'; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000); status.textContent = '备份已生成。';
+    } catch { status.textContent = '无法读取历史记录，请检查浏览器存储设置或原始数据。'; }
+  });
+  document.querySelector<HTMLInputElement>('[data-import]')!.addEventListener('change', async event => {
+    const input = event.currentTarget as HTMLInputElement; const file = input.files?.[0]; if (!file) return;
+    try {
+      if (file.size > 1000000) throw new Error('请选择小于 1 MB 的 JSON 备份。');
+      const data = normalizeProgress(JSON.parse(await file.text()));
+      if (!confirm('导入将替换本机历史学习记录，确定继续？')) return;
+      if (!writeProgress(data)) throw new Error('浏览器无法保存，请检查存储设置。');
+      status.textContent = '历史备份已导入。';
+    } catch (error) { status.textContent = error instanceof Error ? error.message : '备份读取失败。'; }
+    finally { input.value = ''; }
+  });
+</script>

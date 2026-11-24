@@ -1,7 +1,7 @@
 ---
 title: 证据、推断与结论
 sidebar:
-  order: 1
+  order: 5
 ---
 
 ## 一个容易跳过的区别
@@ -37,4 +37,4 @@ sidebar:
 
 </details>
 
-把这个模板用于[权限实验](/projects/tool-guard/)，并写下至少一个未覆盖情况。
+把这个模板用于[权限实验](/notes/tool-guard/)，并写下至少一个未覆盖情况。

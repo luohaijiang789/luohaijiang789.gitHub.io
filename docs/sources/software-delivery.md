@@ -2,7 +2,7 @@
 
 来源：https://chatgpt.com/share/6b03f80e-19cc-83ea-871f-807a0b2291ef
 
-正文已导入 `src/content/docs/foundations/software-delivery.md`，采用会话后半段纠错后的功能分类，删除星级推荐和隔离强弱排名。重点区分依赖隔离与安全沙箱、npx/uvx 缓存、容器共享内核、Compose 的配置管理职责。
+正文已导入 `src/content/docs/notes/software-delivery.md`，采用会话后半段纠错后的功能分类，删除星级推荐和隔离强弱排名。重点区分依赖隔离与安全沙箱、npx/uvx 缓存、容器共享内核、Compose 的配置管理职责。
 
 原图尚未导入：共享正文可读，但图片下载接口返回 HTTP 401。已向用户说明需要原图附件；公开文章没有加入失效图或替代图。会话中包含初版及修正版，收到附件后先核对图中文字，采用最后修正版四图，提供图注、替代说明、原尺寸查看入口，并自托管。
 

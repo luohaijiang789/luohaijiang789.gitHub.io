@@ -132,4 +132,4 @@ Linux 容器共享其运行宿主的内核。Docker Desktop 在 macOS / Windows 
 
 **参考：** `npm ci` 安装依赖，`npm run build` 生成 `dist/`，GitHub Actions 将静态产物部署到 Pages。当前流程不要求 Docker；这是本仓库的实现，不是所有 GitHub 项目的通用要求。
 
-把结果写入[实验与问题记录](/review/)，再继续[工具调用的信任边界](/security/tool-boundaries/)，将“运行一个工具”和“授权一个工具”联系起来。
+保留环境、命令与结果，再继续[工具调用的信任边界](/notes/tool-boundaries/)，将“运行一个工具”和“授权一个工具”联系起来。

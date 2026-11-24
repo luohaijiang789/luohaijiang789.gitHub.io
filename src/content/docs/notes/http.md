@@ -54,6 +54,6 @@ HTTP 用请求与响应传递信息。身份核验和资源授权由应用及其
 
 ## 继续学习
 
-把“服务器的检查”迁移到[智能体执行工具之前](/security/tool-boundaries/)。
+把“服务器的检查”迁移到[智能体执行工具之前](/notes/tool-boundaries/)。
 
 参考：[MDN：HTTP 概览](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview)、[OWASP：授权检查指南](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)。

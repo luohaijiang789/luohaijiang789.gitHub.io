@@ -1,6 +1,6 @@
-# 海江 · Learning Lab
+# 海江的笔记
 
-面向计算机基础、AI 安全和可复现实验的技术学习网站。Astro + Starlight，部署到 GitHub Pages。
+单一目录的个人笔记网站。首页列出全部笔记，正文统一放在 `src/content/docs/notes/`，支持全文搜索、深浅主题和手机阅读。基于 Astro + Starlight，继续使用 GitHub Pages。
 
 ## 开发与验证
 
@@ -14,23 +14,35 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-`verify` 运行类型检查、单元测试、生产构建和站内链接/锚点检查。浏览器测试基于生产构建，覆盖导航、手机布局、权限演示、进度、复习与备份。
+`verify` 包含类型检查、单元测试、生产构建和站内链接/锚点检查。修改导航或交互后，在构建完成后运行浏览器测试。
 
-## 内容与数据
+## 添加笔记
 
-- `src/content/docs/`：专业基础、AI 安全、思维、审美、海外职业、项目与路径；领域侧栏自动生成。
-- `src/data/garden.ts`：首页入口和路径；步骤 ID 与 `src/lib/progress.mjs` 中的白名单保持一致。
-- `src/data/review-cards.mjs`：技术复习卡片和专题；新卡片使用新 ID，避免继承旧课程的掌握状态。
-- `src/lib/`：本地进度与教学权限规则。
-- `public/illustrations/`：可自托管的图解。
-- `archive/legacy-jekyll/`：原 Jekyll 源文件，不参与构建；旧文章链接跳转到 `/archive/`。
+在 `src/content/docs/notes/` 添加 `.md` 或 `.mdx`。侧栏与首页从同一内容集合生成，无需维护第二份目录。使用有意义的稳定文件名，必要时通过 `sidebar.order` 调整顺序。
 
-文章用 Markdown，需要交互时用 MDX。保留问题、原理、验证方法、局限和原始参考。内部链接用根路径和尾斜线；图像需要替代文字与来源。不要捏造学习成果。
+```md
+---
+title: 一个具体问题
+description: 这篇笔记解决什么问题。
+sidebar:
+  order: 8
+---
 
-英语模块按用户要求删除，不再发布课程、词表、场景或搜索条目。`haijiang-lab:v1` 存储键保持不变，旧草稿和记录仅在备份兼容层保留，不出现在当前复习卡片中。复习安排为 10 分钟或 1、3、7、14、30 天；不是个性化记忆预测。个人笔记、路径与卡片记录支持 JSON 导入/导出，无账号或远程同步。
+## 问题与原理
+## 示例与验证
+## 局限与参考
+```
+
+图解保存在 `public/illustrations/`，需要替代文字与来源。技术说明保留原始参考，不捏造已完成的实验。共享讨论的导入记录在 `docs/sources/`。
+
+## 历史兼容
+
+原领域文章重定向到 `/notes/` 下的对应笔记，旧工作台入口跳转到目录。英语模块不恢复。原学习路径、卡片和打卡界面已移除。
+
+`src/lib/progress.mjs` 与 `src/data/review-cards.*` 仅用于历史 v1 数据兼容，不再驱动阅读流程。关于页保留本地 JSON 导入/导出；不自动清理 `haijiang-lab:v1`，不上传数据。
+
+`archive/legacy-jekyll/` 保留原博客源文件，不参与构建；旧文章跳转至 `/archive/`。
 
 ## 发布
 
-`.github/workflows/pages-deploy.yml` 对 PR 验证，对主分支推送验证并发布 `dist/`。Pages Source 使用 GitHub Actions。每个完成且验证通过的阶段自动提交和推送：先 fetch，不强推，之后检查工作流和线上页面。
-
-根站点为 `https://luohaijiang789.github.io`。原 Chirpy Service Worker 的退出脚本只清理旧 `chirpy-` 缓存。
+每个验证通过的阶段自动提交并推送主分支，先 fetch、不强推，再检查 GitHub Actions 与线上页面。`.github/workflows/pages-deploy.yml` 构建并部署 `dist/`，保持根站点 `https://luohaijiang789.github.io`。
